@@ -1,62 +1,23 @@
 /* ============ DADOS ============ */
 const DISCIPLINAS = [
-  { id:"aplicativos-computacionais", num:"01", name:"Aplicativos Computacionais",
-    desc:"Do sistema operacional aos documentos profissionais: fundamentos de computação, arquivos, nuvem, e produção de textos, planilhas e apresentações.",
-    lessonsCount: 21 },
-  { id:"ingles-tecnico", num:"02", name:"Inglês Técnico",
-    desc:"Vocabulário e leitura técnica em inglês: hardware, software, redes, mensagens de erro, suporte e documentação.",
-    lessonsCount: 8 },
-  { id:"etica-legislacao-redes", num:"03", name:"Ética e Legislação de Redes",
-    desc:"Ética profissional, responsabilidade, legislação digital, LGPD e aplicação em redes de computadores.",
-    lessonsCount: 10 },
-  { id:"fundamentos-eletronica", num:"04", name:"Fundamentos de Eletrônica",
-    desc:"Eletricidade, Lei de Ohm, componentes eletrônicos, circuitos e aplicação em informática.",
-    lessonsCount: 8 },
-  { id:"fundamentos-de-redes", num:"05", name:"Fundamentos de Redes de Computadores",
-    desc:"Conceitos, topologias, meios de transmissão, modelos OSI e TCP/IP, endereçamento IP, protocolos, equipamentos e segurança.",
-    lessonsCount: 12 },
-  { id:"logica-de-programacao", num:"06", name:"Lógica de Programação",
-    desc:"Do raciocínio algorítmico às estruturas de controle: fluxogramas, Portugol, variáveis, condicionais, repetição, vetores e funções.",
-    lessonsCount: 12 },
-  { id:"cabeamento-estruturado", num:"07", name:"Cabeamento Estruturado e Documentação de Redes",
-    desc:"Tipos de cabos, conectores, padrões, infraestrutura, montagem, testes e documentação de redes.",
-    lessonsCount: 8 },
-  { id:"principios-de-hardware", num:"08", name:"Montagem e Manutenção de Computadores",
-    desc:"Componentes, montagem, BIOS/UEFI, instalação de sistemas e drivers, manutenção preventiva e diagnóstico de defeitos.",
-    lessonsCount: 17 },
-  { id:"internet-das-coisas", num:"09", name:"Internet das Coisas",
-    desc:"Conceito de IoT, arquitetura, sensores, comunicação, microcontroladores, automação e segurança IoT.",
-    lessonsCount: 10 },
-  { id:"sistemas-operacionais", num:"10", name:"Sistemas Operacionais",
+  { id:"sistemas-operacionais", num:"01", name:"Sistemas Operacionais",
     desc:"Da arquitetura de hardware ao gerenciamento de processos, arquivos e segurança nos ambientes Windows, Linux e móveis.",
     lessonsCount: 12 },
-  { id:"administracao-sistemas-operacionais-redes-i", num:"11", name:"Administração de Sistemas Operacionais de Redes I",
-    desc:"Servidores, Active Directory, DNS, DHCP, compartilhamento e Linux Server.",
-    lessonsCount: 6 },
-  { id:"programacao-web-backend", num:"12", name:"Programação para Web Back-End",
-    desc:"Fundamentos Web, HTML, CSS, JavaScript, back-end, APIs e banco de dados.",
-    lessonsCount: 6 },
-  { id:"projeto-de-redes", num:"13", name:"Projeto de Redes",
-    desc:"Levantamento, planejamento, projeto lógico e físico, documentação e implementação de redes.",
-    lessonsCount: 7 },
-  { id:"redes-protocolos-computadores", num:"14", name:"Redes e Protocolos de Computadores",
-    desc:"TCP/IP, IPv4, subnetting, IPv6, protocolos de aplicação e transporte, e roteamento.",
-    lessonsCount: 7 },
-  { id:"administracao-sistemas-operacionais-redes-ii", num:"15", name:"Administração de Sistemas Operacionais de Redes II",
-    desc:"Administração avançada, serviços de rede, Linux Server, Windows Server, backup e alta disponibilidade.",
-    lessonsCount: 6 },
-  { id:"empreendedorismo", num:"16", name:"Empreendedorismo",
-    desc:"Perfil empreendedor, negócios de tecnologia, planejamento e projeto profissional.",
-    lessonsCount: 4 },
-  { id:"gerencia-monitoramento-servicos-redes", num:"17", name:"Gerência e Monitoramento de Serviços de Redes",
-    desc:"Gerenciamento, monitoramento, protocolos, ferramentas (Zabbix, Grafana, etc.) e troubleshooting.",
-    lessonsCount: 6 },
-  { id:"projeto-internet-das-coisas", num:"18", name:"Projeto Internet das Coisas",
-    desc:"Planejamento, hardware, comunicação, back-end, automação, segurança e projeto final de IoT.",
+  { id:"logica-de-programacao", num:"02", name:"Lógica de Programação",
+    desc:"Do raciocínio algorítmico às estruturas de controle: fluxogramas, Portugol, variáveis, condicionais, repetição, vetores e funções.",
+    lessonsCount: 12 },
+  { id:"fundamentos-de-redes", num:"03", name:"Fundamentos de Redes de Computadores",
+    desc:"Conceitos, topologias, meios de transmissão, modelos OSI e TCP/IP, endereçamento IP, protocolos, equipamentos e segurança.",
+    lessonsCount: 12 },
+  { id:"aplicativos-computacionais", num:"04", name:"Aplicativos Computacionais",
+    desc:"Do sistema operacional aos documentos profissionais: fundamentos de computação, arquivos, nuvem, e produção de textos, planilhas e apresentações.",
+    lessonsCount: 21 },
+  { id:"ingles-tecnico", num:"05", name:"Inglês Técnico",
+    desc:"Vocabulário e leitura técnica em inglês: hardware, software, redes, mensagens de erro, suporte e documentação.",
     lessonsCount: 8 },
-  { id:"seguranca-redes", num:"19", name:"Segurança de Redes",
-    desc:"Fundamentos de segurança, ameaças, ataques de rede, firewall, criptografia, VPN, controle de acesso, segurança Wi-Fi e operacional.",
-    lessonsCount: 9 }
+  { id:"principios-de-hardware", num:"06", name:"Montagem e Manutenção de Computadores",
+    desc:"Componentes, montagem, BIOS/UEFI, instalação de sistemas e drivers, manutenção preventiva e diagnóstico de defeitos.",
+    lessonsCount: 17 },
 ];
 
 function buildLessons(disc){
@@ -94,7 +55,7 @@ const GLOSSARIO = [
    sem tocar em nenhum outro ponto da interface.
 */
 const LESSON_VIDEOS = {
-  "aplicativos-computacionais": {
+"aplicativos-computacionais": {
   "aula-01": [
     {
       id: "DYCO3ddy1DU",
@@ -447,131 +408,13 @@ const LESSON_VIDEOS = {
   ]
 
 },
-  "ingles-tecnico": {},
-  "etica-legislacao-redes": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": [],
-    "aula-08": [],
-    "aula-09": [],
-    "aula-10": []
-  },
-  "fundamentos-eletronica": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": [],
-    "aula-08": []
-  },
-  "fundamentos-de-redes": {},
-  "logica-de-programacao": {},
-  "cabeamento-estruturado": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": [],
-    "aula-08": []
-  },
-  "principios-de-hardware": {},
-  "internet-das-coisas": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": [],
-    "aula-08": [],
-    "aula-09": [],
-    "aula-10": []
-  },
-  "sistemas-operacionais": {},
-  "administracao-sistemas-operacionais-redes-i": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": []
-  },
-  "programacao-web-backend": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": []
-  },
-  "projeto-de-redes": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": []
-  },
-  "redes-protocolos-computadores": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": []
-  },
-  "administracao-sistemas-operacionais-redes-ii": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": []
-  },
-  "empreendedorismo": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": []
-  },
-  "gerencia-monitoramento-servicos-redes": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": []
-  },
-  "projeto-internet-das-coisas": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": [],
-    "aula-08": []
-  },
-  "seguranca-redes": {
-    "aula-01": [],
-    "aula-02": [],
-    "aula-03": [],
-    "aula-04": [],
-    "aula-05": [],
-    "aula-06": [],
-    "aula-07": [],
-    "aula-08": [],
-    "aula-09": []
+  "principios-de-hardware":{
+    "aula-01":[{id:"Zd_zUQrmRcY",title:"O que é hardware e software",description:"Diferenças fundamentais.",platform:"YouTube",language:"Português"}],
+    "aula-02":[{id:"saZKGM9kfgU",title:"Placa-mãe — O que é",description:"Introdução à placa-mãe.",platform:"YouTube",language:"Português"}],
+    "aula-03":[{id:"dOEuqxm9Yqo",title:"Como funciona um processador",description:"Núcleos, threads e clock.",platform:"YouTube",language:"Português"}],
+    "aula-04":[{id:"Z7QazYVo_k8",title:"O que é memória RAM",description:"Papel da RAM no computador.",platform:"YouTube",language:"Português"}],
+    "aula-05":[{id:"7Y3hTY4vxWY",title:"HDD x SSD — Diferença",description:"Comparação entre HDD e SSD.",platform:"YouTube",language:"Português"}],
+    "aula-10":[{id:"fh2MLbLOpvY",title:"Como montar um PC do zero",description:"Passo a passo de montagem.",platform:"YouTube",language:"Português"}]
   }
 };
 
@@ -581,134 +424,763 @@ function getLessonVideos(discId, lessonId){
 
 /* ============ REAL LESSON CONTENT (Sistemas Operacionais) ============ */
 const LESSON_CONTENT = {
-  "aplicativos-computacionais": {},
-  "ingles-tecnico": {},
-  "etica-legislacao-redes": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-09": {"title": "Aula 09: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-10": {"title": "Aula 10: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "fundamentos-eletronica": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "fundamentos-de-redes": {},
-  "logica-de-programacao": {},
-  "cabeamento-estruturado": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "principios-de-hardware": {},
-  "internet-das-coisas": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-09": {"title": "Aula 09: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-10": {"title": "Aula 10: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "sistemas-operacionais": {},
-  "administracao-sistemas-operacionais-redes-i": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "programacao-web-backend": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "projeto-de-redes": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "redes-protocolos-computadores": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "administracao-sistemas-operacionais-redes-ii": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "empreendedorismo": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "gerencia-monitoramento-servicos-redes": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "projeto-internet-das-coisas": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  },
-  "seguranca-redes": {
-    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
-    "aula-09": {"title": "Aula 09: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
-  }
-};</pre>"},
+"sistemas-operacionais": {
+
+"aula-01": {
+  title: "Arquitetura Básica dos Computadores Digitais",
+  intro: "Nesta aula você vai entender o que é software e hardware, e como a arquitetura básica de um computador digital forma a base sobre a qual o Sistema Operacional atua. Clique em cada conceito abaixo para abrir a explicação.",
+  concepts: [
+    { ico:"⚙", name:"Hardware", sections:[
+      {label:"O que é?", body:"<p>O <b>hardware</b> é a parte física de um computador: processador, memória, placas, cabos, discos e todos os componentes que podem ser tocados.</p>"},
+      {label:"Por que estudar hardware antes do SO?", body:"<p>O Sistema Operacional existe justamente para gerenciar o hardware de forma eficiente e segura, escondendo sua complexidade do usuário e dos programas. Entender o hardware é o primeiro passo para entender por que o SO funciona da forma como funciona.</p>"}
+    ]},
+    { ico:"▤", name:"Software", sections:[
+      {label:"O que é?", body:"<p><b>Software</b> é o conjunto de instruções (programas) que dizem ao hardware o que fazer. Divide-se em <b>software de sistema</b> (como o próprio Sistema Operacional) e <b>software de aplicação</b> (como um navegador ou editor de texto).</p>"},
+      {label:"Hardware x Software", body:"<pre>Hardware  → o corpo do computador (o que existe fisicamente)\\nSoftware  → a \"mente\" do computador (o que faz ele funcionar)</pre>"}
+    ]},
+    { ico:"▦", name:"Camadas de um computador digital", sections:[
+      {label:"Visão geral", body:"<pre>┌─────────────────────────────┐\\n│           USUÁRIO           │\\n├─────────────────────────────┤\\n│   SOFTWARE DE APLICAÇÃO     │\\n├─────────────────────────────┤\\n│     SISTEMA OPERACIONAL     │\\n├─────────────────────────────┤\\n│          HARDWARE           │\\n└─────────────────────────────┘</pre><p>Cada camada esconde a complexidade da camada abaixo — o usuário não precisa entender de eletrônica para usar um aplicativo.</p>"}
+    ]},
+    { ico:"◈", name:"Computador digital", sections:[
+      {label:"O que significa \"digital\"?", body:"<p>Um <b>computador digital</b> processa informação representada em valores discretos — na prática, em <b>bits</b> (0 e 1). Toda a arquitetura do computador, da memória ao processador, é construída para manipular esses valores binários.</p>"},
+      {label:"Digital x Analógico", body:"<p>Um sistema <b>analógico</b> trabalha com sinais contínuos (como o ponteiro de um relógio ou uma trilha de vinil). Um sistema <b>digital</b> converte tudo em valores discretos (0 e 1), o que permite maior precisão, facilidade de armazenamento e menor perda de qualidade ao copiar dados — por isso praticamente todos os computadores modernos são digitais.</p>"}
+    ]}
+  ],
+  practice: `<p>Liste cinco itens do seu próprio computador ou celular e classifique cada um como hardware ou software.</p>`,
+  exercises: [
+    "Qual é a diferença entre hardware e software?",
+    "Por que o Sistema Operacional é considerado parte do software, mas ao mesmo tempo diferente de um aplicativo comum?",
+    "Descreva as camadas de um computador digital, do hardware até o usuário.",
+    "O que significa dizer que um computador é 'digital'?"
+  ]
+},
+
+"aula-02": {
+  title: "Modelo Von Neumann e Hierarquia de Memória",
+  intro: "Nesta aula vamos estudar o modelo de Von Neumann, a arquitetura clássica utilizada pela maioria dos computadores atuais, e entender os diferentes tipos e níveis de memória de um computador.",
+  concepts: [
+    { ico:"◈", name:"Modelo de Von Neumann", sections:[
+      {label:"O que é?", body:"<p>O <b>modelo de Von Neumann</b> descreve uma arquitetura de computador em que instruções e dados ficam armazenados na mesma memória, sendo buscados e executados pela CPU um após o outro.</p>"},
+      {label:"Componentes principais", body:"<pre>┌───────────────────────────────┐\\n│   Unidade Central de          │\\n│   Processamento (CPU)         │\\n│  ┌─────────┐   ┌────────────┐ │\\n│  │ Unidade │   │  Unidade   │ │\\n│  │ de      │   │  Lógica e  │ │\\n│  │ Controle│   │ Aritmética │ │\\n│  └─────────┘   └────────────┘ │\\n└───────────────┬───────────────┘\\n                │ barramento\\n┌───────────────┴───────────────┐\\n│            Memória            │\\n└───────────────┬───────────────┘\\n                │\\n┌───────────────┴───────────────┐\\n│   Dispositivos de E/S          │\\n└───────────────────────────────┘</pre>"}
+    ]},
+    { ico:"▤", name:"Hierarquia de Memória", sections:[
+      {label:"Por que existem vários tipos de memória?", body:"<p>Quanto mais rápida uma memória, mais cara e menor sua capacidade. Por isso os computadores usam uma <b>hierarquia</b>: memórias pequenas e rápidas próximas da CPU, e memórias grandes e mais lentas para armazenamento permanente.</p>"},
+      {label:"A pirâmide da hierarquia", body:"<pre>Mais rápida / menor capacidade\\n        Registradores\\n           Cache (L1, L2, L3)\\n              Memória RAM\\n                 Armazenamento (SSD/HD)\\nMais lenta / maior capacidade</pre>"}
+    ]},
+    { ico:"▣", name:"Organização e tipos de memória", sections:[
+      {label:"Memória volátil x não volátil", body:"<p><b>Volátil</b> (como a RAM): perde os dados quando o computador é desligado. <b>Não volátil</b> (como SSD, HD e ROM): mantém os dados mesmo sem energia.</p>"},
+      {label:"Tipos comuns", body:"<ul><li><b>RAM</b> — memória de trabalho, volátil</li><li><b>ROM</b> — memória somente leitura, guarda instruções básicas de inicialização (firmware)</li><li><b>Cache</b> — memória ultrarrápida entre CPU e RAM</li><li><b>Registradores</b> — memórias internas da própria CPU, as mais rápidas de todas</li></ul>"},
+      {label:"Por que existem vários níveis de cache (L1, L2, L3)?", body:"<p>O <b>cache L1</b> é o menor e mais rápido (poucos KB, dentro do próprio núcleo do processador). O <b>L2</b> é um pouco maior e mais lento, e o <b>L3</b> é compartilhado entre todos os núcleos da CPU, maior ainda em capacidade, porém mais lento que L1 e L2. Essa divisão em níveis é outra aplicação do mesmo princípio da hierarquia: quanto mais perto do núcleo, mais rápido e menor.</p>"}
+    ]}
+  ],
+  practice: `<p>Desenhe (em texto) a pirâmide de hierarquia de memória do seu próprio computador, indicando a capacidade aproximada de RAM e de armazenamento (SSD/HD) que ele possui.</p>`,
+  exercises: [
+    "O que é o modelo de Von Neumann e quais são seus componentes principais?",
+    "Por que a hierarquia de memória existe? Explique a relação entre velocidade, custo e capacidade.",
+    "Coloque em ordem, da memória mais rápida para a mais lenta: RAM, cache, registradores, SSD.",
+    "Qual é a diferença entre memória volátil e não volátil? Dê um exemplo de cada.",
+    "Para que serve a memória ROM em um computador?"
+  ]
+},
+
+"aula-03": {
+  title: "Unidade Central de Processamento (CPU)",
+  intro: "Nesta aula vamos abrir a CPU e entender suas duas partes principais — a Unidade de Controle e a Unidade Lógica e Aritmética — além do papel dos registradores no processamento das instruções.",
+  concepts: [
+    { ico:"▣", name:"CPU (Unidade Central de Processamento)", sections:[
+      {label:"O que é?", body:"<p>A <b>CPU</b> é o componente responsável por buscar, interpretar e executar as instruções de um programa. É frequentemente chamada de \"cérebro\" do computador.</p>"}
+    ]},
+    { ico:"◈", name:"Unidade de Controle (UC)", sections:[
+      {label:"O que faz?", body:"<p>A <b>Unidade de Controle</b> coordena o funcionamento da CPU: busca a próxima instrução na memória, interpreta o que ela significa e direciona os demais componentes para executá-la corretamente.</p>"},
+      {label:"Ciclo de instrução", body:"<pre>Busca (Fetch) → Decodificação (Decode) → Execução (Execute)</pre><p>Esse ciclo se repete continuamente enquanto o programa está em execução.</p>"}
+    ]},
+    { ico:"∑", name:"Unidade Lógica e Aritmética (ULA)", sections:[
+      {label:"O que faz?", body:"<p>A <b>ULA</b> é responsável por realizar as operações matemáticas (soma, subtração, multiplicação, divisão) e lógicas (comparações, E, OU, NÃO) exigidas pelas instruções do programa.</p>"}
+    ]},
+    { ico:"▤", name:"Registradores", sections:[
+      {label:"O que são?", body:"<p><b>Registradores</b> são pequenas memórias extremamente rápidas dentro da própria CPU, usadas para guardar temporariamente os dados que estão sendo processados naquele exato momento.</p>"},
+      {label:"Exemplo prático", body:"<p>Ao calcular 5 + 3, a CPU carrega os valores 5 e 3 em registradores, a ULA realiza a soma, e o resultado (8) é guardado em outro registrador antes de ser enviado de volta para a memória.</p>"}
+    ]},
+    { ico:"⏱", name:"Clock e núcleos", sections:[
+      {label:"O que é o clock?", body:"<p>O <b>clock</b> é a frequência (medida em GHz) com que a CPU executa ciclos de instrução por segundo. Um processador de 3,5 GHz realiza 3,5 bilhões de ciclos por segundo — quanto maior o clock, mais rápido o processador executa instruções (mas não é o único fator de desempenho).</p>"},
+      {label:"Núcleos (cores)", body:"<p>Processadores modernos possuem <b>múltiplos núcleos</b> (dual-core, quad-core, octa-core...), cada um funcionando como uma CPU independente dentro do mesmo chip, permitindo executar várias tarefas verdadeiramente em paralelo, e não apenas alternando rapidamente entre elas.</p>"}
+    ]}
+  ],
+  practice: `<p>Descreva, com suas palavras, o que acontece dentro da CPU quando o computador executa a instrução "some 2 + 2", usando os termos Unidade de Controle, ULA e registrador.</p>`,
+  exercises: [
+    "Quais são as duas principais partes internas da CPU e qual a função de cada uma?",
+    "Descreva as três etapas do ciclo de instrução (busca, decodificação, execução).",
+    "O que a ULA é capaz de calcular?",
+    "O que são registradores e por que eles são mais rápidos que a memória RAM?"
+  ]
+},
+
+"aula-04": {
+  title: "Comunicação entre Memória e CPU: Barramentos",
+  intro: "Nesta aula vamos entender como a CPU se comunica com a memória e os demais componentes do computador por meio dos barramentos, e a diferença entre comunicação unidirecional e bidirecional.",
+  concepts: [
+    { ico:"⇄", name:"Barramento (Bus)", sections:[
+      {label:"O que é?", body:"<p>Um <b>barramento</b> é um conjunto de fios (trilhas) por onde trafegam dados, endereços e sinais de controle entre a CPU, a memória e os dispositivos de entrada e saída.</p>"},
+      {label:"Analogia", body:"<p>Pense no barramento como uma avenida por onde os dados \"trafegam\" entre os componentes do computador — quanto mais larga e rápida essa avenida, mais informação pode passar por ela ao mesmo tempo.</p>"}
+    ]},
+    { ico:"▦", name:"Tipos de barramento", sections:[
+      {label:"Barramento de dados", body:"<p>Transporta os dados propriamente ditos entre CPU, memória e periféricos.</p>"},
+      {label:"Barramento de endereços", body:"<p>Transporta a informação de <b>onde</b> (em qual posição de memória) um dado deve ser lido ou escrito.</p>"},
+      {label:"Barramento de controle", body:"<p>Transporta sinais que coordenam as operações — por exemplo, indicando se a operação é de leitura ou escrita.</p>"}
+    ]},
+    { ico:"➜", name:"Comunicação unidirecional x bidirecional", sections:[
+      {label:"Unidirecional", body:"<pre>CPU  ──────→  Memória\\n(os dados trafegam em apenas um sentido por vez, em um barramento dedicado a isso)</pre>"},
+      {label:"Bidirecional", body:"<pre>CPU  ←──────→  Memória\\n(o mesmo barramento é usado tanto para enviar quanto para receber dados)</pre><p>O barramento de dados costuma ser bidirecional, enquanto o de endereços é tipicamente unidirecional (da CPU para a memória).</p>"}
+    ]},
+    { ico:"📏", name:"Largura de barramento e desempenho", sections:[
+      {label:"O que significa 'barramento de 64 bits'?", body:"<p>A <b>largura</b> do barramento de dados indica quantos bits podem trafegar de uma só vez (em paralelo). Um barramento de 64 bits transporta 64 bits por ciclo — o dobro de um barramento de 32 bits, no mesmo intervalo de tempo. Por isso, arquiteturas de 64 bits (padrão atual) processam mais dados por ciclo que arquiteturas antigas de 32 bits.</p>"}
+    ]}
+  ],
+  practice: `<p>Explique, com suas palavras, por que um computador precisa de três tipos diferentes de barramento (dados, endereços e controle) em vez de usar apenas um.</p>`,
+  exercises: [
+    "O que é um barramento e para que ele serve?",
+    "Quais são os três tipos de barramento e o que cada um transporta?",
+    "Qual é a diferença entre comunicação unidirecional e bidirecional?",
+    "Por que o barramento de dados costuma ser bidirecional?"
+  ]
+},
+
+"aula-05": {
+  title: "Dispositivos de Entrada e Saída e Métodos de Transferência de Dados",
+  intro: "Nesta aula vamos conhecer os dispositivos de entrada e saída (E/S) do computador e as principais interfaces de transferência de dados: paralela, serial e USB.",
+  concepts: [
+    { ico:"⌨", name:"Dispositivos de Entrada e Saída (E/S)", sections:[
+      {label:"O que são?", body:"<p><b>Dispositivos de entrada</b> enviam dados para o computador (teclado, mouse, microfone, scanner). <b>Dispositivos de saída</b> recebem dados do computador para o usuário (monitor, impressora, caixa de som).</p>"},
+      {label:"Dispositivos mistos", body:"<p>Alguns dispositivos funcionam nos dois sentidos, como uma tela touch screen (entrada e saída) ou um pendrive (grava e lê dados).</p>"}
+    ]},
+    { ico:"▤", name:"Interface Paralela", sections:[
+      {label:"Como funciona?", body:"<p>Na comunicação <b>paralela</b>, vários bits são transmitidos simultaneamente, um em cada fio, lado a lado. Era muito usada em impressoras antigas (porta paralela/LPT), mas perdeu espaço por sofrer interferência em cabos longos.</p>"}
+    ]},
+    { ico:"▬", name:"Interface Serial", sections:[
+      {label:"Como funciona?", body:"<p>Na comunicação <b>serial</b>, os bits são transmitidos um de cada vez, em sequência, por um único canal. É mais simples e sofre menos interferência em longas distâncias — princípio usado, inclusive, no USB.</p>"}
+    ]},
+    { ico:"⚡", name:"USB (Universal Serial Bus)", sections:[
+      {label:"O que é?", body:"<p>O <b>USB</b> é uma interface serial padronizada, usada para conectar praticamente qualquer periférico ao computador: pendrives, teclados, mouses, celulares, HDs externos etc.</p>"},
+      {label:"Por que se tornou tão popular?", body:"<p>Por unificar diversos tipos de conexão em um único padrão, ser plug-and-play (reconhecido automaticamente) e evoluir em velocidade ao longo das versões (USB 2.0, 3.0, 3.1, Tipo-C).</p>"},
+      {label:"Evolução das versões", body:"<pre>USB 2.0    → até 480 Mbps\nUSB 3.0/3.1 Gen1 → até 5 Gbps\nUSB 3.1 Gen2/3.2 → até 10-20 Gbps\nUSB-C      → conector reversível (encaixa dos dois lados), usado nas versões mais rápidas e também para carregamento de notebooks e celulares</pre><p>É importante não confundir o <b>formato do conector</b> (USB-A, USB-C) com o <b>padrão de velocidade</b> (2.0, 3.0...) — um conector USB-C pode, inclusive, rodar em velocidade USB 2.0 dependendo do cabo e do dispositivo.</p>"}
+    ]}
+  ],
+  practice: `<p>Liste três dispositivos de entrada e três de saída do seu próprio computador ou celular. Depois, identifique se algum deles usa conexão USB.</p>`,
+  exercises: [
+    "Qual é a diferença entre dispositivo de entrada e dispositivo de saída? Dê exemplos.",
+    "Explique a diferença entre transmissão de dados paralela e serial.",
+    "Por que a comunicação serial acabou se tornando mais usada que a paralela em longas distâncias?",
+    "O que é USB e por que ele se tornou um padrão tão popular?"
+  ]
+},
+
+"aula-06": {
+  title: "Arquiteturas RISC, CISC e Híbrida",
+  intro: "Nesta aula vamos comparar as duas principais filosofias de projeto de processadores — RISC e CISC — e entender como as arquiteturas híbridas combinam características de ambas.",
+  concepts: [
+    { ico:"◇", name:"CISC (Complex Instruction Set Computer)", sections:[
+      {label:"O que é?", body:"<p>Processadores <b>CISC</b> possuem um conjunto grande e complexo de instruções, onde uma única instrução pode realizar várias operações internas. Exemplo clássico: processadores da família Intel/AMD (x86).</p>"},
+      {label:"Vantagem e desvantagem", body:"<p>Vantagem: menos instruções são necessárias para realizar uma tarefa. Desvantagem: cada instrução pode levar mais tempo (mais ciclos de clock) para ser executada, por ser mais complexa.</p>"}
+    ]},
+    { ico:"◆", name:"RISC (Reduced Instruction Set Computer)", sections:[
+      {label:"O que é?", body:"<p>Processadores <b>RISC</b> possuem um conjunto reduzido e simples de instruções, cada uma executada rapidamente, geralmente em um único ciclo de clock. Exemplo clássico: processadores ARM, usados em smartphones.</p>"},
+      {label:"Vantagem e desvantagem", body:"<p>Vantagem: maior eficiência energética e velocidade por instrução. Desvantagem: pode ser necessário um número maior de instruções para realizar a mesma tarefa que o CISC faria com menos.</p>"}
+    ]},
+    { ico:"⇄", name:"RISC x CISC", sections:[
+      {label:"Comparando", body:"<pre>                RISC                   CISC\\nInstruções ..... Simples, reduzidas     Complexas, numerosas\\nExecução ....... Rápida, 1 ciclo        Pode levar vários ciclos\\nConsumo ........ Menor                  Maior\\nExemplo ........ ARM (celulares)        x86 (Intel/AMD)</pre>"}
+    ]},
+    { ico:"⧉", name:"Arquitetura Híbrida", sections:[
+      {label:"O que é?", body:"<p>Processadores modernos costumam adotar uma <b>arquitetura híbrida</b>: internamente traduzem instruções complexas (estilo CISC) em micro-operações simples (estilo RISC), buscando unir a compatibilidade do CISC com a eficiência do RISC.</p>"},
+      {label:"Exemplo real", body:"<p>Processadores Intel e AMD modernos (x86-64) mantêm o conjunto de instruções CISC por compatibilidade com softwares antigos, mas internamente decodificam essas instruções em micro-operações (micro-ops) simples do tipo RISC antes de executá-las — combinando o melhor dos dois mundos.</p>"}
+    ]}
+  ],
+  practice: `<p>Pesquise se o processador do seu computador ou celular é baseado em arquitetura ARM (RISC) ou x86 (CISC), e explique com suas palavras por que fabricantes de celular preferem processadores RISC.</p>`,
+  exercises: [
+    "O que significam as siglas RISC e CISC?",
+    "Cite uma vantagem e uma desvantagem de cada arquitetura (RISC e CISC).",
+    "Dê um exemplo de processador RISC e um exemplo de processador CISC.",
+    "O que caracteriza uma arquitetura híbrida?"
+  ]
+},
+
+"aula-07": {
+  title: "Visão Geral e Evolução dos Sistemas Operacionais",
+  intro: "Nesta aula vamos entender o papel do Sistema Operacional como intermediário entre hardware e usuário, e acompanhar como os sistemas operacionais evoluíram ao longo do tempo.",
+  concepts: [
+    { ico:"◈", name:"O que é um Sistema Operacional", sections:[
+      {label:"Definição", body:"<p>O <b>Sistema Operacional (SO)</b> é o software responsável por gerenciar os recursos de hardware (CPU, memória, dispositivos) e oferecer uma interface para que o usuário e os programas utilizem o computador.</p>"},
+      {label:"Principais responsabilidades", body:"<ul><li>Gerenciar processos e o uso da CPU</li><li>Gerenciar a memória</li><li>Gerenciar arquivos e dispositivos de armazenamento</li><li>Controlar dispositivos de entrada e saída</li><li>Fornecer segurança e controle de acesso</li></ul>"}
+    ]},
+    { ico:"▤", name:"Evolução dos Sistemas Operacionais", sections:[
+      {label:"1ª geração — Sem Sistema Operacional", body:"<p>Nos primeiros computadores, os programas eram executados diretamente no hardware, sem nenhum software intermediário — o próprio operador controlava manualmente a máquina.</p>"},
+      {label:"2ª geração — Processamento em lote (batch)", body:"<p>Surgem os primeiros SOs simples, que executavam um programa (\"job\") de cada vez, em sequência, sem interação direta do usuário durante a execução.</p>"},
+      {label:"3ª geração — Multiprogramação e tempo compartilhado", body:"<p>Os sistemas passam a executar vários programas \"ao mesmo tempo\" (na prática, alternando rapidamente entre eles), permitindo que múltiplos usuários utilizassem o mesmo computador.</p>"},
+      {label:"4ª geração em diante — Interfaces gráficas e PCs", body:"<p>Com o surgimento dos computadores pessoais, os SOs ganham interfaces gráficas (janelas, ícones, menus), tornando-se acessíveis a usuários sem conhecimento técnico — como o Windows, o macOS e as distribuições Linux.</p>"},
+      {label:"Atualidade — Mobilidade e nuvem", body:"<p>Hoje os sistemas operacionais também gerenciam dispositivos móveis (Android, iOS) e se integram fortemente a serviços em nuvem.</p>"}
+    ]},
+    { ico:"◈", name:"Para que serve um Sistema Operacional", sections:[
+      {label:"Definição e papel central", body:"<p>O <b>Sistema Operacional (SO)</b> é o software responsável por gerenciar todos os recursos de hardware (CPU, memória, dispositivos) e oferecer uma interface para que o usuário e os demais programas possam utilizá-los, sem precisar lidar diretamente com a complexidade do hardware.</p>"},
+      {label:"Principais responsabilidades", body:"<ul><li>Gerenciar processos (quais programas rodam e quando)</li><li>Gerenciar memória (alocar e liberar RAM)</li><li>Gerenciar arquivos e dispositivos</li><li>Prover segurança e controle de acesso</li><li>Oferecer uma interface (gráfica ou de linha de comando) para o usuário</li></ul>"}
+    ]}
+  ],
+  practice: `<p>Monte uma linha do tempo simplificada com pelo menos quatro fases da evolução dos sistemas operacionais, explicando em uma frase o que mudou em cada uma.</p>`,
+  exercises: [
+    "O que é um Sistema Operacional e quais são suas principais responsabilidades?",
+    "O que caracterizava os sistemas de processamento em lote (batch)?",
+    "O que a multiprogramação trouxe de novo em relação às gerações anteriores?",
+    "Que mudança tornou os sistemas operacionais acessíveis a usuários sem conhecimento técnico?",
+    "Cite uma característica dos sistemas operacionais atuais que não existia nas gerações anteriores."
+  ]
+},
+
+"aula-08": {
+  title: "Tipos e Classificação de Sistemas Operacionais",
+  intro: "Nesta aula vamos classificar os sistemas operacionais de acordo com diferentes critérios: número de usuários, número de tarefas, e forma de processamento.",
+  concepts: [
+    { ico:"①", name:"Quanto ao número de usuários", sections:[
+      {label:"Monousuário", body:"<p>Permite que apenas <b>um usuário</b> utilize o sistema por vez (exemplo: versões domésticas do Windows, MS-DOS).</p>"},
+      {label:"Multiusuário", body:"<p>Permite que <b>vários usuários</b> utilizem o sistema simultaneamente, geralmente de forma remota (exemplo: servidores Linux/Unix corporativos).</p>"}
+    ]},
+    { ico:"▦", name:"Quanto ao número de tarefas", sections:[
+      {label:"Monotarefa", body:"<p>Executa <b>apenas um programa</b> por vez (exemplo: MS-DOS).</p>"},
+      {label:"Multitarefa", body:"<p>Executa <b>vários programas</b> \"simultaneamente\", alternando rapidamente o uso da CPU entre eles (exemplo: praticamente todos os SOs modernos: Windows, Linux, macOS, Android).</p>"}
+    ]},
+    { ico:"◈", name:"Quanto à forma de processamento", sections:[
+      {label:"Sistemas em lote (batch)", body:"<p>Processam tarefas em sequência, sem interação do usuário durante a execução — comuns em processamentos que rodam \"da noite para o dia\" em servidores.</p>"},
+      {label:"Sistemas de tempo real (real-time)", body:"<p>Precisam responder a eventos dentro de um limite de tempo rígido — usados em equipamentos médicos, controle industrial e sistemas embarcados, onde um atraso pode ser crítico.</p>"},
+      {label:"Sistemas de tempo compartilhado (time-sharing)", body:"<p>Dividem o tempo da CPU entre vários usuários/processos de forma que cada um tenha a sensação de estar usando o sistema sozinho — modelo usado na maioria dos SOs de uso geral atuais.</p>"},
+      {label:"Sistemas distribuídos", body:"<p>Executam em <b>múltiplos computadores conectados em rede</b>, que colaboram entre si e se apresentam ao usuário como um único sistema (exemplo: sistemas em nuvem, clusters de servidores).</p>"}
+    ]},
+    { ico:"⏳", name:"Sistemas de tempo real: mole x rígido", sections:[
+      {label:"Tempo real rígido (hard real-time)", body:"<p>O prazo de resposta é absoluto — perder o prazo é considerado uma falha do sistema. Exemplo: sistema de freios ABS de um carro ou controle de um marca-passo.</p>"},
+      {label:"Tempo real mole (soft real-time)", body:"<p>Perder o prazo ocasionalmente degrada a qualidade, mas não é uma falha crítica. Exemplo: streaming de vídeo — um pequeno atraso gera engasgo na imagem, mas o sistema continua funcionando.</p>"}
+    ]}
+  ],
+  practice: `<p>Classifique o sistema operacional do seu computador ou celular de acordo com todos os critérios estudados nesta aula (número de usuários, número de tarefas e forma de processamento).</p>`,
+  exercises: [
+    "Qual é a diferença entre sistema operacional monousuário e multiusuário?",
+    "Qual é a diferença entre sistema operacional monotarefa e multitarefa?",
+    "O que caracteriza um sistema operacional de tempo real? Dê um exemplo de aplicação.",
+    "O que é um sistema distribuído?",
+    "Classifique o Windows 11 doméstico segundo os três critérios estudados nesta aula."
+  ]
+},
+
+"aula-09": {
+  title: "Serviços, Funções e Escalonamento de Processos",
+  intro: "Nesta aula vamos entender o conceito de processo, os principais serviços e funções que o Sistema Operacional oferece, e como funciona o escalonamento — a forma como o SO decide qual processo usa a CPU em cada momento.",
+  concepts: [
+    { ico:"▶", name:"Processo", sections:[
+      {label:"O que é?", body:"<p>Um <b>processo</b> é um programa em execução, com seus próprios recursos alocados (memória, registradores, arquivos abertos). O Sistema Operacional é responsável por criar, gerenciar e encerrar processos.</p>"},
+      {label:"Estados de um processo", body:"<pre>Novo → Pronto → Em execução → Bloqueado → Terminado\\n            ↑___________|</pre><p>Um processo alterna entre esses estados enquanto o SO decide qual processo pode usar a CPU a cada momento.</p>"}
+    ]},
+    { ico:"⚙", name:"Serviços e Funções do Sistema Operacional", sections:[
+      {label:"Principais serviços", body:"<ul><li><b>Gerenciamento de processos</b> — criação, execução e finalização de programas</li><li><b>Gerenciamento de memória</b> — alocação e liberação de espaço na RAM</li><li><b>Gerenciamento de arquivos</b> — organização de dados em disco</li><li><b>Gerenciamento de dispositivos</b> — comunicação com periféricos via drivers</li><li><b>Segurança e controle de acesso</b> — permissões de usuários e proteção de dados</li></ul>"}
+    ]},
+    { ico:"↻", name:"Escalonamento de Processos", sections:[
+      {label:"O que é?", body:"<p>Como normalmente há mais processos do que núcleos de CPU disponíveis, o SO usa algoritmos de <b>escalonamento</b> para decidir a ordem e o tempo que cada processo recebe da CPU.</p>"},
+      {label:"FIFO (First In, First Out)", body:"<p>Os processos são executados na ordem em que chegaram, um de cada vez, até terminar — simples, mas pode fazer processos curtos esperarem muito atrás de um processo longo.</p>"},
+      {label:"Round-Robin", body:"<p>Cada processo recebe uma pequena fatia de tempo (quantum) da CPU e depois volta para o fim da fila, dando a impressão de que todos executam \"ao mesmo tempo\".</p>"},
+      {label:"Prioridade", body:"<p>Cada processo recebe um nível de prioridade, e o escalonador sempre executa primeiro os processos de maior prioridade.</p>"},
+      {label:"Processo x Thread", body:"<p>Um <b>processo</b> é um programa em execução com seu próprio espaço de memória isolado. Uma <b>thread</b> é uma linha de execução dentro de um processo — um mesmo processo pode ter várias threads rodando tarefas diferentes ao mesmo tempo, compartilhando a mesma memória (por exemplo, um navegador pode ter uma thread carregando uma página enquanto outra reproduz um vídeo).</p>"}
+    ]}
+  ],
+  practice: `<p>Abra o Gerenciador de Tarefas (Windows) ou o comando top/htop (Linux) no seu computador e observe pelo menos cinco processos em execução. Anote seus nomes e o percentual de CPU que cada um está utilizando no momento.</p>`,
+  exercises: [
+    "O que é um processo e quais são seus possíveis estados?",
+    "Cite três serviços/funções oferecidos pelo Sistema Operacional.",
+    "O que é escalonamento de processos e por que ele é necessário?",
+    "Explique, com suas palavras, como funciona o algoritmo Round-Robin.",
+    "Qual é a diferença entre o escalonamento FIFO e o escalonamento por prioridade?"
+  ]
+},
+
+"aula-10": {
+  title: "Sistemas de Arquivos e Segurança",
+  intro: "Nesta aula vamos entender como o Sistema Operacional organiza os dados em um sistema de arquivos hierárquico e como implementa mecanismos de segurança para proteger o sistema e seus usuários.",
+  concepts: [
+    { ico:"▤", name:"Sistema de Arquivos", sections:[
+      {label:"O que é?", body:"<p>O <b>sistema de arquivos</b> é a forma como o Sistema Operacional organiza, nomeia e localiza os dados armazenados em um disco (SSD/HD). Exemplos: NTFS e FAT32 (Windows), ext4 (Linux), APFS (macOS).</p>"},
+      {label:"Hierarquia de diretórios", body:"<pre>/ (raiz)\\n├── Sistema\\n├── Usuários\\n│   ├── Usuário1\\n│   │   ├── Documentos\\n│   │   └── Downloads\\n│   └── Usuário2\\n└── Programas</pre><p>Os arquivos são organizados em uma estrutura <b>hierárquica</b> de pastas (diretórios), a partir de um diretório raiz.</p>"}
+    ]},
+    { ico:"⛨", name:"Segurança em Sistemas Operacionais", sections:[
+      {label:"Por que é importante?", body:"<p>O SO precisa proteger o sistema contra acessos não autorizados, garantir que um usuário não interfira nos dados de outro, e impedir que processos maliciosos comprometam o funcionamento da máquina.</p>"},
+      {label:"Autenticação e Autorização", body:"<p><b>Autenticação</b> verifica quem é o usuário (login e senha, biometria). <b>Autorização</b> define o que aquele usuário tem permissão para fazer no sistema.</p>"},
+      {label:"Permissões de arquivos", body:"<pre>Leitura (r)   → pode abrir e visualizar o arquivo\\nEscrita (w)   → pode modificar o arquivo\\nExecução (x)  → pode executar o arquivo como programa</pre><p>Em sistemas Linux, essas permissões podem ser configuradas separadamente para o dono do arquivo, o grupo e os demais usuários.</p>"}
+    ]},
+    { ico:"◆", name:"Boas práticas de segurança", sections:[
+      {label:"No dia a dia", body:"<ul><li>Manter o sistema e antivírus atualizados</li><li>Usar senhas fortes e diferentes para cada conta</li><li>Não conceder privilégios de administrador desnecessariamente</li><li>Fazer backups regulares dos dados importantes</li></ul>"}
+    ]},
+    { ico:"▤", name:"Fragmentação e organização em disco", sections:[
+      {label:"O que é fragmentação?", body:"<p>Com o tempo, arquivos são gravados e apagados repetidamente, deixando o espaço livre do disco 'espalhado' em pequenos pedaços — isso é a <b>fragmentação</b>. Em HDs (discos mecânicos), ela reduz o desempenho, pois a cabeça de leitura precisa se mover mais para juntar as partes de um arquivo. Em SSDs, esse problema praticamente não afeta o desempenho, por isso desfragmentar um SSD não é recomendado (só desgasta a memória flash sem benefício real).</p>"}
+    ]}
+  ],
+  practice: `<p>No seu computador, verifique as permissões de uma pasta ou arquivo (propriedades → segurança, no Windows; ou comando <code>ls -l</code>, no Linux) e identifique quem tem permissão de leitura, escrita e execução.</p>`,
+  exercises: [
+    "O que é um sistema de arquivos e para que ele serve?",
+    "Descreva a estrutura hierárquica de diretórios com suas próprias palavras.",
+    "Qual é a diferença entre autenticação e autorização?",
+    "O que representam as permissões de leitura, escrita e execução em um arquivo?",
+    "Cite três boas práticas de segurança que todo usuário deveria seguir."
+  ]
+},
+
+"aula-11": {
+  title: "Ambiente Windows e Linux: Administração de Contas de Usuários",
+  intro: "Nesta aula vamos conhecer a família Windows e algumas distribuições Linux, e aprender a administrar contas de usuários em ambos os ambientes.",
+  concepts: [
+    { ico:"⊞", name:"Família Windows", sections:[
+      {label:"Evolução", body:"<p>A <b>Microsoft</b> desenvolve o Windows desde os anos 1980, evoluindo de versões simples até sistemas modernos como Windows 10 e Windows 11, usados tanto em computadores domésticos quanto em ambientes corporativos e servidores (Windows Server).</p>"},
+      {label:"Administração de usuários no Windows", body:"<pre>Painel de Controle → Contas de Usuário\\n   ou\\nConfigurações → Contas</pre><p>Permite criar novos usuários, definir se são <b>Administradores</b> (acesso total ao sistema) ou <b>Padrão</b> (acesso limitado), e configurar senhas.</p>"}
+    ]},
+    { ico:"🐧", name:"Distribuições Linux", sections:[
+      {label:"O que são?", body:"<p>Linux é um kernel de código aberto sobre o qual diversas <b>distribuições</b> (\"distros\") constroem sistemas completos, cada uma com foco diferente: <b>Ubuntu</b> (fácil de usar), <b>Debian</b> (estável, usado em servidores), <b>Fedora</b> (tecnologias recentes), <b>Kali Linux</b> (segurança da informação).</p>"},
+      {label:"Administração de usuários no Linux", body:"<pre>sudo adduser novousuario     → cria um novo usuário\\nsudo passwd novousuario      → define/altera a senha\\nsudo usermod -aG sudo nome   → dá permissão de administrador (grupo sudo)\\nsudo deluser nome            → remove um usuário</pre>"}
+    ]},
+    { ico:"⇄", name:"Windows x Linux na administração", sections:[
+      {label:"Comparando", body:"<pre>                  Windows                    Linux\\nInterface ....... Gráfica, predominante      Gráfica ou terminal\\nUsuários ........ Painel de Controle          Comandos (adduser, usermod)\\nAdmin ........... Grupo \"Administradores\"     Grupo \"sudo\"/\"wheel\"\\nLicença ......... Proprietária                Código aberto</pre>"}
+    ]},
+    { ico:"👥", name:"Perfis e grupos de usuários", sections:[
+      {label:"Por que separar em grupos?", body:"<p>Em vez de configurar permissões individualmente para cada usuário, sistemas operacionais permitem criar <b>grupos</b> (ex.: 'financeiro', 'TI', 'convidados') e atribuir permissões ao grupo inteiro de uma vez. Isso facilita muito a administração em ambientes com muitos usuários, como escolas e empresas.</p>"}
+    ]}
+  ],
+  practice: `<p>Se possível, crie um novo usuário padrão (sem privilégios de administrador) no seu computador Windows ou em uma máquina virtual Linux, e depois defina uma senha para ele.</p>`,
+  exercises: [
+    "Cite duas versões ou edições da família Windows.",
+    "Cite três distribuições Linux e uma característica de cada uma.",
+    "Como se cria um novo usuário em um sistema Linux via terminal?",
+    "Qual é a diferença entre um usuário Administrador e um usuário Padrão no Windows?",
+    "Qual comando Linux é usado para adicionar um usuário ao grupo de administradores (sudo)?"
+  ]
+},
+
+"aula-12": {
+  title: "Sistemas Operacionais Móveis, Máquinas Virtuais e Sistemas Atuais",
+  intro: "Última aula do módulo: vamos conhecer os sistemas operacionais para dispositivos móveis, entender o que são máquinas virtuais e emuladores, e revisar o panorama atual dos sistemas operacionais.",
+  concepts: [
+    { ico:"▣", name:"Sistemas Operacionais Móveis", sections:[
+      {label:"Android", body:"<p>Desenvolvido pelo Google (baseado no kernel Linux), é o sistema operacional móvel mais utilizado no mundo, presente em smartphones e tablets de diversos fabricantes.</p>"},
+      {label:"iOS", body:"<p>Desenvolvido pela Apple exclusivamente para iPhones, com forte integração ao ecossistema da própria empresa (iCloud, AirDrop, Handoff).</p>"},
+      {label:"Particularidades dos SOs móveis", body:"<p>Além das funções de um SO tradicional, sistemas móveis precisam gerenciar bateria, sensores (GPS, acelerômetro), conectividade móvel e permissões de aplicativos de forma mais granular.</p>"}
+    ]},
+    { ico:"⧉", name:"Máquina Virtual (VM)", sections:[
+      {label:"O que é?", body:"<p>Uma <b>máquina virtual</b> é um ambiente de computador simulado por software, que se comporta como um computador real e permite instalar e executar um Sistema Operacional dentro de outro, sem afetar o sistema principal.</p>"},
+      {label:"Para que serve?", body:"<p>Testar um novo Sistema Operacional com segurança, estudar Linux sem apagar o Windows do computador, ou isolar ambientes de desenvolvimento — tudo sem precisar de um segundo computador físico.</p>"},
+      {label:"Ferramentas comuns", body:"<pre>VirtualBox\\nVMware\\nHyper-V (nativo do Windows)</pre>"}
+    ]},
+    { ico:"◈", name:"Emulador", sections:[
+      {label:"O que é?", body:"<p>Um <b>emulador</b> simula o hardware de outra plataforma (por exemplo, um emulador de Android rodando dentro do Windows), permitindo executar sistemas ou programas feitos para uma arquitetura diferente da do computador real.</p>"},
+      {label:"Emulador x Máquina Virtual", body:"<p>A máquina virtual geralmente simula um computador da <b>mesma</b> arquitetura da máquina real (mais eficiente), enquanto o emulador pode simular uma arquitetura <b>diferente</b> (mais lento, pois precisa traduzir instruções).</p>"}
+    ]},
+    { ico:"◆", name:"Panorama atual dos Sistemas Operacionais", sections:[
+      {label:"Onde estamos hoje", body:"<pre>Desktop/Notebook ... Windows, macOS, distribuições Linux\\nServidores .......... Linux, Windows Server\\nMóveis ............... Android, iOS\\nNuvem/Contêineres .... Sistemas baseados em Linux (ex.: containers Docker)</pre><p>Os sistemas operacionais atuais convivem cada vez mais integrados à nuvem, à mobilidade e à virtualização.</p>"}
+    ]},
+    { ico:"☁", name:"Contêineres (containers)", sections:[
+      {label:"Container x Máquina Virtual", body:"<p>Diferente de uma VM (que virtualiza um computador inteiro, incluindo o próprio SO), um <b>container</b> (ex.: Docker) compartilha o kernel do sistema operacional hospedeiro e empacota apenas a aplicação e suas dependências. Isso o torna muito mais leve e rápido de iniciar que uma máquina virtual completa, sendo amplamente usado para implantar aplicações em nuvem.</p>"}
+    ]}
+  ],
+  practice: `<p>Se possível, instale um programa de virtualização (como o VirtualBox, gratuito) e crie uma máquina virtual com alguma distribuição Linux leve (como Lubuntu). Descreva as etapas realizadas e o resultado obtido.</p>`,
+  exercises: [
+    "Cite dois sistemas operacionais móveis e uma característica de cada um.",
+    "O que é uma máquina virtual e para que ela é utilizada?",
+    "Qual é a diferença entre uma máquina virtual e um emulador?",
+    "Cite uma ferramenta usada para criar máquinas virtuais.",
+    "Descreva, de forma geral, onde os sistemas operacionais estão presentes atualmente (desktop, servidores, móveis, nuvem)."
+  ]
+},
+
+},
+
+"logica-de-programacao": {
+
+"aula-01": {
+  title: "Introdução à Lógica de Programação",
+  intro: "Nesta aula você vai entender o que é lógica de programação, por que ela é a base de qualquer linguagem de programação e como os algoritmos organizam o raciocínio para resolver problemas. Clique em cada conceito abaixo para abrir a explicação.",
+  concepts: [
+    { ico:"◈", name:"Lógica como ciência", sections:[
+      {label:"O que é?", body:"<p>A <b>lógica</b> é a ciência que estuda os princípios do raciocínio correto. Na programação, usamos a lógica para organizar uma sequência de passos que leva a uma solução, antes mesmo de escrever qualquer código.</p>"},
+      {label:"Por que importa?", body:"<p>Aprender a programar não é decorar comandos de uma linguagem — é desenvolver a capacidade de decompor um problema em passos pequenos, ordenados e sem ambiguidade. Essa habilidade vale para qualquer linguagem de programação.</p>"}
+    ]},
+    { ico:"▤", name:"Algoritmo", sections:[
+      {label:"O que é?", body:"<p>Um <b>algoritmo</b> é uma sequência finita de passos, bem definidos e ordenados, que resolve um problema ou realiza uma tarefa.</p>"},
+      {label:"Exemplo do dia a dia", body:"<pre>Receita de bolo:\\n1. Separar os ingredientes\\n2. Misturar farinha, ovos e açúcar\\n3. Bater até homogeneizar\\n4. Levar ao forno por 40 minutos\\n5. Retirar e deixar esfriar</pre><p>Esse é um algoritmo: passos ordenados, com início, meio e fim, que sempre produzem o mesmo resultado quando seguidos corretamente.</p>"},
+      {label:"Características de um bom algoritmo", body:"<ul><li><b>Finito</b> — precisa ter fim</li><li><b>Definido</b> — cada passo deve ser claro, sem duplo sentido</li><li><b>Eficaz</b> — deve realmente resolver o problema proposto</li><li><b>Ordenado</b> — a sequência dos passos importa</li></ul>"}
+    ]},
+    { ico:"▦", name:"Tipos de Algoritmos", sections:[
+      {label:"Descrição Narrativa", body:"<p>Descreve os passos do algoritmo em linguagem natural (português), como uma receita. É a forma mais simples, mas também a mais sujeita a ambiguidades.</p>"},
+      {label:"Fluxograma", body:"<p>Representa os passos do algoritmo por meio de símbolos gráficos (retângulos, losangos, setas), mostrando visualmente o fluxo de execução.</p>"},
+      {label:"Pseudocódigo (Portugol)", body:"<p>Escreve o algoritmo com uma estrutura parecida com uma linguagem de programação real, mas em português, sem se preocupar com a sintaxe exata de nenhuma linguagem específica.</p>"},
+      {label:"Os três juntos", body:"<pre>Descrição Narrativa → explica em texto\\nFluxograma          → mostra visualmente\\nPseudocódigo        → aproxima da linguagem de programação</pre><p>Nas próximas aulas vamos estudar cada um desses tipos separadamente.</p>"}
+    ]},
+    { ico:"▣", name:"Programa de computador", sections:[
+      {label:"O que é?", body:"<p>Um <b>programa</b> é a implementação de um algoritmo em uma linguagem de programação específica (como Java, Python ou C), que o computador é capaz de executar.</p>"},
+      {label:"Do algoritmo ao programa", body:"<pre>Problema → Algoritmo (narrativa/fluxograma/pseudocódigo) → Programa (código em uma linguagem)</pre><p>Por isso a lógica de programação vem antes da linguagem: um bom algoritmo pode ser convertido para Java, Python, C ou qualquer outra linguagem — a lógica por trás é a mesma.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em descrição narrativa, um algoritmo simples do seu dia a dia (por exemplo: trocar um pneu, fazer um café ou trocar uma lâmpada). Depois responda:</p>
+    <ul>
+      <li>Seu algoritmo é finito?</li>
+      <li>Algum passo poderia ser interpretado de mais de uma forma?</li>
+      <li>A ordem dos passos é importante? O que aconteceria se você trocasse a ordem de dois passos?</li>
+    </ul>`,
+  exercises: [
+    "O que é lógica de programação e por que ela é importante antes de aprender uma linguagem?",
+    "Defina algoritmo com suas próprias palavras.",
+    "Cite as quatro características de um bom algoritmo.",
+    "Quais são os três tipos de algoritmos estudados nesta aula? Explique cada um em uma frase.",
+    "Qual é a diferença entre um algoritmo e um programa de computador?",
+    "Escreva um algoritmo em descrição narrativa para calcular a média de duas notas."
+  ]
+},
+
+"aula-02": {
+  title: "Descrição Narrativa",
+  intro: "Nesta aula vamos aprofundar o primeiro tipo de algoritmo: a descrição narrativa, que descreve os passos de um algoritmo utilizando a linguagem natural (português).",
+  concepts: [
+    { ico:"▤", name:"O que é Descrição Narrativa", sections:[
+      {label:"Definição", body:"<p>A <b>descrição narrativa</b> é a forma mais simples de representar um algoritmo: escrevemos, em português, cada passo necessário para resolver o problema, em ordem.</p>"},
+      {label:"Exemplo", body:"<pre>Algoritmo: Calcular a área de um retângulo\\n1. Solicitar a base do retângulo\\n2. Solicitar a altura do retângulo\\n3. Multiplicar base por altura\\n4. Mostrar o resultado</pre>"}
+    ]},
+    { ico:"⚠", name:"Vantagens e limitações", sections:[
+      {label:"Vantagens", body:"<p>É fácil de entender por qualquer pessoa, mesmo sem conhecimento técnico, e não exige aprender símbolos ou sintaxe.</p>"},
+      {label:"Limitações", body:"<p>Por depender da língua natural, pode gerar <b>ambiguidade</b> — passos que podem ser interpretados de mais de uma forma — e não é uma boa base para converter diretamente em código.</p>"}
+    ]},
+    { ico:"✓", name:"Boas práticas ao escrever", sections:[
+      {label:"Seja específico", body:"<pre>❌ \"Pegue os números e some\"\\n✅ \"Solicitar o primeiro número (A)\\n   Solicitar o segundo número (B)\\n   Somar A + B\\n   Mostrar o resultado\"</pre>"},
+      {label:"Numere os passos", body:"<p>Numerar os passos ajuda a garantir a ordem correta e facilita revisar o algoritmo depois.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em descrição narrativa, um algoritmo para:</p>
+    <ul>
+      <li>Calcular a média de três notas de um aluno e informar se ele foi aprovado (média ≥ 6) ou reprovado</li>
+    </ul>
+    <p>Depois, tente identificar se algum colega conseguiria seguir seu algoritmo sem fazer perguntas.</p>`,
+  exercises: [
+    "O que é descrição narrativa?",
+    "Cite uma vantagem e uma limitação da descrição narrativa.",
+    "O que significa dizer que um passo é 'ambíguo'? Dê um exemplo.",
+    "Escreva, em descrição narrativa, um algoritmo para verificar se um número é par ou ímpar.",
+    "Por que numerar os passos de um algoritmo é uma boa prática?"
+  ]
+},
+
+"aula-03": {
+  title: "Fluxograma",
+  intro: "Nesta aula vamos estudar o fluxograma, a representação gráfica de um algoritmo, e conhecer os principais símbolos utilizados para representar início, fim, entrada, saída, processamento e decisão.",
+  concepts: [
+    { ico:"▦", name:"O que é Fluxograma", sections:[
+      {label:"Definição", body:"<p>Um <b>fluxograma</b> é a representação gráfica de um algoritmo, feita por meio de símbolos padronizados conectados por setas que indicam o fluxo (a ordem) de execução.</p>"},
+      {label:"Por que usar?", body:"<p>Fluxogramas facilitam visualizar a lógica do algoritmo de forma clara, especialmente quando existem decisões (caminhos diferentes) e repetições.</p>"}
+    ]},
+    { ico:"○", name:"Símbolos principais", sections:[
+      {label:"Início e Fim", body:"<pre>  ╭──────╮\\n  │ Início │   (oval/elipse)\\n  ╰──────╯</pre><p>Todo fluxograma começa com um símbolo de <b>Início</b> e termina com um símbolo de <b>Fim</b>, ambos representados por uma elipse.</p>"},
+      {label:"Entrada e Saída", body:"<pre>  ╱──────╱\\n ╱ Ler N  ╱   (paralelogramo)\\n╱──────╱</pre><p>Um paralelogramo representa <b>entrada de dados</b> (ler um valor) ou <b>saída de dados</b> (exibir um resultado).</p>"},
+      {label:"Processamento", body:"<pre>┌──────────┐\\n│ Soma = A+B │   (retângulo)\\n└──────────┘</pre><p>Um retângulo representa um <b>processamento</b>, como um cálculo ou atribuição de valor.</p>"},
+      {label:"Decisão", body:"<pre>   ◇\\n  ╱ ╲\\n ╱ N>0?╲   (losango)\\n ╲     ╱\\n  ╲   ╱\\n   ◇</pre><p>Um losango representa uma <b>decisão</b>: a partir de uma pergunta com resposta Sim/Não, o fluxo segue por caminhos diferentes.</p>"}
+    ]},
+    { ico:"➜", name:"Montando um fluxograma completo", sections:[
+      {label:"Exemplo: número par ou ímpar", body:"<pre>Início\\n  ↓\\nLer N\\n  ↓\\nResto = N % 2\\n  ↓\\nResto == 0? ──Não──→ Mostrar \"Ímpar\"\\n  │Sim                      │\\n  ↓                         │\\nMostrar \"Par\"                │\\n  ↓←─────────────────────────┘\\nFim</pre>"},
+      {label:"Regra geral", body:"<p>Todo fluxograma deve ter exatamente um Início e pelo menos um Fim, e as setas devem sempre indicar claramente qual é o próximo passo — nunca deixando o fluxo em aberto.</p>"}
+    ]}
+  ],
+  practice: `<p>Desenhe (no papel ou em uma ferramenta como draw.io) o fluxograma para:</p>
+    <ul>
+      <li>Ler dois números e mostrar qual é o maior</li>
+    </ul>
+    <p>Identifique em seu fluxograma: os símbolos de início/fim, entrada, processamento e decisão.</p>`,
+  exercises: [
+    "O que é um fluxograma e para que ele serve?",
+    "Desenhe (descrevendo) os quatro principais símbolos de fluxograma e o que cada um representa.",
+    "Qual símbolo é usado para representar uma decisão? Dê um exemplo de pergunta que poderia estar dentro dele.",
+    "Monte o fluxograma (em texto/ASCII) para calcular a área de um círculo a partir do raio informado pelo usuário.",
+    "Por que um fluxograma deve ter apenas um símbolo de Início?"
+  ]
+},
+
+"aula-04": {
+  title: "Pseudocódigo (Portugol)",
+  intro: "Nesta aula vamos conhecer o pseudocódigo, também chamado de Portugol: uma forma de escrever algoritmos com estrutura parecida com uma linguagem de programação real, mas usando comandos em português.",
+  concepts: [
+    { ico:"▤", name:"O que é Pseudocódigo", sections:[
+      {label:"Definição", body:"<p><b>Pseudocódigo</b> (ou Portugol) é uma linguagem intermediária entre a linguagem natural e uma linguagem de programação. Usa palavras-chave em português, mas segue uma estrutura fixa, parecida com a de linguagens reais.</p>"},
+      {label:"Por que aprender?", body:"<p>O pseudocódigo é o passo mais próximo do código de verdade. Depois de dominar a lógica em Portugol, converter o algoritmo para Java, Python ou C fica muito mais simples — a estrutura já está pronta.</p>"}
+    ]},
+    { ico:"▣", name:"Estrutura básica", sections:[
+      {label:"Blocos principais", body:"<pre>algoritmo \"nome_do_algoritmo\"\\nvar\\n   // declaração de variáveis\\ninicio\\n   // comandos\\nfimalgoritmo</pre><p>Todo algoritmo em Portugol tem essa estrutura: declaração de variáveis, seguida do bloco de comandos entre <code>inicio</code> e <code>fimalgoritmo</code>.</p>"},
+      {label:"Comandos de entrada e saída", body:"<pre>leia(nome)        // lê um valor digitado pelo usuário\\nescreva(\"Olá\")   // exibe um texto ou valor na tela</pre>"}
+    ]},
+    { ico:"➜", name:"Exemplo completo", sections:[
+      {label:"Área do retângulo", body:"<pre>algoritmo \"area_retangulo\"\\nvar\\n   base, altura, area: real\\ninicio\\n   escreva(\"Digite a base: \")\\n   leia(base)\\n   escreva(\"Digite a altura: \")\\n   leia(altura)\\n   area <- base * altura\\n   escreva(\"A área é: \", area)\\nfimalgoritmo</pre><p>Observe: o símbolo <code>&lt;-</code> é usado para <b>atribuição</b> — guardar um valor dentro de uma variável.</p>"}
+    ]},
+    { ico:"◈", name:"Do fluxograma ao pseudocódigo", sections:[
+      {label:"Mesma lógica, formas diferentes", body:"<p>O fluxograma do número par/ímpar da aula anterior pode ser escrito em Portugol assim:</p><pre>algoritmo \"par_impar\"\\nvar\\n   n, resto: inteiro\\ninicio\\n   leia(n)\\n   resto <- n % 2\\n   se (resto == 0) entao\\n      escreva(\"Par\")\\n   senao\\n      escreva(\"Ímpar\")\\n   fimse\\nfimalgoritmo</pre>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em pseudocódigo (Portugol), o algoritmo que:</p>
+    <ul>
+      <li>Lê dois números e mostra qual é o maior (use <code>leia</code>, <code>escreva</code> e uma estrutura <code>se/senao</code>)</li>
+    </ul>`,
+  exercises: [
+    "O que é pseudocódigo e qual é a sua vantagem em relação à descrição narrativa?",
+    "Qual é a estrutura básica de um algoritmo em Portugol (blocos principais)?",
+    "Para que servem os comandos leia e escreva?",
+    "O que faz o símbolo <- em um algoritmo em Portugol?",
+    "Converta para pseudocódigo o algoritmo de cálculo de média de três notas visto na Aula 02."
+  ]
+},
+
+"aula-05": {
+  title: "Introdução à Programação Estruturada e Tipos de Dados",
+  intro: "Nesta aula vamos dar o primeiro passo rumo a uma linguagem de programação real (Java) e entender os tipos de dados básicos que toda linguagem estruturada utiliza.",
+  concepts: [
+    { ico:"◈", name:"Programação Estruturada", sections:[
+      {label:"O que é?", body:"<p>A <b>programação estruturada</b> é um paradigma em que o programa é organizado em blocos sequenciais, de decisão e de repetição, executados de cima para baixo, sem \"saltos\" desorganizados no código.</p>"},
+      {label:"Por que Java?", body:"<p>Java é uma das linguagens mais utilizadas no mercado e segue os princípios da programação estruturada (dentro de um paradigma orientado a objetos), o que a torna uma ótima linguagem para aplicar tudo o que aprendemos em Portugol.</p>"}
+    ]},
+    { ico:"▣", name:"Do Portugol ao Java", sections:[
+      {label:"Comparando estruturas", body:"<pre>Portugol                  Java\\n─────────────────────    ─────────────────────\\nalgoritmo \"nome\"          public class Nome {\\nvar                          // declarações\\n   x: inteiro                int x;\\ninicio                       public static void main(String[] args) {\\n   leia(x)                      Scanner sc = new Scanner(System.in);\\n   escreva(x)                   x = sc.nextInt();\\n                                 System.out.println(x);\\nfimalgoritmo                 }\\n                            }</pre>"}
+    ]},
+    { ico:"▤", name:"Tipos de dados básicos", sections:[
+      {label:"Numéricos", body:"<p><b>int</b> — números inteiros (sem casas decimais): <code>int idade = 20;</code></p><p><b>double</b> — números com casas decimais (ponto flutuante): <code>double preco = 19.90;</code></p>"},
+      {label:"Texto e caractere", body:"<p><b>String</b> — texto (cadeia de caracteres): <code>String nome = \"Maria\";</code></p><p><b>char</b> — um único caractere: <code>char inicial = 'M';</code></p>"},
+      {label:"Lógico", body:"<p><b>boolean</b> — armazena apenas dois valores possíveis: <code>true</code> (verdadeiro) ou <code>false</code> (falso). É muito usado em decisões e condições.</p>"}
+    ]},
+    { ico:"✓", name:"Escolhendo o tipo certo", sections:[
+      {label:"Exemplo prático", body:"<pre>Idade de uma pessoa       → int\\nPreço de um produto       → double\\nNome de um cliente         → String\\nSe o cliente é maior de idade → boolean</pre><p>Escolher o tipo correto evita erros e desperdício de memória — não faz sentido usar <code>double</code> para guardar uma quantidade de itens, por exemplo.</p>"}
+    ]}
+  ],
+  practice: `<p>Para cada informação abaixo, indique qual tipo de dado (int, double, String, char ou boolean) você usaria:</p>
+    <ul>
+      <li>Nome completo de um aluno</li>
+      <li>Nota de uma prova (0 a 10, com casas decimais)</li>
+      <li>Quantidade de irmãos</li>
+      <li>Se o aluno está aprovado ou não</li>
+      <li>Sexo do aluno representado por uma única letra (M/F)</li>
+    </ul>`,
+  exercises: [
+    "O que é programação estruturada?",
+    "Cite os cinco tipos de dados básicos estudados nesta aula e dê um exemplo de uso para cada um.",
+    "Qual é a diferença entre int e double?",
+    "O que o tipo boolean representa e onde ele costuma ser usado?",
+    "Por que é importante escolher o tipo de dado correto para cada variável?"
+  ]
+},
+
+"aula-06": {
+  title: "Constantes e Variáveis",
+  intro: "Nesta aula vamos entender o conceito de variáveis e constantes: os \"espaços de memória\" que todo programa usa para guardar e manipular informações.",
+  concepts: [
+    { ico:"▢", name:"Variável", sections:[
+      {label:"O que é?", body:"<p>Uma <b>variável</b> é um espaço de memória identificado por um nome, usado para armazenar um valor que pode <b>mudar</b> durante a execução do programa.</p>"},
+      {label:"Declaração em Java", body:"<pre>int idade;\\nidade = 20;\\n\\n// ou em uma única linha:\\nint idade = 20;</pre>"},
+      {label:"Regras de nomenclatura", body:"<ul><li>Não pode começar com número</li><li>Não pode ter espaços</li><li>Não pode ser uma palavra reservada da linguagem (como <code>int</code> ou <code>class</code>)</li><li>Por convenção, usa-se <code>camelCase</code>: <code>notaFinal</code>, <code>nomeCliente</code></li></ul>"}
+    ]},
+    { ico:"■", name:"Constante", sections:[
+      {label:"O que é?", body:"<p>Uma <b>constante</b> também é um espaço de memória nomeado, mas seu valor é definido uma vez e <b>não pode ser alterado</b> durante a execução do programa.</p>"},
+      {label:"Declaração em Java", body:"<pre>final double PI = 3.14159;\\nfinal int LIMITE_IDADE = 18;</pre><p>A palavra-chave <code>final</code> indica que aquele valor é fixo. Por convenção, nomes de constantes costumam ser escritos em <b>MAIÚSCULAS</b>.</p>"}
+    ]},
+    { ico:"⇄", name:"Variável x Constante", sections:[
+      {label:"Comparando", body:"<pre>Variável                      Constante\\n────────────────────────       ────────────────────────\\nValor pode mudar               Valor fixo, definido uma vez\\nint idade = 20;                final double PI = 3.14159;\\nidade = 21;  ✅ permitido       PI = 3.15;   ❌ erro de compilação</pre>"},
+      {label:"Quando usar cada uma?", body:"<p>Use <b>variável</b> quando o valor pode mudar ao longo do programa (idade, saldo, contador). Use <b>constante</b> para valores que nunca mudam durante a execução, como o valor de π ou uma taxa fixa.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em Java, a declaração de:</p>
+    <ul>
+      <li>Uma variável para armazenar o nome de um produto</li>
+      <li>Uma variável para armazenar o preço do produto</li>
+      <li>Uma constante para uma taxa de imposto fixa de 10% (0.10)</li>
+    </ul>`,
+  exercises: [
+    "Qual é a diferença entre variável e constante?",
+    "Cite três regras para nomear uma variável em Java.",
+    "O que faz a palavra-chave final em Java?",
+    "Dê um exemplo de informação que deveria ser uma variável e outro que deveria ser uma constante.",
+    "O trecho a seguir tem um erro. Identifique-o: final int MAX = 10; MAX = 20;"
+  ]
+},
+
+"aula-07": {
+  title: "Teste de Mesa",
+  intro: "Nesta aula vamos aprender a técnica do teste de mesa: uma forma de simular manualmente, passo a passo, a execução de um algoritmo — sem precisar de um computador — para verificar se a lógica está correta.",
+  concepts: [
+    { ico:"▦", name:"O que é Teste de Mesa", sections:[
+      {label:"Definição", body:"<p>O <b>teste de mesa</b> consiste em simular manualmente, em uma tabela, o valor de cada variável do algoritmo à medida que ele é executado, linha por linha, para verificar se o resultado final é o esperado.</p>"},
+      {label:"Por que é importante?", body:"<p>Antes de digitar o código, o teste de mesa ajuda a encontrar erros de lógica — como uma condição invertida ou um cálculo errado — de forma rápida e sem depender do computador.</p>"}
+    ]},
+    { ico:"▤", name:"Como montar um teste de mesa", sections:[
+      {label:"Passo a passo", body:"<p>1. Liste todas as variáveis do algoritmo em colunas.</p><p>2. Para cada linha do algoritmo, anote em uma nova linha da tabela o valor de cada variável após aquele comando ser executado.</p><p>3. Continue até chegar ao fim do algoritmo e observe o resultado final.</p>"},
+      {label:"Exemplo: média de dois números", body:"<pre>Algoritmo:\\n1. leia(a)\\n2. leia(b)\\n3. media <- (a+b)/2\\n4. escreva(media)\\n\\nEntrada: a=8, b=6\\n\\nLinha | a | b | media\\n  1   | 8 | - |  -\\n  2   | 8 | 6 |  -\\n  3   | 8 | 6 |  7\\n  4   | 8 | 6 |  7   → Saída: 7</pre>"}
+    ]},
+    { ico:"◇", name:"Teste de mesa com decisão", sections:[
+      {label:"Exemplo: par ou ímpar", body:"<pre>Algoritmo:\\n1. leia(n)\\n2. resto <- n % 2\\n3. se resto == 0 entao escreva(\"Par\")\\n4. senao escreva(\"Ímpar\")\\n\\nEntrada: n = 7\\n\\nLinha | n | resto | resto==0? | Saída\\n  1   | 7 |   -   |     -      |   -\\n  2   | 7 |   1   |     -      |   -\\n  3   | 7 |   1   |   Falso    |   -\\n  4   | 7 |   1   |     -      | \"Ímpar\"</pre><p>O teste de mesa também mostra qual caminho de uma decisão foi seguido — essencial para validar algoritmos com <code>se/senao</code>.</p>"}
+    ]}
+  ],
+  practice: `<p>Faça o teste de mesa (em tabela) do algoritmo abaixo, considerando a=10 e b=4:</p>
+    <pre>1. leia(a)
+2. leia(b)
+3. se a > b entao maior <- a
+4. senao maior <- b
+5. escreva(maior)</pre>`,
+  exercises: [
+    "O que é teste de mesa e para que ele serve?",
+    "Por que fazer o teste de mesa antes de programar pode economizar tempo?",
+    "Monte o teste de mesa do algoritmo de área do retângulo (Aula 04) considerando base=5 e altura=3.",
+    "O que o teste de mesa mostra em um algoritmo que tem uma estrutura de decisão (se/senao)?",
+    "Faça o teste de mesa do algoritmo de par/ímpar considerando n = 12."
+  ]
+},
+
+"aula-08": {
+  title: "Operadores Aritméticos, Relacionais e Lógicos",
+  intro: "Nesta aula vamos estudar os três grupos de operadores usados para construir expressões em lógica de programação: aritméticos (cálculos), relacionais (comparações) e lógicos (combinações de condições).",
+  concepts: [
+    { ico:"+", name:"Operadores Aritméticos", sections:[
+      {label:"Os operadores", body:"<pre>+   soma\\n-   subtração\\n*   multiplicação\\n/   divisão\\n%   resto da divisão (módulo)</pre>"},
+      {label:"Exemplo", body:"<pre>7 + 3   = 10\\n7 - 3   = 4\\n7 * 3   = 21\\n7 / 3   = 2   (divisão inteira)\\n7 % 3   = 1   (resto da divisão)</pre><p>Atenção: quando dividimos dois números inteiros em Java, o resultado também é inteiro — a parte decimal é descartada.</p>"}
+    ]},
+    { ico:"=", name:"Operadores Relacionais", sections:[
+      {label:"Os operadores", body:"<pre>==   igual a\\n!=   diferente de\\n>    maior que\\n<    menor que\\n>=   maior ou igual a\\n<=   menor ou igual a</pre><p>Operadores relacionais comparam dois valores e sempre resultam em <code>true</code> (verdadeiro) ou <code>false</code> (falso).</p>"},
+      {label:"Exemplo", body:"<pre>5 == 5   → true\\n5 != 3   → true\\n5 > 8    → false\\n5 <= 5   → true</pre>"}
+    ]},
+    { ico:"◆", name:"Operadores Lógicos", sections:[
+      {label:"Os operadores", body:"<pre>&&   E (AND)  — verdadeiro se AMBAS as condições forem verdadeiras\\n||   OU (OR)  — verdadeiro se PELO MENOS UMA condição for verdadeira\\n!    NÃO (NOT) — inverte o valor lógico</pre>"},
+      {label:"Tabela-verdade do E (&&)", body:"<pre>A       B       A && B\\ntrue    true    true\\ntrue    false   false\\nfalse   true    false\\nfalse   false   false</pre>"},
+      {label:"Tabela-verdade do OU (||)", body:"<pre>A       B       A || B\\ntrue    true    true\\ntrue    false   true\\nfalse   true    true\\nfalse   false   false</pre>"},
+      {label:"Exemplo combinando operadores", body:"<pre>idade >= 18 && temCarteira == true\\n// verdadeiro somente se a pessoa for maior de idade E tiver carteira</pre>"}
+    ]}
+  ],
+  practice: `<p>Considere idade = 20 e possuiIngresso = false. Calcule o resultado das expressões:</p>
+    <ul>
+      <li>idade >= 18</li>
+      <li>idade >= 18 && possuiIngresso</li>
+      <li>idade >= 18 || possuiIngresso</li>
+      <li>!possuiIngresso</li>
+    </ul>`,
+  exercises: [
+    "Cite os cinco operadores aritméticos e explique o que o operador % (módulo) retorna.",
+    "Cite os seis operadores relacionais e o que eles têm em comum quanto ao tipo de resultado.",
+    "Monte a tabela-verdade do operador && (E).",
+    "Qual é a diferença entre os operadores || (OU) e && (E)?",
+    "Considerando nota = 7 e faltas = 2, qual é o resultado da expressão: nota >= 6 && faltas <= 5 ?"
+  ]
+},
+
+"aula-09": {
+  title: "Expressões e Precedência de Operadores",
+  intro: "Nesta aula vamos aprender a montar expressões combinando vários operadores e entender a ordem de precedência: qual operação é resolvida primeiro quando há mais de uma em uma mesma expressão.",
+  concepts: [
+    { ico:"∑", name:"O que é uma expressão", sections:[
+      {label:"Definição", body:"<p>Uma <b>expressão</b> é uma combinação de valores, variáveis e operadores que, ao ser calculada, produz um resultado — numérico (expressão aritmética) ou lógico (expressão relacional/lógica).</p>"},
+      {label:"Exemplo", body:"<pre>media = (nota1 + nota2 + nota3) / 3;\\naprovado = media >= 6 && faltas <= 10;</pre>"}
+    ]},
+    { ico:"①", name:"Ordem de precedência matemática", sections:[
+      {label:"A ordem", body:"<pre>1º  ( )         parênteses\\n2º  * / %       multiplicação, divisão, módulo\\n3º  + -         soma e subtração</pre><p>Operadores de mesma prioridade são resolvidos da esquerda para a direita.</p>"},
+      {label:"Exemplo passo a passo", body:"<pre>10 + 5 * 2 - 3 % 2\\n\\n1º) 5 * 2  = 10   →  10 + 10 - 3 % 2\\n2º) 3 % 2  = 1    →  10 + 10 - 1\\n3º) 10 + 10 = 20  →  20 - 1\\n4º) 20 - 1 = 19   →  Resultado: 19</pre>"}
+    ]},
+    { ico:"()", name:"Uso de parênteses", sections:[
+      {label:"Por que usar?", body:"<p>Parênteses alteram a ordem natural de precedência, forçando uma operação a ser calculada primeiro — essenciais quando a ordem \"padrão\" não é a que o problema exige.</p>"},
+      {label:"Exemplo", body:"<pre>Sem parênteses:   10 + 5 / 5  = 10 + 1 = 11\\nCom parênteses:  (10 + 5) / 5 = 15 / 5 = 3</pre>"}
+    ]},
+    { ico:"◆", name:"Precedência em expressões lógicas", sections:[
+      {label:"Ordem entre relacionais e lógicos", body:"<pre>1º  operadores relacionais (==, !=, >, <, >=, <=)\\n2º  !  (NÃO)\\n3º  && (E)\\n4º  || (OU)</pre>"},
+      {label:"Exemplo", body:"<pre>idade >= 18 && renda > 2000 || possuiFiador\\n\\n1º) idade >= 18   → true/false\\n2º) renda > 2000  → true/false\\n3º) resultado1 && resultado2\\n4º) (resultado3) || possuiFiador</pre>"}
+    ]}
+  ],
+  practice: `<p>Calcule manualmente o resultado das expressões abaixo, mostrando a ordem em que cada operação é resolvida:</p>
+    <ul>
+      <li>20 - 4 * 3 + 6 / 2</li>
+      <li>(20 - 4) * (3 + 6) / 2</li>
+      <li>8 > 5 && 3 == 3</li>
+    </ul>`,
+  exercises: [
+    "Qual é a ordem de precedência entre +, -, *, / e %?",
+    "Para que servem os parênteses em uma expressão matemática?",
+    "Calcule, mostrando os passos: 12 / 4 + 2 * 3 - 1",
+    "Calcule, mostrando os passos: (12 / 4 + 2) * (3 - 1)",
+    "Entre os operadores relacionais e o operador &&, qual tem maior precedência?",
+    "Calcule o resultado de: idade > 17 && nota >= 6, considerando idade=16 e nota=8."
+  ]
+},
+
+"aula-10": {
+  title: "Instruções Condicionais e Incondicionais",
+  intro: "Nesta aula vamos estudar as instruções condicionais — que permitem ao programa tomar decisões — e as instruções incondicionais, que são executadas sempre, independentemente de qualquer condição.",
+  concepts: [
+    { ico:"➜", name:"Instrução Incondicional", sections:[
+      {label:"O que é?", body:"<p>Uma <b>instrução incondicional</b> é aquela que é sempre executada, na ordem em que aparece no programa, sem depender de nenhuma condição — é o comportamento padrão da programação sequencial.</p>"},
+      {label:"Exemplo", body:"<pre>int a = 5;\\nint b = 10;\\nint soma = a + b;\\nSystem.out.println(soma);</pre><p>Todas essas linhas são executadas sempre, uma após a outra, de cima para baixo.</p>"}
+    ]},
+    { ico:"◇", name:"Instrução Condicional Simples (se)", sections:[
+      {label:"Estrutura", body:"<pre>Portugol:                Java:\\nse (condicao) entao      if (condicao) {\\n   comando                   comando;\\nfimse                    }</pre>"},
+      {label:"Exemplo", body:"<pre>if (idade >= 18) {\\n   System.out.println(\"Maior de idade\");\\n}</pre><p>O comando dentro das chaves só é executado se a condição for verdadeira.</p>"}
+    ]},
+    { ico:"⇄", name:"Instrução Condicional Composta (se/senão)", sections:[
+      {label:"Estrutura", body:"<pre>Portugol:                Java:\\nse (condicao) entao      if (condicao) {\\n   comando1                  comando1;\\nsenao                    } else {\\n   comando2                  comando2;\\nfimse                    }</pre>"},
+      {label:"Exemplo", body:"<pre>if (nota >= 6) {\\n   System.out.println(\"Aprovado\");\\n} else {\\n   System.out.println(\"Reprovado\");\\n}</pre>"}
+    ]},
+    { ico:"▦", name:"Condicional Encadeada (senão se)", sections:[
+      {label:"Estrutura", body:"<pre>if (media >= 9) {\\n   System.out.println(\"Conceito A\");\\n} else if (media >= 7) {\\n   System.out.println(\"Conceito B\");\\n} else if (media >= 5) {\\n   System.out.println(\"Conceito C\");\\n} else {\\n   System.out.println(\"Conceito D\");\\n}</pre><p>Cada <code>else if</code> só é avaliado se a condição anterior for falsa — permitindo verificar várias faixas de valores.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em Java (ou pseudocódigo), um trecho que:</p>
+    <ul>
+      <li>Leia a idade de uma pessoa</li>
+      <li>Mostre "Criança" se idade < 12, "Adolescente" se idade entre 12 e 17, e "Adulto" se idade >= 18</li>
+    </ul>`,
+  exercises: [
+    "Qual é a diferença entre uma instrução condicional e uma incondicional?",
+    "Escreva a estrutura de um if/else em Java.",
+    "O que muda entre um if simples e um if/else?",
+    "Escreva um trecho de código com else if que classifique uma nota em A (>=9), B (>=7), C (>=5) ou D (<5).",
+    "No trecho abaixo, qual será a saída se idade = 15? if (idade >= 18) { System.out.println(\"Adulto\"); } else { System.out.println(\"Menor\"); }"
+  ]
+},
+
+"aula-11": {
+  title: "Instruções de Repetição",
+  intro: "Nesta aula vamos estudar as estruturas de repetição (laços ou loops), que permitem executar um bloco de comandos várias vezes, evitando repetir código manualmente.",
+  concepts: [
+    { ico:"↻", name:"Por que usar repetição?", sections:[
+      {label:"O problema", body:"<p>Imagine mostrar os números de 1 a 1000 na tela. Escrever 1000 comandos <code>System.out.println</code> seria impraticável. As estruturas de repetição resolvem exatamente esse tipo de problema.</p>"}
+    ]},
+    { ico:"for", name:"Estrutura for", sections:[
+      {label:"Quando usar", body:"<p>O <code>for</code> é ideal quando já se sabe (ou é possível calcular) quantas vezes o laço deve se repetir.</p>"},
+      {label:"Estrutura", body:"<pre>for (inicializacao; condicao; incremento) {\\n   comando;\\n}</pre>"},
+      {label:"Exemplo", body:"<pre>for (int i = 1; i <= 5; i++) {\\n   System.out.println(i);\\n}\\n// Saída: 1 2 3 4 5</pre>"}
+    ]},
+    { ico:"while", name:"Estrutura while", sections:[
+      {label:"Quando usar", body:"<p>O <code>while</code> repete um bloco de comandos <b>enquanto</b> uma condição for verdadeira. É útil quando não se sabe de antemão quantas repetições serão necessárias.</p>"},
+      {label:"Estrutura", body:"<pre>while (condicao) {\\n   comando;\\n}</pre>"},
+      {label:"Exemplo", body:"<pre>int i = 1;\\nwhile (i <= 5) {\\n   System.out.println(i);\\n   i++;\\n}\\n// Saída: 1 2 3 4 5</pre><p>Atenção: é preciso garantir que a condição se torne falsa em algum momento, ou o laço se repetirá para sempre (loop infinito).</p>"}
+    ]},
+    { ico:"do", name:"Estrutura do-while", sections:[
+      {label:"Diferença principal", body:"<p>No <code>do-while</code>, o bloco de comandos é executado <b>pelo menos uma vez</b>, e só depois a condição é verificada.</p>"},
+      {label:"Estrutura", body:"<pre>do {\\n   comando;\\n} while (condicao);</pre>"},
+      {label:"Exemplo", body:"<pre>int i = 1;\\ndo {\\n   System.out.println(i);\\n   i++;\\n} while (i <= 5);</pre>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em Java (ou pseudocódigo), um laço que:</p>
+    <ul>
+      <li>Calcule a soma dos números de 1 até 100</li>
+      <li>Depois, escreva a mesma lógica usando uma estrutura de repetição diferente da que você usou primeiro</li>
+    </ul>`,
+  exercises: [
+    "Para que servem as estruturas de repetição?",
+    "Qual é a diferença entre for e while?",
+    "Qual é a principal diferença entre while e do-while?",
+    "O que é um 'loop infinito' e por que ele deve ser evitado?",
+    "Escreva um for que mostre todos os números pares de 2 a 20.",
+    "Escreva um while que mostre a tabuada do 5 (de 5x1 até 5x10)."
+  ]
+},
+
+"aula-12": {
+  title: "Vetores, Matrizes, Pesquisa, Funções e Procedimentos",
+  intro: "Última aula do módulo: vamos conhecer as estruturas homogêneas (vetores e matrizes), como pesquisar valores dentro delas, e o conceito de funções e procedimentos para organizar melhor o código.",
+  concepts: [
+    { ico:"▤", name:"Vetor (Array)", sections:[
+      {label:"O que é?", body:"<p>Um <b>vetor</b> é uma estrutura homogênea que armazena vários valores do mesmo tipo em uma única variável, organizados em posições numeradas a partir do <b>índice 0</b>.</p>"},
+      {label:"Declaração em Java", body:"<pre>int[] notas = new int[5];\\nnotas[0] = 8;\\nnotas[1] = 7;\\n\\n// ou já com valores:\\nint[] notas = {8, 7, 9, 6, 10};</pre>"},
       {label:"Percorrendo um vetor", body:"<pre>for (int i = 0; i < notas.length; i++) {\\n   System.out.println(notas[i]);\\n}</pre>"}
     ]},
     { ico:"▦", name:"Matriz", sections:[
