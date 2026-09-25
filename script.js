@@ -1,0 +1,3941 @@
+/* ============ DADOS ============ */
+const DISCIPLINAS = [
+  { id:"aplicativos-computacionais", num:"01", name:"Aplicativos Computacionais",
+    desc:"Do sistema operacional aos documentos profissionais: fundamentos de computação, arquivos, nuvem, e produção de textos, planilhas e apresentações.",
+    lessonsCount: 21 },
+  { id:"ingles-tecnico", num:"02", name:"Inglês Técnico",
+    desc:"Vocabulário e leitura técnica em inglês: hardware, software, redes, mensagens de erro, suporte e documentação.",
+    lessonsCount: 8 },
+  { id:"etica-legislacao-redes", num:"03", name:"Ética e Legislação de Redes",
+    desc:"Ética profissional, responsabilidade, legislação digital, LGPD e aplicação em redes de computadores.",
+    lessonsCount: 10 },
+  { id:"fundamentos-eletronica", num:"04", name:"Fundamentos de Eletrônica",
+    desc:"Eletricidade, Lei de Ohm, componentes eletrônicos, circuitos e aplicação em informática.",
+    lessonsCount: 8 },
+  { id:"fundamentos-de-redes", num:"05", name:"Fundamentos de Redes de Computadores",
+    desc:"Conceitos, topologias, meios de transmissão, modelos OSI e TCP/IP, endereçamento IP, protocolos, equipamentos e segurança.",
+    lessonsCount: 12 },
+  { id:"logica-de-programacao", num:"06", name:"Lógica de Programação",
+    desc:"Do raciocínio algorítmico às estruturas de controle: fluxogramas, Portugol, variáveis, condicionais, repetição, vetores e funções.",
+    lessonsCount: 12 },
+  { id:"cabeamento-estruturado", num:"07", name:"Cabeamento Estruturado e Documentação de Redes",
+    desc:"Tipos de cabos, conectores, padrões, infraestrutura, montagem, testes e documentação de redes.",
+    lessonsCount: 8 },
+  { id:"principios-de-hardware", num:"08", name:"Montagem e Manutenção de Computadores",
+    desc:"Componentes, montagem, BIOS/UEFI, instalação de sistemas e drivers, manutenção preventiva e diagnóstico de defeitos.",
+    lessonsCount: 17 },
+  { id:"internet-das-coisas", num:"09", name:"Internet das Coisas",
+    desc:"Conceito de IoT, arquitetura, sensores, comunicação, microcontroladores, automação e segurança IoT.",
+    lessonsCount: 10 },
+  { id:"sistemas-operacionais", num:"10", name:"Sistemas Operacionais",
+    desc:"Da arquitetura de hardware ao gerenciamento de processos, arquivos e segurança nos ambientes Windows, Linux e móveis.",
+    lessonsCount: 12 },
+  { id:"administracao-sistemas-operacionais-redes-i", num:"11", name:"Administração de Sistemas Operacionais de Redes I",
+    desc:"Servidores, Active Directory, DNS, DHCP, compartilhamento e Linux Server.",
+    lessonsCount: 6 },
+  { id:"programacao-web-backend", num:"12", name:"Programação para Web Back-End",
+    desc:"Fundamentos Web, HTML, CSS, JavaScript, back-end, APIs e banco de dados.",
+    lessonsCount: 6 },
+  { id:"projeto-de-redes", num:"13", name:"Projeto de Redes",
+    desc:"Levantamento, planejamento, projeto lógico e físico, documentação e implementação de redes.",
+    lessonsCount: 7 },
+  { id:"redes-protocolos-computadores", num:"14", name:"Redes e Protocolos de Computadores",
+    desc:"TCP/IP, IPv4, subnetting, IPv6, protocolos de aplicação e transporte, e roteamento.",
+    lessonsCount: 7 },
+  { id:"administracao-sistemas-operacionais-redes-ii", num:"15", name:"Administração de Sistemas Operacionais de Redes II",
+    desc:"Administração avançada, serviços de rede, Linux Server, Windows Server, backup e alta disponibilidade.",
+    lessonsCount: 6 },
+  { id:"empreendedorismo", num:"16", name:"Empreendedorismo",
+    desc:"Perfil empreendedor, negócios de tecnologia, planejamento e projeto profissional.",
+    lessonsCount: 4 },
+  { id:"gerencia-monitoramento-servicos-redes", num:"17", name:"Gerência e Monitoramento de Serviços de Redes",
+    desc:"Gerenciamento, monitoramento, protocolos, ferramentas (Zabbix, Grafana, etc.) e troubleshooting.",
+    lessonsCount: 6 },
+  { id:"projeto-internet-das-coisas", num:"18", name:"Projeto Internet das Coisas",
+    desc:"Planejamento, hardware, comunicação, back-end, automação, segurança e projeto final de IoT.",
+    lessonsCount: 8 },
+  { id:"seguranca-redes", num:"19", name:"Segurança de Redes",
+    desc:"Fundamentos de segurança, ameaças, ataques de rede, firewall, criptografia, VPN, controle de acesso, segurança Wi-Fi e operacional.",
+    lessonsCount: 9 }
+];
+
+function buildLessons(disc){
+  const arr = [];
+  const discContent = LESSON_CONTENT[disc.id];
+  for(let i=1;i<=disc.lessonsCount;i++){
+    const n = String(i).padStart(2,"0");
+    const id = `aula-${n}`;
+    const real = discContent && discContent[id];
+    arr.push({
+      id,
+      num:n,
+      title: real ? real.title : `Aula ${n}`,
+      sub: real ? "" : "Título da aula",
+      hasContent: !!real
+    });
+  }
+  return arr;
+}
+
+const GLOSSARIO = [
+  { term:"Bandwidth", def:"Largura de banda: quantidade máxima de dados que um enlace transmite por unidade de tempo, normalmente medida em bits por segundo (bps)." },
+  { term:"Cache", def:"Memória pequena e muito rápida que guarda cópias de dados usados com frequência para acelerar o acesso." },
+  { term:"Daemon", def:"Processo que executa em segundo plano, sem interação direta do usuário, oferecendo serviços ao sistema (no Windows, chamado de serviço)." },
+  { term:"Endpoint", def:"Ponto final de uma comunicação: em segurança, o dispositivo do usuário; em APIs, a URL que expõe um recurso." },
+  { term:"Firmware", def:"Software gravado em um chip do hardware que controla suas funções básicas, como a BIOS/UEFI da placa-mãe." },
+  { term:"Gateway", def:"Dispositivo ou endereço que liga uma rede a outra; em redes domésticas, em geral o roteador que dá saída para a internet." },
+  { term:"Handshake", def:"Troca inicial de mensagens que estabelece os parâmetros de uma comunicação antes da transferência de dados (ex.: three-way handshake do TCP)." },
+];
+
+/* ============ LESSON VIDEOS ============
+   Estrutura: LESSON_VIDEOS[disciplinaId][aulaId] = [ {id, title, description, platform, language}, ... ]
+   Cada aula tem sua própria lista — não existe lista global.
+   Para adicionar vídeos a uma aula nova, basta criar/editar a chave correspondente aqui,
+   sem tocar em nenhum outro ponto da interface.
+*/
+const LESSON_VIDEOS = {
+  "aplicativos-computacionais": {
+  "aula-01": [
+    {
+      id: "DYCO3ddy1DU",
+      title: "O que é sistema operacional",
+      description: "Introdução aos conceitos fundamentais dos sistemas operacionais.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "YhvHsjnQKzQ",
+      title: "Introdução ao Sistema Operacional Windows | Curso Básico de Informática | Aula 5",
+      description: "Panorama inicial sobre o funcionamento e a interface do Windows.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "pH7YdTQzy1s",
+      title: "1ª Aula — Curso básico de Linux",
+      description: "Primeiros passos com o sistema operacional Linux.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "Z7QazYVo_k8",
+      title: "Curso de Informática #11 — O que é memória RAM",
+      description: "Explicação sobre o papel da memória RAM no funcionamento do computador.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-02": [
+    {
+      id: "c60dq_UXF4w",
+      title: "Como Criar e Organizar Pastas e Arquivos no Windows 10 (Tutorial Completo)",
+      description: "Passo a passo para criar, renomear, mover e organizar arquivos e pastas.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "lfj9E72joiA",
+      title: "Organize rapidamente seus arquivos e pastas — Explorador de Arquivos do Windows",
+      description: "Como usar o Explorador de Arquivos para localizar e organizar seus dados.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-03": [
+    {
+      id: "vDMVSAgylg0",
+      title: "Como Formatar Texto no Word — Informática Básica",
+      description: "Fundamentos de formatação de texto para produzir documentos profissionais.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "CvlpSpAhmjQ",
+      title: "[AULA 1] Curso de Microsoft Word para Iniciantes — Primeiros Passos",
+      description: "Primeiros passos no editor de textos, do zero à prática.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-04": [
+    {
+      id: "kYhsxDg-IvM",
+      title: "12 Fórmulas Mais Usadas no Excel",
+      description: "As fórmulas essenciais para começar a organizar dados em planilhas.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "uXT--N4UPi0",
+      title: "Excel do Zero para Iniciantes — Aula 01",
+      description: "Passo a passo do básico necessário para se desenvolver no Excel.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-05": [
+    {
+      id: "pfYd00xiVys",
+      title: "PowerPoint (Aula 1) para Iniciantes — Introdução ao Curso",
+      description: "Primeiros conceitos e funções do PowerPoint para criar apresentações.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "-2AjBaRjlDw",
+      title: "PowerPoint (Aula 2) para Iniciantes — Formatando e Animando o Texto",
+      description: "Como formatar e animar textos em slides de forma clara e organizada.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-06": [
+    {
+      id: "wkZcszMyUbQ",
+      title: "Como a Internet Funciona? (Guia Rápido de Introdução a Redes)",
+      description: "Panorama de como a internet conecta dispositivos ao redor do mundo.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "Gfh2bxe3hGU",
+      title: "Aula Segurança da Informação — Aprenda o Essencial em 35 Minutos",
+      description: "Conceitos e cuidados essenciais de segurança digital no dia a dia.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-07": [
+    {
+      id: "O8X5aJfi-SM",
+      title: "Entenda o que é Nuvem (Cloud) em Menos de 2 Minutos",
+      description: "Explicação rápida e direta sobre computação em nuvem.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "9FSOzT9eVZ4",
+      title: "Computação em Nuvem — O que é Cloud Computing?",
+      description: "Como funciona a computação em nuvem e seus principais modelos.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-08": [
+    {
+      id: "oeAYce7Qgq4",
+      title: "Google Drive — Tutorial Completo: Como Usar o Armazenamento em Nuvem",
+      description: "Guia completo para armazenar e organizar arquivos no Google Drive.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "_oi8hAGONq8",
+      title: "Compartilhando Arquivos no Google Drive: Passo a Passo",
+      description: "Como compartilhar arquivos e pastas do Google Drive corretamente.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-09": [
+    {
+      id: "xqTMZF0d6sU",
+      title: "O que é Google Workspace?",
+      description: "Visão geral do conjunto de ferramentas do Google Workspace.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "_uzMl1hELgk",
+      title: "O que está incluído no Google Workspace?",
+      description: "Conheça as ferramentas de colaboração em tempo real do Workspace.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-10": [
+    {
+      id: "98xF1JhV9Aw",
+      title: "Topologias de Redes (Barramento, Anel, Estrela e Malha) — Vantagens e Desvantagens",
+      description: "Principais topologias de rede usadas na documentação técnica.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "XcK_kZxs65A",
+      title: "Afinal, Qual a Diferença Entre as Topologias de Rede?",
+      description: "Comparação entre as formas de conectar equipamentos em uma rede.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-11": [
+    {
+      id: "GId83U_nEfA",
+      title: "Normas ABNT — Formate o seu Trabalho",
+      description: "Como aplicar as normas ABNT na formatação de trabalhos acadêmicos.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "Ps8UhU9vXfQ",
+      title: "Formatação ABNT Básica para Entregar o Trabalho Hoje",
+      description: "Passo a passo rápido para deixar um trabalho dentro das normas ABNT.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-12": [
+    {
+      id: "33icecWOokQ",
+      title: "Como Usar ChatGPT nos Estudos — 7 Dicas Práticas",
+      description: "Dicas práticas de como usar IA como apoio ao aprendizado.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "RaSxjr6F_eI",
+      title: "Usando IA para Estudar e Aprender",
+      description: "Como usar ferramentas de IA para complementar os estudos sem substituir o aprendizado.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-13": [
+    {
+      id: "CvlpSpAhmjQ",
+      title: "[AULA 1] Curso de Microsoft Word para Iniciantes — Primeiros Passos",
+      description: "Introdução ao editor de textos e seus primeiros passos.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "D_wlDUELSyM",
+      title: "Curso de Word para Iniciantes — Introdução",
+      description: "Visão geral do curso e dos primeiros comandos do Word.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-14": [
+    {
+      id: "vDMVSAgylg0",
+      title: "Como Formatar Texto no Word — Informática Básica",
+      description: "Fonte, tamanho, cores, alinhamento e espaçamento na prática.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "m3XASI_XogE",
+      title: "Como Formatar um Texto no Word — Word Básico — Aula 01",
+      description: "Formatação rápida de texto no editor Microsoft Word.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-15": [
+    {
+      id: "AuNCCg1A6-w",
+      title: "Como Colocar Cabeçalho e Rodapé no Word Passo a Passo",
+      description: "Como inserir e configurar cabeçalho e rodapé em um documento.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "0VNdQ6CTJkk",
+      title: "Numeração de Títulos e Subtítulos e Sumário Automático no Word",
+      description: "Como estruturar títulos e gerar um sumário automático.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-16": [
+    {
+      id: "7T50mbLaK5c",
+      title: "Marcadores e Numeração no Word",
+      description: "Como aplicar marcadores e numeração em listas e textos.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "gAS_4eOiajQ",
+      title: "Como Criar e Formatar Tabelas no Word",
+      description: "Inserção de linhas, colunas, cores e outras configurações de tabela.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-17": [
+    {
+      id: "8_9oAm7Vh1k",
+      title: "Como Inserir Imagem no Word",
+      description: "Passo a passo para colocar uma imagem onde quiser no documento.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "Y0IfdcbYMRw",
+      title: "Como Inserir Imagem no Word — Dica Rápida",
+      description: "Dica rápida e objetiva para inserir imagens em documentos.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-18": [
+    {
+      id: "ABqnOh-jGpI",
+      title: "Como Fazer Currículo no Word",
+      description: "Como criar um currículo profissional de forma simples e eficaz.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "_3YO2RMwvmM",
+      title: "Como Criar um Currículo Impressionante no Word — Passo a Passo",
+      description: "Modelo de currículo profissional pronto para entrevistas.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-19": [
+    {
+      id: "4YVeteowhoY",
+      title: "Como Usar o Controle de Alterações do Word",
+      description: "Funções, ativação e vantagens do controle de alterações.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "faD8ueDTajQ",
+      title: "Como Usar as Marcações de Revisão no Word",
+      description: "Como ativar marcações de revisão e inserir comentários no documento.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-20": [
+    {
+      id: "Mt0Nm495mhk",
+      title: "Como Salvar Arquivo Word em PDF Passo a Passo",
+      description: "Como converter um documento do Word para PDF de forma gratuita.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "F_VaVuLIHs4",
+      title: "Converter Arquivos do Word para PDF",
+      description: "Passo a passo completo para exportar documentos em PDF.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ],
+  "aula-21": [
+    {
+      id: "UojbytmqjhY",
+      title: "Modelo de Relatório Técnico Pronto para Usar — Feito no Word",
+      description: "Como usar um modelo de relatório totalmente formatado no Word.",
+      platform: "YouTube",
+      language: "Português"
+    },
+    {
+      id: "kPem_UM63oo",
+      title: "Relatório: Como Fazer — Explicação e Exemplo no Word",
+      description: "Exemplo prático de como estruturar um relatório do início ao fim.",
+      platform: "YouTube",
+      language: "Português"
+    }
+  ]
+
+},
+  "ingles-tecnico": {},
+  "etica-legislacao-redes": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": [],
+    "aula-08": [],
+    "aula-09": [],
+    "aula-10": []
+  },
+  "fundamentos-eletronica": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": [],
+    "aula-08": []
+  },
+  "fundamentos-de-redes": {},
+  "logica-de-programacao": {},
+  "cabeamento-estruturado": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": [],
+    "aula-08": []
+  },
+  "principios-de-hardware": {},
+  "internet-das-coisas": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": [],
+    "aula-08": [],
+    "aula-09": [],
+    "aula-10": []
+  },
+  "sistemas-operacionais": {},
+  "administracao-sistemas-operacionais-redes-i": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": []
+  },
+  "programacao-web-backend": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": []
+  },
+  "projeto-de-redes": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": []
+  },
+  "redes-protocolos-computadores": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": []
+  },
+  "administracao-sistemas-operacionais-redes-ii": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": []
+  },
+  "empreendedorismo": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": []
+  },
+  "gerencia-monitoramento-servicos-redes": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": []
+  },
+  "projeto-internet-das-coisas": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": [],
+    "aula-08": []
+  },
+  "seguranca-redes": {
+    "aula-01": [],
+    "aula-02": [],
+    "aula-03": [],
+    "aula-04": [],
+    "aula-05": [],
+    "aula-06": [],
+    "aula-07": [],
+    "aula-08": [],
+    "aula-09": []
+  }
+};
+
+function getLessonVideos(discId, lessonId){
+  return (LESSON_VIDEOS[discId] && LESSON_VIDEOS[discId][lessonId]) || [];
+}
+
+/* ============ REAL LESSON CONTENT (Sistemas Operacionais) ============ */
+const LESSON_CONTENT = {
+  "aplicativos-computacionais": {},
+  "ingles-tecnico": {},
+  "etica-legislacao-redes": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-09": {"title": "Aula 09: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-10": {"title": "Aula 10: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "fundamentos-eletronica": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "fundamentos-de-redes": {},
+  "logica-de-programacao": {},
+  "cabeamento-estruturado": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "principios-de-hardware": {},
+  "internet-das-coisas": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-09": {"title": "Aula 09: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-10": {"title": "Aula 10: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "sistemas-operacionais": {},
+  "administracao-sistemas-operacionais-redes-i": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "programacao-web-backend": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "projeto-de-redes": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "redes-protocolos-computadores": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "administracao-sistemas-operacionais-redes-ii": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "empreendedorismo": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "gerencia-monitoramento-servicos-redes": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "projeto-internet-das-coisas": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+  "seguranca-redes": {
+    "aula-01": {"title": "Aula 01: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-02": {"title": "Aula 02: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-03": {"title": "Aula 03: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-04": {"title": "Aula 04: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-05": {"title": "Aula 05: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-06": {"title": "Aula 06: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-07": {"title": "Aula 07: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-08": {"title": "Aula 08: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]},
+    "aula-09": {"title": "Aula 09: Título Placeholder", "intro": "Este é um placeholder para a introdução da aula. Substitua pelo conteúdo real.", "concepts": [], "practice": "<p>Exercício prático placeholder.</p>", "exercises": ["Exercício de placeholder 1", "Exercício de placeholder 2"]}
+  },
+
+"sistemas-operacionais": {
+
+"aula-01": {
+  title: "Arquitetura Básica dos Computadores Digitais",
+  intro: "Nesta aula você vai entender o que é software e hardware, e como a arquitetura básica de um computador digital forma a base sobre a qual o Sistema Operacional atua. Clique em cada conceito abaixo para abrir a explicação.",
+  concepts: [
+    { ico:"⚙", name:"Hardware", sections:[
+      {label:"O que é?", body:"<p>O <b>hardware</b> é a parte física de um computador: processador, memória, placas, cabos, discos e todos os componentes que podem ser tocados.</p>"},
+      {label:"Por que estudar hardware antes do SO?", body:"<p>O Sistema Operacional existe justamente para gerenciar o hardware de forma eficiente e segura, escondendo sua complexidade do usuário e dos programas. Entender o hardware é o primeiro passo para entender por que o SO funciona da forma como funciona.</p>"}
+    ]},
+    { ico:"▤", name:"Software", sections:[
+      {label:"O que é?", body:"<p><b>Software</b> é o conjunto de instruções (programas) que dizem ao hardware o que fazer. Divide-se em <b>software de sistema</b> (como o próprio Sistema Operacional) e <b>software de aplicação</b> (como um navegador ou editor de texto).</p>"},
+      {label:"Hardware x Software", body:"<pre>Hardware  → o corpo do computador (o que existe fisicamente)\\nSoftware  → a \"mente\" do computador (o que faz ele funcionar)</pre>"}
+    ]},
+    { ico:"▦", name:"Camadas de um computador digital", sections:[
+      {label:"Visão geral", body:"<pre>┌─────────────────────────────┐\\n│           USUÁRIO           │\\n├─────────────────────────────┤\\n│   SOFTWARE DE APLICAÇÃO     │\\n├─────────────────────────────┤\\n│     SISTEMA OPERACIONAL     │\\n├─────────────────────────────┤\\n│          HARDWARE           │\\n└─────────────────────────────┘</pre><p>Cada camada esconde a complexidade da camada abaixo — o usuário não precisa entender de eletrônica para usar um aplicativo.</p>"}
+    ]},
+    { ico:"◈", name:"Computador digital", sections:[
+      {label:"O que significa \"digital\"?", body:"<p>Um <b>computador digital</b> processa informação representada em valores discretos — na prática, em <b>bits</b> (0 e 1). Toda a arquitetura do computador, da memória ao processador, é construída para manipular esses valores binários.</p>"},
+      {label:"Digital x Analógico", body:"<p>Um sistema <b>analógico</b> trabalha com sinais contínuos (como o ponteiro de um relógio ou uma trilha de vinil). Um sistema <b>digital</b> converte tudo em valores discretos (0 e 1), o que permite maior precisão, facilidade de armazenamento e menor perda de qualidade ao copiar dados — por isso praticamente todos os computadores modernos são digitais.</p>"}
+    ]}
+  ],
+  practice: `<p>Liste cinco itens do seu próprio computador ou celular e classifique cada um como hardware ou software.</p>`,
+  exercises: [
+    "Qual é a diferença entre hardware e software?",
+    "Por que o Sistema Operacional é considerado parte do software, mas ao mesmo tempo diferente de um aplicativo comum?",
+    "Descreva as camadas de um computador digital, do hardware até o usuário.",
+    "O que significa dizer que um computador é 'digital'?"
+  ]
+},
+
+"aula-02": {
+  title: "Modelo Von Neumann e Hierarquia de Memória",
+  intro: "Nesta aula vamos estudar o modelo de Von Neumann, a arquitetura clássica utilizada pela maioria dos computadores atuais, e entender os diferentes tipos e níveis de memória de um computador.",
+  concepts: [
+    { ico:"◈", name:"Modelo de Von Neumann", sections:[
+      {label:"O que é?", body:"<p>O <b>modelo de Von Neumann</b> descreve uma arquitetura de computador em que instruções e dados ficam armazenados na mesma memória, sendo buscados e executados pela CPU um após o outro.</p>"},
+      {label:"Componentes principais", body:"<pre>┌───────────────────────────────┐\\n│   Unidade Central de          │\\n│   Processamento (CPU)         │\\n│  ┌─────────┐   ┌────────────┐ │\\n│  │ Unidade │   │  Unidade   │ │\\n│  │ de      │   │  Lógica e  │ │\\n│  │ Controle│   │ Aritmética │ │\\n│  └─────────┘   └────────────┘ │\\n└───────────────┬───────────────┘\\n                │ barramento\\n┌───────────────┴───────────────┐\\n│            Memória            │\\n└───────────────┬───────────────┘\\n                │\\n┌───────────────┴───────────────┐\\n│   Dispositivos de E/S          │\\n└───────────────────────────────┘</pre>"}
+    ]},
+    { ico:"▤", name:"Hierarquia de Memória", sections:[
+      {label:"Por que existem vários tipos de memória?", body:"<p>Quanto mais rápida uma memória, mais cara e menor sua capacidade. Por isso os computadores usam uma <b>hierarquia</b>: memórias pequenas e rápidas próximas da CPU, e memórias grandes e mais lentas para armazenamento permanente.</p>"},
+      {label:"A pirâmide da hierarquia", body:"<pre>Mais rápida / menor capacidade\\n        Registradores\\n           Cache (L1, L2, L3)\\n              Memória RAM\\n                 Armazenamento (SSD/HD)\\nMais lenta / maior capacidade</pre>"}
+    ]},
+    { ico:"▣", name:"Organização e tipos de memória", sections:[
+      {label:"Memória volátil x não volátil", body:"<p><b>Volátil</b> (como a RAM): perde os dados quando o computador é desligado. <b>Não volátil</b> (como SSD, HD e ROM): mantém os dados mesmo sem energia.</p>"},
+      {label:"Tipos comuns", body:"<ul><li><b>RAM</b> — memória de trabalho, volátil</li><li><b>ROM</b> — memória somente leitura, guarda instruções básicas de inicialização (firmware)</li><li><b>Cache</b> — memória ultrarrápida entre CPU e RAM</li><li><b>Registradores</b> — memórias internas da própria CPU, as mais rápidas de todas</li></ul>"},
+      {label:"Por que existem vários níveis de cache (L1, L2, L3)?", body:"<p>O <b>cache L1</b> é o menor e mais rápido (poucos KB, dentro do próprio núcleo do processador). O <b>L2</b> é um pouco maior e mais lento, e o <b>L3</b> é compartilhado entre todos os núcleos da CPU, maior ainda em capacidade, porém mais lento que L1 e L2. Essa divisão em níveis é outra aplicação do mesmo princípio da hierarquia: quanto mais perto do núcleo, mais rápido e menor.</p>"}
+    ]}
+  ],
+  practice: `<p>Desenhe (em texto) a pirâmide de hierarquia de memória do seu próprio computador, indicando a capacidade aproximada de RAM e de armazenamento (SSD/HD) que ele possui.</p>`,
+  exercises: [
+    "O que é o modelo de Von Neumann e quais são seus componentes principais?",
+    "Por que a hierarquia de memória existe? Explique a relação entre velocidade, custo e capacidade.",
+    "Coloque em ordem, da memória mais rápida para a mais lenta: RAM, cache, registradores, SSD.",
+    "Qual é a diferença entre memória volátil e não volátil? Dê um exemplo de cada.",
+    "Para que serve a memória ROM em um computador?"
+  ]
+},
+
+"aula-03": {
+  title: "Unidade Central de Processamento (CPU)",
+  intro: "Nesta aula vamos abrir a CPU e entender suas duas partes principais — a Unidade de Controle e a Unidade Lógica e Aritmética — além do papel dos registradores no processamento das instruções.",
+  concepts: [
+    { ico:"▣", name:"CPU (Unidade Central de Processamento)", sections:[
+      {label:"O que é?", body:"<p>A <b>CPU</b> é o componente responsável por buscar, interpretar e executar as instruções de um programa. É frequentemente chamada de \"cérebro\" do computador.</p>"}
+    ]},
+    { ico:"◈", name:"Unidade de Controle (UC)", sections:[
+      {label:"O que faz?", body:"<p>A <b>Unidade de Controle</b> coordena o funcionamento da CPU: busca a próxima instrução na memória, interpreta o que ela significa e direciona os demais componentes para executá-la corretamente.</p>"},
+      {label:"Ciclo de instrução", body:"<pre>Busca (Fetch) → Decodificação (Decode) → Execução (Execute)</pre><p>Esse ciclo se repete continuamente enquanto o programa está em execução.</p>"}
+    ]},
+    { ico:"∑", name:"Unidade Lógica e Aritmética (ULA)", sections:[
+      {label:"O que faz?", body:"<p>A <b>ULA</b> é responsável por realizar as operações matemáticas (soma, subtração, multiplicação, divisão) e lógicas (comparações, E, OU, NÃO) exigidas pelas instruções do programa.</p>"}
+    ]},
+    { ico:"▤", name:"Registradores", sections:[
+      {label:"O que são?", body:"<p><b>Registradores</b> são pequenas memórias extremamente rápidas dentro da própria CPU, usadas para guardar temporariamente os dados que estão sendo processados naquele exato momento.</p>"},
+      {label:"Exemplo prático", body:"<p>Ao calcular 5 + 3, a CPU carrega os valores 5 e 3 em registradores, a ULA realiza a soma, e o resultado (8) é guardado em outro registrador antes de ser enviado de volta para a memória.</p>"}
+    ]},
+    { ico:"⏱", name:"Clock e núcleos", sections:[
+      {label:"O que é o clock?", body:"<p>O <b>clock</b> é a frequência (medida em GHz) com que a CPU executa ciclos de instrução por segundo. Um processador de 3,5 GHz realiza 3,5 bilhões de ciclos por segundo — quanto maior o clock, mais rápido o processador executa instruções (mas não é o único fator de desempenho).</p>"},
+      {label:"Núcleos (cores)", body:"<p>Processadores modernos possuem <b>múltiplos núcleos</b> (dual-core, quad-core, octa-core...), cada um funcionando como uma CPU independente dentro do mesmo chip, permitindo executar várias tarefas verdadeiramente em paralelo, e não apenas alternando rapidamente entre elas.</p>"}
+    ]}
+  ],
+  practice: `<p>Descreva, com suas palavras, o que acontece dentro da CPU quando o computador executa a instrução "some 2 + 2", usando os termos Unidade de Controle, ULA e registrador.</p>`,
+  exercises: [
+    "Quais são as duas principais partes internas da CPU e qual a função de cada uma?",
+    "Descreva as três etapas do ciclo de instrução (busca, decodificação, execução).",
+    "O que a ULA é capaz de calcular?",
+    "O que são registradores e por que eles são mais rápidos que a memória RAM?"
+  ]
+},
+
+"aula-04": {
+  title: "Comunicação entre Memória e CPU: Barramentos",
+  intro: "Nesta aula vamos entender como a CPU se comunica com a memória e os demais componentes do computador por meio dos barramentos, e a diferença entre comunicação unidirecional e bidirecional.",
+  concepts: [
+    { ico:"⇄", name:"Barramento (Bus)", sections:[
+      {label:"O que é?", body:"<p>Um <b>barramento</b> é um conjunto de fios (trilhas) por onde trafegam dados, endereços e sinais de controle entre a CPU, a memória e os dispositivos de entrada e saída.</p>"},
+      {label:"Analogia", body:"<p>Pense no barramento como uma avenida por onde os dados \"trafegam\" entre os componentes do computador — quanto mais larga e rápida essa avenida, mais informação pode passar por ela ao mesmo tempo.</p>"}
+    ]},
+    { ico:"▦", name:"Tipos de barramento", sections:[
+      {label:"Barramento de dados", body:"<p>Transporta os dados propriamente ditos entre CPU, memória e periféricos.</p>"},
+      {label:"Barramento de endereços", body:"<p>Transporta a informação de <b>onde</b> (em qual posição de memória) um dado deve ser lido ou escrito.</p>"},
+      {label:"Barramento de controle", body:"<p>Transporta sinais que coordenam as operações — por exemplo, indicando se a operação é de leitura ou escrita.</p>"}
+    ]},
+    { ico:"➜", name:"Comunicação unidirecional x bidirecional", sections:[
+      {label:"Unidirecional", body:"<pre>CPU  ──────→  Memória\\n(os dados trafegam em apenas um sentido por vez, em um barramento dedicado a isso)</pre>"},
+      {label:"Bidirecional", body:"<pre>CPU  ←──────→  Memória\\n(o mesmo barramento é usado tanto para enviar quanto para receber dados)</pre><p>O barramento de dados costuma ser bidirecional, enquanto o de endereços é tipicamente unidirecional (da CPU para a memória).</p>"}
+    ]},
+    { ico:"📏", name:"Largura de barramento e desempenho", sections:[
+      {label:"O que significa 'barramento de 64 bits'?", body:"<p>A <b>largura</b> do barramento de dados indica quantos bits podem trafegar de uma só vez (em paralelo). Um barramento de 64 bits transporta 64 bits por ciclo — o dobro de um barramento de 32 bits, no mesmo intervalo de tempo. Por isso, arquiteturas de 64 bits (padrão atual) processam mais dados por ciclo que arquiteturas antigas de 32 bits.</p>"}
+    ]}
+  ],
+  practice: `<p>Explique, com suas palavras, por que um computador precisa de três tipos diferentes de barramento (dados, endereços e controle) em vez de usar apenas um.</p>`,
+  exercises: [
+    "O que é um barramento e para que ele serve?",
+    "Quais são os três tipos de barramento e o que cada um transporta?",
+    "Qual é a diferença entre comunicação unidirecional e bidirecional?",
+    "Por que o barramento de dados costuma ser bidirecional?"
+  ]
+},
+
+"aula-05": {
+  title: "Dispositivos de Entrada e Saída e Métodos de Transferência de Dados",
+  intro: "Nesta aula vamos conhecer os dispositivos de entrada e saída (E/S) do computador e as principais interfaces de transferência de dados: paralela, serial e USB.",
+  concepts: [
+    { ico:"⌨", name:"Dispositivos de Entrada e Saída (E/S)", sections:[
+      {label:"O que são?", body:"<p><b>Dispositivos de entrada</b> enviam dados para o computador (teclado, mouse, microfone, scanner). <b>Dispositivos de saída</b> recebem dados do computador para o usuário (monitor, impressora, caixa de som).</p>"},
+      {label:"Dispositivos mistos", body:"<p>Alguns dispositivos funcionam nos dois sentidos, como uma tela touch screen (entrada e saída) ou um pendrive (grava e lê dados).</p>"}
+    ]},
+    { ico:"▤", name:"Interface Paralela", sections:[
+      {label:"Como funciona?", body:"<p>Na comunicação <b>paralela</b>, vários bits são transmitidos simultaneamente, um em cada fio, lado a lado. Era muito usada em impressoras antigas (porta paralela/LPT), mas perdeu espaço por sofrer interferência em cabos longos.</p>"}
+    ]},
+    { ico:"▬", name:"Interface Serial", sections:[
+      {label:"Como funciona?", body:"<p>Na comunicação <b>serial</b>, os bits são transmitidos um de cada vez, em sequência, por um único canal. É mais simples e sofre menos interferência em longas distâncias — princípio usado, inclusive, no USB.</p>"}
+    ]},
+    { ico:"⚡", name:"USB (Universal Serial Bus)", sections:[
+      {label:"O que é?", body:"<p>O <b>USB</b> é uma interface serial padronizada, usada para conectar praticamente qualquer periférico ao computador: pendrives, teclados, mouses, celulares, HDs externos etc.</p>"},
+      {label:"Por que se tornou tão popular?", body:"<p>Por unificar diversos tipos de conexão em um único padrão, ser plug-and-play (reconhecido automaticamente) e evoluir em velocidade ao longo das versões (USB 2.0, 3.0, 3.1, Tipo-C).</p>"},
+      {label:"Evolução das versões", body:"<pre>USB 2.0    → até 480 Mbps\nUSB 3.0/3.1 Gen1 → até 5 Gbps\nUSB 3.1 Gen2/3.2 → até 10-20 Gbps\nUSB-C      → conector reversível (encaixa dos dois lados), usado nas versões mais rápidas e também para carregamento de notebooks e celulares</pre><p>É importante não confundir o <b>formato do conector</b> (USB-A, USB-C) com o <b>padrão de velocidade</b> (2.0, 3.0...) — um conector USB-C pode, inclusive, rodar em velocidade USB 2.0 dependendo do cabo e do dispositivo.</p>"}
+    ]}
+  ],
+  practice: `<p>Liste três dispositivos de entrada e três de saída do seu próprio computador ou celular. Depois, identifique se algum deles usa conexão USB.</p>`,
+  exercises: [
+    "Qual é a diferença entre dispositivo de entrada e dispositivo de saída? Dê exemplos.",
+    "Explique a diferença entre transmissão de dados paralela e serial.",
+    "Por que a comunicação serial acabou se tornando mais usada que a paralela em longas distâncias?",
+    "O que é USB e por que ele se tornou um padrão tão popular?"
+  ]
+},
+
+"aula-06": {
+  title: "Arquiteturas RISC, CISC e Híbrida",
+  intro: "Nesta aula vamos comparar as duas principais filosofias de projeto de processadores — RISC e CISC — e entender como as arquiteturas híbridas combinam características de ambas.",
+  concepts: [
+    { ico:"◇", name:"CISC (Complex Instruction Set Computer)", sections:[
+      {label:"O que é?", body:"<p>Processadores <b>CISC</b> possuem um conjunto grande e complexo de instruções, onde uma única instrução pode realizar várias operações internas. Exemplo clássico: processadores da família Intel/AMD (x86).</p>"},
+      {label:"Vantagem e desvantagem", body:"<p>Vantagem: menos instruções são necessárias para realizar uma tarefa. Desvantagem: cada instrução pode levar mais tempo (mais ciclos de clock) para ser executada, por ser mais complexa.</p>"}
+    ]},
+    { ico:"◆", name:"RISC (Reduced Instruction Set Computer)", sections:[
+      {label:"O que é?", body:"<p>Processadores <b>RISC</b> possuem um conjunto reduzido e simples de instruções, cada uma executada rapidamente, geralmente em um único ciclo de clock. Exemplo clássico: processadores ARM, usados em smartphones.</p>"},
+      {label:"Vantagem e desvantagem", body:"<p>Vantagem: maior eficiência energética e velocidade por instrução. Desvantagem: pode ser necessário um número maior de instruções para realizar a mesma tarefa que o CISC faria com menos.</p>"}
+    ]},
+    { ico:"⇄", name:"RISC x CISC", sections:[
+      {label:"Comparando", body:"<pre>                RISC                   CISC\\nInstruções ..... Simples, reduzidas     Complexas, numerosas\\nExecução ....... Rápida, 1 ciclo        Pode levar vários ciclos\\nConsumo ........ Menor                  Maior\\nExemplo ........ ARM (celulares)        x86 (Intel/AMD)</pre>"}
+    ]},
+    { ico:"⧉", name:"Arquitetura Híbrida", sections:[
+      {label:"O que é?", body:"<p>Processadores modernos costumam adotar uma <b>arquitetura híbrida</b>: internamente traduzem instruções complexas (estilo CISC) em micro-operações simples (estilo RISC), buscando unir a compatibilidade do CISC com a eficiência do RISC.</p>"},
+      {label:"Exemplo real", body:"<p>Processadores Intel e AMD modernos (x86-64) mantêm o conjunto de instruções CISC por compatibilidade com softwares antigos, mas internamente decodificam essas instruções em micro-operações (micro-ops) simples do tipo RISC antes de executá-las — combinando o melhor dos dois mundos.</p>"}
+    ]}
+  ],
+  practice: `<p>Pesquise se o processador do seu computador ou celular é baseado em arquitetura ARM (RISC) ou x86 (CISC), e explique com suas palavras por que fabricantes de celular preferem processadores RISC.</p>`,
+  exercises: [
+    "O que significam as siglas RISC e CISC?",
+    "Cite uma vantagem e uma desvantagem de cada arquitetura (RISC e CISC).",
+    "Dê um exemplo de processador RISC e um exemplo de processador CISC.",
+    "O que caracteriza uma arquitetura híbrida?"
+  ]
+},
+
+"aula-07": {
+  title: "Visão Geral e Evolução dos Sistemas Operacionais",
+  intro: "Nesta aula vamos entender o papel do Sistema Operacional como intermediário entre hardware e usuário, e acompanhar como os sistemas operacionais evoluíram ao longo do tempo.",
+  concepts: [
+    { ico:"◈", name:"O que é um Sistema Operacional", sections:[
+      {label:"Definição", body:"<p>O <b>Sistema Operacional (SO)</b> é o software responsável por gerenciar os recursos de hardware (CPU, memória, dispositivos) e oferecer uma interface para que o usuário e os programas utilizem o computador.</p>"},
+      {label:"Principais responsabilidades", body:"<ul><li>Gerenciar processos e o uso da CPU</li><li>Gerenciar a memória</li><li>Gerenciar arquivos e dispositivos de armazenamento</li><li>Controlar dispositivos de entrada e saída</li><li>Fornecer segurança e controle de acesso</li></ul>"}
+    ]},
+    { ico:"▤", name:"Evolução dos Sistemas Operacionais", sections:[
+      {label:"1ª geração — Sem Sistema Operacional", body:"<p>Nos primeiros computadores, os programas eram executados diretamente no hardware, sem nenhum software intermediário — o próprio operador controlava manualmente a máquina.</p>"},
+      {label:"2ª geração — Processamento em lote (batch)", body:"<p>Surgem os primeiros SOs simples, que executavam um programa (\"job\") de cada vez, em sequência, sem interação direta do usuário durante a execução.</p>"},
+      {label:"3ª geração — Multiprogramação e tempo compartilhado", body:"<p>Os sistemas passam a executar vários programas \"ao mesmo tempo\" (na prática, alternando rapidamente entre eles), permitindo que múltiplos usuários utilizassem o mesmo computador.</p>"},
+      {label:"4ª geração em diante — Interfaces gráficas e PCs", body:"<p>Com o surgimento dos computadores pessoais, os SOs ganham interfaces gráficas (janelas, ícones, menus), tornando-se acessíveis a usuários sem conhecimento técnico — como o Windows, o macOS e as distribuições Linux.</p>"},
+      {label:"Atualidade — Mobilidade e nuvem", body:"<p>Hoje os sistemas operacionais também gerenciam dispositivos móveis (Android, iOS) e se integram fortemente a serviços em nuvem.</p>"}
+    ]},
+    { ico:"◈", name:"Para que serve um Sistema Operacional", sections:[
+      {label:"Definição e papel central", body:"<p>O <b>Sistema Operacional (SO)</b> é o software responsável por gerenciar todos os recursos de hardware (CPU, memória, dispositivos) e oferecer uma interface para que o usuário e os demais programas possam utilizá-los, sem precisar lidar diretamente com a complexidade do hardware.</p>"},
+      {label:"Principais responsabilidades", body:"<ul><li>Gerenciar processos (quais programas rodam e quando)</li><li>Gerenciar memória (alocar e liberar RAM)</li><li>Gerenciar arquivos e dispositivos</li><li>Prover segurança e controle de acesso</li><li>Oferecer uma interface (gráfica ou de linha de comando) para o usuário</li></ul>"}
+    ]}
+  ],
+  practice: `<p>Monte uma linha do tempo simplificada com pelo menos quatro fases da evolução dos sistemas operacionais, explicando em uma frase o que mudou em cada uma.</p>`,
+  exercises: [
+    "O que é um Sistema Operacional e quais são suas principais responsabilidades?",
+    "O que caracterizava os sistemas de processamento em lote (batch)?",
+    "O que a multiprogramação trouxe de novo em relação às gerações anteriores?",
+    "Que mudança tornou os sistemas operacionais acessíveis a usuários sem conhecimento técnico?",
+    "Cite uma característica dos sistemas operacionais atuais que não existia nas gerações anteriores."
+  ]
+},
+
+"aula-08": {
+  title: "Tipos e Classificação de Sistemas Operacionais",
+  intro: "Nesta aula vamos classificar os sistemas operacionais de acordo com diferentes critérios: número de usuários, número de tarefas, e forma de processamento.",
+  concepts: [
+    { ico:"①", name:"Quanto ao número de usuários", sections:[
+      {label:"Monousuário", body:"<p>Permite que apenas <b>um usuário</b> utilize o sistema por vez (exemplo: versões domésticas do Windows, MS-DOS).</p>"},
+      {label:"Multiusuário", body:"<p>Permite que <b>vários usuários</b> utilizem o sistema simultaneamente, geralmente de forma remota (exemplo: servidores Linux/Unix corporativos).</p>"}
+    ]},
+    { ico:"▦", name:"Quanto ao número de tarefas", sections:[
+      {label:"Monotarefa", body:"<p>Executa <b>apenas um programa</b> por vez (exemplo: MS-DOS).</p>"},
+      {label:"Multitarefa", body:"<p>Executa <b>vários programas</b> \"simultaneamente\", alternando rapidamente o uso da CPU entre eles (exemplo: praticamente todos os SOs modernos: Windows, Linux, macOS, Android).</p>"}
+    ]},
+    { ico:"◈", name:"Quanto à forma de processamento", sections:[
+      {label:"Sistemas em lote (batch)", body:"<p>Processam tarefas em sequência, sem interação do usuário durante a execução — comuns em processamentos que rodam \"da noite para o dia\" em servidores.</p>"},
+      {label:"Sistemas de tempo real (real-time)", body:"<p>Precisam responder a eventos dentro de um limite de tempo rígido — usados em equipamentos médicos, controle industrial e sistemas embarcados, onde um atraso pode ser crítico.</p>"},
+      {label:"Sistemas de tempo compartilhado (time-sharing)", body:"<p>Dividem o tempo da CPU entre vários usuários/processos de forma que cada um tenha a sensação de estar usando o sistema sozinho — modelo usado na maioria dos SOs de uso geral atuais.</p>"},
+      {label:"Sistemas distribuídos", body:"<p>Executam em <b>múltiplos computadores conectados em rede</b>, que colaboram entre si e se apresentam ao usuário como um único sistema (exemplo: sistemas em nuvem, clusters de servidores).</p>"}
+    ]},
+    { ico:"⏳", name:"Sistemas de tempo real: mole x rígido", sections:[
+      {label:"Tempo real rígido (hard real-time)", body:"<p>O prazo de resposta é absoluto — perder o prazo é considerado uma falha do sistema. Exemplo: sistema de freios ABS de um carro ou controle de um marca-passo.</p>"},
+      {label:"Tempo real mole (soft real-time)", body:"<p>Perder o prazo ocasionalmente degrada a qualidade, mas não é uma falha crítica. Exemplo: streaming de vídeo — um pequeno atraso gera engasgo na imagem, mas o sistema continua funcionando.</p>"}
+    ]}
+  ],
+  practice: `<p>Classifique o sistema operacional do seu computador ou celular de acordo com todos os critérios estudados nesta aula (número de usuários, número de tarefas e forma de processamento).</p>`,
+  exercises: [
+    "Qual é a diferença entre sistema operacional monousuário e multiusuário?",
+    "Qual é a diferença entre sistema operacional monotarefa e multitarefa?",
+    "O que caracteriza um sistema operacional de tempo real? Dê um exemplo de aplicação.",
+    "O que é um sistema distribuído?",
+    "Classifique o Windows 11 doméstico segundo os três critérios estudados nesta aula."
+  ]
+},
+
+"aula-09": {
+  title: "Serviços, Funções e Escalonamento de Processos",
+  intro: "Nesta aula vamos entender o conceito de processo, os principais serviços e funções que o Sistema Operacional oferece, e como funciona o escalonamento — a forma como o SO decide qual processo usa a CPU em cada momento.",
+  concepts: [
+    { ico:"▶", name:"Processo", sections:[
+      {label:"O que é?", body:"<p>Um <b>processo</b> é um programa em execução, com seus próprios recursos alocados (memória, registradores, arquivos abertos). O Sistema Operacional é responsável por criar, gerenciar e encerrar processos.</p>"},
+      {label:"Estados de um processo", body:"<pre>Novo → Pronto → Em execução → Bloqueado → Terminado\\n            ↑___________|</pre><p>Um processo alterna entre esses estados enquanto o SO decide qual processo pode usar a CPU a cada momento.</p>"}
+    ]},
+    { ico:"⚙", name:"Serviços e Funções do Sistema Operacional", sections:[
+      {label:"Principais serviços", body:"<ul><li><b>Gerenciamento de processos</b> — criação, execução e finalização de programas</li><li><b>Gerenciamento de memória</b> — alocação e liberação de espaço na RAM</li><li><b>Gerenciamento de arquivos</b> — organização de dados em disco</li><li><b>Gerenciamento de dispositivos</b> — comunicação com periféricos via drivers</li><li><b>Segurança e controle de acesso</b> — permissões de usuários e proteção de dados</li></ul>"}
+    ]},
+    { ico:"↻", name:"Escalonamento de Processos", sections:[
+      {label:"O que é?", body:"<p>Como normalmente há mais processos do que núcleos de CPU disponíveis, o SO usa algoritmos de <b>escalonamento</b> para decidir a ordem e o tempo que cada processo recebe da CPU.</p>"},
+      {label:"FIFO (First In, First Out)", body:"<p>Os processos são executados na ordem em que chegaram, um de cada vez, até terminar — simples, mas pode fazer processos curtos esperarem muito atrás de um processo longo.</p>"},
+      {label:"Round-Robin", body:"<p>Cada processo recebe uma pequena fatia de tempo (quantum) da CPU e depois volta para o fim da fila, dando a impressão de que todos executam \"ao mesmo tempo\".</p>"},
+      {label:"Prioridade", body:"<p>Cada processo recebe um nível de prioridade, e o escalonador sempre executa primeiro os processos de maior prioridade.</p>"},
+      {label:"Processo x Thread", body:"<p>Um <b>processo</b> é um programa em execução com seu próprio espaço de memória isolado. Uma <b>thread</b> é uma linha de execução dentro de um processo — um mesmo processo pode ter várias threads rodando tarefas diferentes ao mesmo tempo, compartilhando a mesma memória (por exemplo, um navegador pode ter uma thread carregando uma página enquanto outra reproduz um vídeo).</p>"}
+    ]}
+  ],
+  practice: `<p>Abra o Gerenciador de Tarefas (Windows) ou o comando top/htop (Linux) no seu computador e observe pelo menos cinco processos em execução. Anote seus nomes e o percentual de CPU que cada um está utilizando no momento.</p>`,
+  exercises: [
+    "O que é um processo e quais são seus possíveis estados?",
+    "Cite três serviços/funções oferecidos pelo Sistema Operacional.",
+    "O que é escalonamento de processos e por que ele é necessário?",
+    "Explique, com suas palavras, como funciona o algoritmo Round-Robin.",
+    "Qual é a diferença entre o escalonamento FIFO e o escalonamento por prioridade?"
+  ]
+},
+
+"aula-10": {
+  title: "Sistemas de Arquivos e Segurança",
+  intro: "Nesta aula vamos entender como o Sistema Operacional organiza os dados em um sistema de arquivos hierárquico e como implementa mecanismos de segurança para proteger o sistema e seus usuários.",
+  concepts: [
+    { ico:"▤", name:"Sistema de Arquivos", sections:[
+      {label:"O que é?", body:"<p>O <b>sistema de arquivos</b> é a forma como o Sistema Operacional organiza, nomeia e localiza os dados armazenados em um disco (SSD/HD). Exemplos: NTFS e FAT32 (Windows), ext4 (Linux), APFS (macOS).</p>"},
+      {label:"Hierarquia de diretórios", body:"<pre>/ (raiz)\\n├── Sistema\\n├── Usuários\\n│   ├── Usuário1\\n│   │   ├── Documentos\\n│   │   └── Downloads\\n│   └── Usuário2\\n└── Programas</pre><p>Os arquivos são organizados em uma estrutura <b>hierárquica</b> de pastas (diretórios), a partir de um diretório raiz.</p>"}
+    ]},
+    { ico:"⛨", name:"Segurança em Sistemas Operacionais", sections:[
+      {label:"Por que é importante?", body:"<p>O SO precisa proteger o sistema contra acessos não autorizados, garantir que um usuário não interfira nos dados de outro, e impedir que processos maliciosos comprometam o funcionamento da máquina.</p>"},
+      {label:"Autenticação e Autorização", body:"<p><b>Autenticação</b> verifica quem é o usuário (login e senha, biometria). <b>Autorização</b> define o que aquele usuário tem permissão para fazer no sistema.</p>"},
+      {label:"Permissões de arquivos", body:"<pre>Leitura (r)   → pode abrir e visualizar o arquivo\\nEscrita (w)   → pode modificar o arquivo\\nExecução (x)  → pode executar o arquivo como programa</pre><p>Em sistemas Linux, essas permissões podem ser configuradas separadamente para o dono do arquivo, o grupo e os demais usuários.</p>"}
+    ]},
+    { ico:"◆", name:"Boas práticas de segurança", sections:[
+      {label:"No dia a dia", body:"<ul><li>Manter o sistema e antivírus atualizados</li><li>Usar senhas fortes e diferentes para cada conta</li><li>Não conceder privilégios de administrador desnecessariamente</li><li>Fazer backups regulares dos dados importantes</li></ul>"}
+    ]},
+    { ico:"▤", name:"Fragmentação e organização em disco", sections:[
+      {label:"O que é fragmentação?", body:"<p>Com o tempo, arquivos são gravados e apagados repetidamente, deixando o espaço livre do disco 'espalhado' em pequenos pedaços — isso é a <b>fragmentação</b>. Em HDs (discos mecânicos), ela reduz o desempenho, pois a cabeça de leitura precisa se mover mais para juntar as partes de um arquivo. Em SSDs, esse problema praticamente não afeta o desempenho, por isso desfragmentar um SSD não é recomendado (só desgasta a memória flash sem benefício real).</p>"}
+    ]}
+  ],
+  practice: `<p>No seu computador, verifique as permissões de uma pasta ou arquivo (propriedades → segurança, no Windows; ou comando <code>ls -l</code>, no Linux) e identifique quem tem permissão de leitura, escrita e execução.</p>`,
+  exercises: [
+    "O que é um sistema de arquivos e para que ele serve?",
+    "Descreva a estrutura hierárquica de diretórios com suas próprias palavras.",
+    "Qual é a diferença entre autenticação e autorização?",
+    "O que representam as permissões de leitura, escrita e execução em um arquivo?",
+    "Cite três boas práticas de segurança que todo usuário deveria seguir."
+  ]
+},
+
+"aula-11": {
+  title: "Ambiente Windows e Linux: Administração de Contas de Usuários",
+  intro: "Nesta aula vamos conhecer a família Windows e algumas distribuições Linux, e aprender a administrar contas de usuários em ambos os ambientes.",
+  concepts: [
+    { ico:"⊞", name:"Família Windows", sections:[
+      {label:"Evolução", body:"<p>A <b>Microsoft</b> desenvolve o Windows desde os anos 1980, evoluindo de versões simples até sistemas modernos como Windows 10 e Windows 11, usados tanto em computadores domésticos quanto em ambientes corporativos e servidores (Windows Server).</p>"},
+      {label:"Administração de usuários no Windows", body:"<pre>Painel de Controle → Contas de Usuário\\n   ou\\nConfigurações → Contas</pre><p>Permite criar novos usuários, definir se são <b>Administradores</b> (acesso total ao sistema) ou <b>Padrão</b> (acesso limitado), e configurar senhas.</p>"}
+    ]},
+    { ico:"🐧", name:"Distribuições Linux", sections:[
+      {label:"O que são?", body:"<p>Linux é um kernel de código aberto sobre o qual diversas <b>distribuições</b> (\"distros\") constroem sistemas completos, cada uma com foco diferente: <b>Ubuntu</b> (fácil de usar), <b>Debian</b> (estável, usado em servidores), <b>Fedora</b> (tecnologias recentes), <b>Kali Linux</b> (segurança da informação).</p>"},
+      {label:"Administração de usuários no Linux", body:"<pre>sudo adduser novousuario     → cria um novo usuário\\nsudo passwd novousuario      → define/altera a senha\\nsudo usermod -aG sudo nome   → dá permissão de administrador (grupo sudo)\\nsudo deluser nome            → remove um usuário</pre>"}
+    ]},
+    { ico:"⇄", name:"Windows x Linux na administração", sections:[
+      {label:"Comparando", body:"<pre>                  Windows                    Linux\\nInterface ....... Gráfica, predominante      Gráfica ou terminal\\nUsuários ........ Painel de Controle          Comandos (adduser, usermod)\\nAdmin ........... Grupo \"Administradores\"     Grupo \"sudo\"/\"wheel\"\\nLicença ......... Proprietária                Código aberto</pre>"}
+    ]},
+    { ico:"👥", name:"Perfis e grupos de usuários", sections:[
+      {label:"Por que separar em grupos?", body:"<p>Em vez de configurar permissões individualmente para cada usuário, sistemas operacionais permitem criar <b>grupos</b> (ex.: 'financeiro', 'TI', 'convidados') e atribuir permissões ao grupo inteiro de uma vez. Isso facilita muito a administração em ambientes com muitos usuários, como escolas e empresas.</p>"}
+    ]}
+  ],
+  practice: `<p>Se possível, crie um novo usuário padrão (sem privilégios de administrador) no seu computador Windows ou em uma máquina virtual Linux, e depois defina uma senha para ele.</p>`,
+  exercises: [
+    "Cite duas versões ou edições da família Windows.",
+    "Cite três distribuições Linux e uma característica de cada uma.",
+    "Como se cria um novo usuário em um sistema Linux via terminal?",
+    "Qual é a diferença entre um usuário Administrador e um usuário Padrão no Windows?",
+    "Qual comando Linux é usado para adicionar um usuário ao grupo de administradores (sudo)?"
+  ]
+},
+
+"aula-12": {
+  title: "Sistemas Operacionais Móveis, Máquinas Virtuais e Sistemas Atuais",
+  intro: "Última aula do módulo: vamos conhecer os sistemas operacionais para dispositivos móveis, entender o que são máquinas virtuais e emuladores, e revisar o panorama atual dos sistemas operacionais.",
+  concepts: [
+    { ico:"▣", name:"Sistemas Operacionais Móveis", sections:[
+      {label:"Android", body:"<p>Desenvolvido pelo Google (baseado no kernel Linux), é o sistema operacional móvel mais utilizado no mundo, presente em smartphones e tablets de diversos fabricantes.</p>"},
+      {label:"iOS", body:"<p>Desenvolvido pela Apple exclusivamente para iPhones, com forte integração ao ecossistema da própria empresa (iCloud, AirDrop, Handoff).</p>"},
+      {label:"Particularidades dos SOs móveis", body:"<p>Além das funções de um SO tradicional, sistemas móveis precisam gerenciar bateria, sensores (GPS, acelerômetro), conectividade móvel e permissões de aplicativos de forma mais granular.</p>"}
+    ]},
+    { ico:"⧉", name:"Máquina Virtual (VM)", sections:[
+      {label:"O que é?", body:"<p>Uma <b>máquina virtual</b> é um ambiente de computador simulado por software, que se comporta como um computador real e permite instalar e executar um Sistema Operacional dentro de outro, sem afetar o sistema principal.</p>"},
+      {label:"Para que serve?", body:"<p>Testar um novo Sistema Operacional com segurança, estudar Linux sem apagar o Windows do computador, ou isolar ambientes de desenvolvimento — tudo sem precisar de um segundo computador físico.</p>"},
+      {label:"Ferramentas comuns", body:"<pre>VirtualBox\\nVMware\\nHyper-V (nativo do Windows)</pre>"}
+    ]},
+    { ico:"◈", name:"Emulador", sections:[
+      {label:"O que é?", body:"<p>Um <b>emulador</b> simula o hardware de outra plataforma (por exemplo, um emulador de Android rodando dentro do Windows), permitindo executar sistemas ou programas feitos para uma arquitetura diferente da do computador real.</p>"},
+      {label:"Emulador x Máquina Virtual", body:"<p>A máquina virtual geralmente simula um computador da <b>mesma</b> arquitetura da máquina real (mais eficiente), enquanto o emulador pode simular uma arquitetura <b>diferente</b> (mais lento, pois precisa traduzir instruções).</p>"}
+    ]},
+    { ico:"◆", name:"Panorama atual dos Sistemas Operacionais", sections:[
+      {label:"Onde estamos hoje", body:"<pre>Desktop/Notebook ... Windows, macOS, distribuições Linux\\nServidores .......... Linux, Windows Server\\nMóveis ............... Android, iOS\\nNuvem/Contêineres .... Sistemas baseados em Linux (ex.: containers Docker)</pre><p>Os sistemas operacionais atuais convivem cada vez mais integrados à nuvem, à mobilidade e à virtualização.</p>"}
+    ]},
+    { ico:"☁", name:"Contêineres (containers)", sections:[
+      {label:"Container x Máquina Virtual", body:"<p>Diferente de uma VM (que virtualiza um computador inteiro, incluindo o próprio SO), um <b>container</b> (ex.: Docker) compartilha o kernel do sistema operacional hospedeiro e empacota apenas a aplicação e suas dependências. Isso o torna muito mais leve e rápido de iniciar que uma máquina virtual completa, sendo amplamente usado para implantar aplicações em nuvem.</p>"}
+    ]}
+  ],
+  practice: `<p>Se possível, instale um programa de virtualização (como o VirtualBox, gratuito) e crie uma máquina virtual com alguma distribuição Linux leve (como Lubuntu). Descreva as etapas realizadas e o resultado obtido.</p>`,
+  exercises: [
+    "Cite dois sistemas operacionais móveis e uma característica de cada um.",
+    "O que é uma máquina virtual e para que ela é utilizada?",
+    "Qual é a diferença entre uma máquina virtual e um emulador?",
+    "Cite uma ferramenta usada para criar máquinas virtuais.",
+    "Descreva, de forma geral, onde os sistemas operacionais estão presentes atualmente (desktop, servidores, móveis, nuvem)."
+  ]
+},
+
+},
+
+"logica-de-programacao": {
+
+"aula-01": {
+  title: "Introdução à Lógica de Programação",
+  intro: "Nesta aula você vai entender o que é lógica de programação, por que ela é a base de qualquer linguagem de programação e como os algoritmos organizam o raciocínio para resolver problemas. Clique em cada conceito abaixo para abrir a explicação.",
+  concepts: [
+    { ico:"◈", name:"Lógica como ciência", sections:[
+      {label:"O que é?", body:"<p>A <b>lógica</b> é a ciência que estuda os princípios do raciocínio correto. Na programação, usamos a lógica para organizar uma sequência de passos que leva a uma solução, antes mesmo de escrever qualquer código.</p>"},
+      {label:"Por que importa?", body:"<p>Aprender a programar não é decorar comandos de uma linguagem — é desenvolver a capacidade de decompor um problema em passos pequenos, ordenados e sem ambiguidade. Essa habilidade vale para qualquer linguagem de programação.</p>"}
+    ]},
+    { ico:"▤", name:"Algoritmo", sections:[
+      {label:"O que é?", body:"<p>Um <b>algoritmo</b> é uma sequência finita de passos, bem definidos e ordenados, que resolve um problema ou realiza uma tarefa.</p>"},
+      {label:"Exemplo do dia a dia", body:"<pre>Receita de bolo:\\n1. Separar os ingredientes\\n2. Misturar farinha, ovos e açúcar\\n3. Bater até homogeneizar\\n4. Levar ao forno por 40 minutos\\n5. Retirar e deixar esfriar</pre><p>Esse é um algoritmo: passos ordenados, com início, meio e fim, que sempre produzem o mesmo resultado quando seguidos corretamente.</p>"},
+      {label:"Características de um bom algoritmo", body:"<ul><li><b>Finito</b> — precisa ter fim</li><li><b>Definido</b> — cada passo deve ser claro, sem duplo sentido</li><li><b>Eficaz</b> — deve realmente resolver o problema proposto</li><li><b>Ordenado</b> — a sequência dos passos importa</li></ul>"}
+    ]},
+    { ico:"▦", name:"Tipos de Algoritmos", sections:[
+      {label:"Descrição Narrativa", body:"<p>Descreve os passos do algoritmo em linguagem natural (português), como uma receita. É a forma mais simples, mas também a mais sujeita a ambiguidades.</p>"},
+      {label:"Fluxograma", body:"<p>Representa os passos do algoritmo por meio de símbolos gráficos (retângulos, losangos, setas), mostrando visualmente o fluxo de execução.</p>"},
+      {label:"Pseudocódigo (Portugol)", body:"<p>Escreve o algoritmo com uma estrutura parecida com uma linguagem de programação real, mas em português, sem se preocupar com a sintaxe exata de nenhuma linguagem específica.</p>"},
+      {label:"Os três juntos", body:"<pre>Descrição Narrativa → explica em texto\\nFluxograma          → mostra visualmente\\nPseudocódigo        → aproxima da linguagem de programação</pre><p>Nas próximas aulas vamos estudar cada um desses tipos separadamente.</p>"}
+    ]},
+    { ico:"▣", name:"Programa de computador", sections:[
+      {label:"O que é?", body:"<p>Um <b>programa</b> é a implementação de um algoritmo em uma linguagem de programação específica (como Java, Python ou C), que o computador é capaz de executar.</p>"},
+      {label:"Do algoritmo ao programa", body:"<pre>Problema → Algoritmo (narrativa/fluxograma/pseudocódigo) → Programa (código em uma linguagem)</pre><p>Por isso a lógica de programação vem antes da linguagem: um bom algoritmo pode ser convertido para Java, Python, C ou qualquer outra linguagem — a lógica por trás é a mesma.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em descrição narrativa, um algoritmo simples do seu dia a dia (por exemplo: trocar um pneu, fazer um café ou trocar uma lâmpada). Depois responda:</p>
+    <ul>
+      <li>Seu algoritmo é finito?</li>
+      <li>Algum passo poderia ser interpretado de mais de uma forma?</li>
+      <li>A ordem dos passos é importante? O que aconteceria se você trocasse a ordem de dois passos?</li>
+    </ul>`,
+  exercises: [
+    "O que é lógica de programação e por que ela é importante antes de aprender uma linguagem?",
+    "Defina algoritmo com suas próprias palavras.",
+    "Cite as quatro características de um bom algoritmo.",
+    "Quais são os três tipos de algoritmos estudados nesta aula? Explique cada um em uma frase.",
+    "Qual é a diferença entre um algoritmo e um programa de computador?",
+    "Escreva um algoritmo em descrição narrativa para calcular a média de duas notas."
+  ]
+},
+
+"aula-02": {
+  title: "Descrição Narrativa",
+  intro: "Nesta aula vamos aprofundar o primeiro tipo de algoritmo: a descrição narrativa, que descreve os passos de um algoritmo utilizando a linguagem natural (português).",
+  concepts: [
+    { ico:"▤", name:"O que é Descrição Narrativa", sections:[
+      {label:"Definição", body:"<p>A <b>descrição narrativa</b> é a forma mais simples de representar um algoritmo: escrevemos, em português, cada passo necessário para resolver o problema, em ordem.</p>"},
+      {label:"Exemplo", body:"<pre>Algoritmo: Calcular a área de um retângulo\\n1. Solicitar a base do retângulo\\n2. Solicitar a altura do retângulo\\n3. Multiplicar base por altura\\n4. Mostrar o resultado</pre>"}
+    ]},
+    { ico:"⚠", name:"Vantagens e limitações", sections:[
+      {label:"Vantagens", body:"<p>É fácil de entender por qualquer pessoa, mesmo sem conhecimento técnico, e não exige aprender símbolos ou sintaxe.</p>"},
+      {label:"Limitações", body:"<p>Por depender da língua natural, pode gerar <b>ambiguidade</b> — passos que podem ser interpretados de mais de uma forma — e não é uma boa base para converter diretamente em código.</p>"}
+    ]},
+    { ico:"✓", name:"Boas práticas ao escrever", sections:[
+      {label:"Seja específico", body:"<pre>❌ \"Pegue os números e some\"\\n✅ \"Solicitar o primeiro número (A)\\n   Solicitar o segundo número (B)\\n   Somar A + B\\n   Mostrar o resultado\"</pre>"},
+      {label:"Numere os passos", body:"<p>Numerar os passos ajuda a garantir a ordem correta e facilita revisar o algoritmo depois.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em descrição narrativa, um algoritmo para:</p>
+    <ul>
+      <li>Calcular a média de três notas de um aluno e informar se ele foi aprovado (média ≥ 6) ou reprovado</li>
+    </ul>
+    <p>Depois, tente identificar se algum colega conseguiria seguir seu algoritmo sem fazer perguntas.</p>`,
+  exercises: [
+    "O que é descrição narrativa?",
+    "Cite uma vantagem e uma limitação da descrição narrativa.",
+    "O que significa dizer que um passo é 'ambíguo'? Dê um exemplo.",
+    "Escreva, em descrição narrativa, um algoritmo para verificar se um número é par ou ímpar.",
+    "Por que numerar os passos de um algoritmo é uma boa prática?"
+  ]
+},
+
+"aula-03": {
+  title: "Fluxograma",
+  intro: "Nesta aula vamos estudar o fluxograma, a representação gráfica de um algoritmo, e conhecer os principais símbolos utilizados para representar início, fim, entrada, saída, processamento e decisão.",
+  concepts: [
+    { ico:"▦", name:"O que é Fluxograma", sections:[
+      {label:"Definição", body:"<p>Um <b>fluxograma</b> é a representação gráfica de um algoritmo, feita por meio de símbolos padronizados conectados por setas que indicam o fluxo (a ordem) de execução.</p>"},
+      {label:"Por que usar?", body:"<p>Fluxogramas facilitam visualizar a lógica do algoritmo de forma clara, especialmente quando existem decisões (caminhos diferentes) e repetições.</p>"}
+    ]},
+    { ico:"○", name:"Símbolos principais", sections:[
+      {label:"Início e Fim", body:"<pre>  ╭──────╮\\n  │ Início │   (oval/elipse)\\n  ╰──────╯</pre><p>Todo fluxograma começa com um símbolo de <b>Início</b> e termina com um símbolo de <b>Fim</b>, ambos representados por uma elipse.</p>"},
+      {label:"Entrada e Saída", body:"<pre>  ╱──────╱\\n ╱ Ler N  ╱   (paralelogramo)\\n╱──────╱</pre><p>Um paralelogramo representa <b>entrada de dados</b> (ler um valor) ou <b>saída de dados</b> (exibir um resultado).</p>"},
+      {label:"Processamento", body:"<pre>┌──────────┐\\n│ Soma = A+B │   (retângulo)\\n└──────────┘</pre><p>Um retângulo representa um <b>processamento</b>, como um cálculo ou atribuição de valor.</p>"},
+      {label:"Decisão", body:"<pre>   ◇\\n  ╱ ╲\\n ╱ N>0?╲   (losango)\\n ╲     ╱\\n  ╲   ╱\\n   ◇</pre><p>Um losango representa uma <b>decisão</b>: a partir de uma pergunta com resposta Sim/Não, o fluxo segue por caminhos diferentes.</p>"}
+    ]},
+    { ico:"➜", name:"Montando um fluxograma completo", sections:[
+      {label:"Exemplo: número par ou ímpar", body:"<pre>Início\\n  ↓\\nLer N\\n  ↓\\nResto = N % 2\\n  ↓\\nResto == 0? ──Não──→ Mostrar \"Ímpar\"\\n  │Sim                      │\\n  ↓                         │\\nMostrar \"Par\"                │\\n  ↓←─────────────────────────┘\\nFim</pre>"},
+      {label:"Regra geral", body:"<p>Todo fluxograma deve ter exatamente um Início e pelo menos um Fim, e as setas devem sempre indicar claramente qual é o próximo passo — nunca deixando o fluxo em aberto.</p>"}
+    ]}
+  ],
+  practice: `<p>Desenhe (no papel ou em uma ferramenta como draw.io) o fluxograma para:</p>
+    <ul>
+      <li>Ler dois números e mostrar qual é o maior</li>
+    </ul>
+    <p>Identifique em seu fluxograma: os símbolos de início/fim, entrada, processamento e decisão.</p>`,
+  exercises: [
+    "O que é um fluxograma e para que ele serve?",
+    "Desenhe (descrevendo) os quatro principais símbolos de fluxograma e o que cada um representa.",
+    "Qual símbolo é usado para representar uma decisão? Dê um exemplo de pergunta que poderia estar dentro dele.",
+    "Monte o fluxograma (em texto/ASCII) para calcular a área de um círculo a partir do raio informado pelo usuário.",
+    "Por que um fluxograma deve ter apenas um símbolo de Início?"
+  ]
+},
+
+"aula-04": {
+  title: "Pseudocódigo (Portugol)",
+  intro: "Nesta aula vamos conhecer o pseudocódigo, também chamado de Portugol: uma forma de escrever algoritmos com estrutura parecida com uma linguagem de programação real, mas usando comandos em português.",
+  concepts: [
+    { ico:"▤", name:"O que é Pseudocódigo", sections:[
+      {label:"Definição", body:"<p><b>Pseudocódigo</b> (ou Portugol) é uma linguagem intermediária entre a linguagem natural e uma linguagem de programação. Usa palavras-chave em português, mas segue uma estrutura fixa, parecida com a de linguagens reais.</p>"},
+      {label:"Por que aprender?", body:"<p>O pseudocódigo é o passo mais próximo do código de verdade. Depois de dominar a lógica em Portugol, converter o algoritmo para Java, Python ou C fica muito mais simples — a estrutura já está pronta.</p>"}
+    ]},
+    { ico:"▣", name:"Estrutura básica", sections:[
+      {label:"Blocos principais", body:"<pre>algoritmo \"nome_do_algoritmo\"\\nvar\\n   // declaração de variáveis\\ninicio\\n   // comandos\\nfimalgoritmo</pre><p>Todo algoritmo em Portugol tem essa estrutura: declaração de variáveis, seguida do bloco de comandos entre <code>inicio</code> e <code>fimalgoritmo</code>.</p>"},
+      {label:"Comandos de entrada e saída", body:"<pre>leia(nome)        // lê um valor digitado pelo usuário\\nescreva(\"Olá\")   // exibe um texto ou valor na tela</pre>"}
+    ]},
+    { ico:"➜", name:"Exemplo completo", sections:[
+      {label:"Área do retângulo", body:"<pre>algoritmo \"area_retangulo\"\\nvar\\n   base, altura, area: real\\ninicio\\n   escreva(\"Digite a base: \")\\n   leia(base)\\n   escreva(\"Digite a altura: \")\\n   leia(altura)\\n   area <- base * altura\\n   escreva(\"A área é: \", area)\\nfimalgoritmo</pre><p>Observe: o símbolo <code>&lt;-</code> é usado para <b>atribuição</b> — guardar um valor dentro de uma variável.</p>"}
+    ]},
+    { ico:"◈", name:"Do fluxograma ao pseudocódigo", sections:[
+      {label:"Mesma lógica, formas diferentes", body:"<p>O fluxograma do número par/ímpar da aula anterior pode ser escrito em Portugol assim:</p><pre>algoritmo \"par_impar\"\\nvar\\n   n, resto: inteiro\\ninicio\\n   leia(n)\\n   resto <- n % 2\\n   se (resto == 0) entao\\n      escreva(\"Par\")\\n   senao\\n      escreva(\"Ímpar\")\\n   fimse\\nfimalgoritmo</pre>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em pseudocódigo (Portugol), o algoritmo que:</p>
+    <ul>
+      <li>Lê dois números e mostra qual é o maior (use <code>leia</code>, <code>escreva</code> e uma estrutura <code>se/senao</code>)</li>
+    </ul>`,
+  exercises: [
+    "O que é pseudocódigo e qual é a sua vantagem em relação à descrição narrativa?",
+    "Qual é a estrutura básica de um algoritmo em Portugol (blocos principais)?",
+    "Para que servem os comandos leia e escreva?",
+    "O que faz o símbolo <- em um algoritmo em Portugol?",
+    "Converta para pseudocódigo o algoritmo de cálculo de média de três notas visto na Aula 02."
+  ]
+},
+
+"aula-05": {
+  title: "Introdução à Programação Estruturada e Tipos de Dados",
+  intro: "Nesta aula vamos dar o primeiro passo rumo a uma linguagem de programação real (Java) e entender os tipos de dados básicos que toda linguagem estruturada utiliza.",
+  concepts: [
+    { ico:"◈", name:"Programação Estruturada", sections:[
+      {label:"O que é?", body:"<p>A <b>programação estruturada</b> é um paradigma em que o programa é organizado em blocos sequenciais, de decisão e de repetição, executados de cima para baixo, sem \"saltos\" desorganizados no código.</p>"},
+      {label:"Por que Java?", body:"<p>Java é uma das linguagens mais utilizadas no mercado e segue os princípios da programação estruturada (dentro de um paradigma orientado a objetos), o que a torna uma ótima linguagem para aplicar tudo o que aprendemos em Portugol.</p>"}
+    ]},
+    { ico:"▣", name:"Do Portugol ao Java", sections:[
+      {label:"Comparando estruturas", body:"<pre>Portugol                  Java\\n─────────────────────    ─────────────────────\\nalgoritmo \"nome\"          public class Nome {\\nvar                          // declarações\\n   x: inteiro                int x;\\ninicio                       public static void main(String[] args) {\\n   leia(x)                      Scanner sc = new Scanner(System.in);\\n   escreva(x)                   x = sc.nextInt();\\n                                 System.out.println(x);\\nfimalgoritmo                 }\\n                            }</pre>"}
+    ]},
+    { ico:"▤", name:"Tipos de dados básicos", sections:[
+      {label:"Numéricos", body:"<p><b>int</b> — números inteiros (sem casas decimais): <code>int idade = 20;</code></p><p><b>double</b> — números com casas decimais (ponto flutuante): <code>double preco = 19.90;</code></p>"},
+      {label:"Texto e caractere", body:"<p><b>String</b> — texto (cadeia de caracteres): <code>String nome = \"Maria\";</code></p><p><b>char</b> — um único caractere: <code>char inicial = 'M';</code></p>"},
+      {label:"Lógico", body:"<p><b>boolean</b> — armazena apenas dois valores possíveis: <code>true</code> (verdadeiro) ou <code>false</code> (falso). É muito usado em decisões e condições.</p>"}
+    ]},
+    { ico:"✓", name:"Escolhendo o tipo certo", sections:[
+      {label:"Exemplo prático", body:"<pre>Idade de uma pessoa       → int\\nPreço de um produto       → double\\nNome de um cliente         → String\\nSe o cliente é maior de idade → boolean</pre><p>Escolher o tipo correto evita erros e desperdício de memória — não faz sentido usar <code>double</code> para guardar uma quantidade de itens, por exemplo.</p>"}
+    ]}
+  ],
+  practice: `<p>Para cada informação abaixo, indique qual tipo de dado (int, double, String, char ou boolean) você usaria:</p>
+    <ul>
+      <li>Nome completo de um aluno</li>
+      <li>Nota de uma prova (0 a 10, com casas decimais)</li>
+      <li>Quantidade de irmãos</li>
+      <li>Se o aluno está aprovado ou não</li>
+      <li>Sexo do aluno representado por uma única letra (M/F)</li>
+    </ul>`,
+  exercises: [
+    "O que é programação estruturada?",
+    "Cite os cinco tipos de dados básicos estudados nesta aula e dê um exemplo de uso para cada um.",
+    "Qual é a diferença entre int e double?",
+    "O que o tipo boolean representa e onde ele costuma ser usado?",
+    "Por que é importante escolher o tipo de dado correto para cada variável?"
+  ]
+},
+
+"aula-06": {
+  title: "Constantes e Variáveis",
+  intro: "Nesta aula vamos entender o conceito de variáveis e constantes: os \"espaços de memória\" que todo programa usa para guardar e manipular informações.",
+  concepts: [
+    { ico:"▢", name:"Variável", sections:[
+      {label:"O que é?", body:"<p>Uma <b>variável</b> é um espaço de memória identificado por um nome, usado para armazenar um valor que pode <b>mudar</b> durante a execução do programa.</p>"},
+      {label:"Declaração em Java", body:"<pre>int idade;\\nidade = 20;\\n\\n// ou em uma única linha:\\nint idade = 20;</pre>"},
+      {label:"Regras de nomenclatura", body:"<ul><li>Não pode começar com número</li><li>Não pode ter espaços</li><li>Não pode ser uma palavra reservada da linguagem (como <code>int</code> ou <code>class</code>)</li><li>Por convenção, usa-se <code>camelCase</code>: <code>notaFinal</code>, <code>nomeCliente</code></li></ul>"}
+    ]},
+    { ico:"■", name:"Constante", sections:[
+      {label:"O que é?", body:"<p>Uma <b>constante</b> também é um espaço de memória nomeado, mas seu valor é definido uma vez e <b>não pode ser alterado</b> durante a execução do programa.</p>"},
+      {label:"Declaração em Java", body:"<pre>final double PI = 3.14159;\\nfinal int LIMITE_IDADE = 18;</pre><p>A palavra-chave <code>final</code> indica que aquele valor é fixo. Por convenção, nomes de constantes costumam ser escritos em <b>MAIÚSCULAS</b>.</p>"}
+    ]},
+    { ico:"⇄", name:"Variável x Constante", sections:[
+      {label:"Comparando", body:"<pre>Variável                      Constante\\n────────────────────────       ────────────────────────\\nValor pode mudar               Valor fixo, definido uma vez\\nint idade = 20;                final double PI = 3.14159;\\nidade = 21;  ✅ permitido       PI = 3.15;   ❌ erro de compilação</pre>"},
+      {label:"Quando usar cada uma?", body:"<p>Use <b>variável</b> quando o valor pode mudar ao longo do programa (idade, saldo, contador). Use <b>constante</b> para valores que nunca mudam durante a execução, como o valor de π ou uma taxa fixa.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em Java, a declaração de:</p>
+    <ul>
+      <li>Uma variável para armazenar o nome de um produto</li>
+      <li>Uma variável para armazenar o preço do produto</li>
+      <li>Uma constante para uma taxa de imposto fixa de 10% (0.10)</li>
+    </ul>`,
+  exercises: [
+    "Qual é a diferença entre variável e constante?",
+    "Cite três regras para nomear uma variável em Java.",
+    "O que faz a palavra-chave final em Java?",
+    "Dê um exemplo de informação que deveria ser uma variável e outro que deveria ser uma constante.",
+    "O trecho a seguir tem um erro. Identifique-o: final int MAX = 10; MAX = 20;"
+  ]
+},
+
+"aula-07": {
+  title: "Teste de Mesa",
+  intro: "Nesta aula vamos aprender a técnica do teste de mesa: uma forma de simular manualmente, passo a passo, a execução de um algoritmo — sem precisar de um computador — para verificar se a lógica está correta.",
+  concepts: [
+    { ico:"▦", name:"O que é Teste de Mesa", sections:[
+      {label:"Definição", body:"<p>O <b>teste de mesa</b> consiste em simular manualmente, em uma tabela, o valor de cada variável do algoritmo à medida que ele é executado, linha por linha, para verificar se o resultado final é o esperado.</p>"},
+      {label:"Por que é importante?", body:"<p>Antes de digitar o código, o teste de mesa ajuda a encontrar erros de lógica — como uma condição invertida ou um cálculo errado — de forma rápida e sem depender do computador.</p>"}
+    ]},
+    { ico:"▤", name:"Como montar um teste de mesa", sections:[
+      {label:"Passo a passo", body:"<p>1. Liste todas as variáveis do algoritmo em colunas.</p><p>2. Para cada linha do algoritmo, anote em uma nova linha da tabela o valor de cada variável após aquele comando ser executado.</p><p>3. Continue até chegar ao fim do algoritmo e observe o resultado final.</p>"},
+      {label:"Exemplo: média de dois números", body:"<pre>Algoritmo:\\n1. leia(a)\\n2. leia(b)\\n3. media <- (a+b)/2\\n4. escreva(media)\\n\\nEntrada: a=8, b=6\\n\\nLinha | a | b | media\\n  1   | 8 | - |  -\\n  2   | 8 | 6 |  -\\n  3   | 8 | 6 |  7\\n  4   | 8 | 6 |  7   → Saída: 7</pre>"}
+    ]},
+    { ico:"◇", name:"Teste de mesa com decisão", sections:[
+      {label:"Exemplo: par ou ímpar", body:"<pre>Algoritmo:\\n1. leia(n)\\n2. resto <- n % 2\\n3. se resto == 0 entao escreva(\"Par\")\\n4. senao escreva(\"Ímpar\")\\n\\nEntrada: n = 7\\n\\nLinha | n | resto | resto==0? | Saída\\n  1   | 7 |   -   |     -      |   -\\n  2   | 7 |   1   |     -      |   -\\n  3   | 7 |   1   |   Falso    |   -\\n  4   | 7 |   1   |     -      | \"Ímpar\"</pre><p>O teste de mesa também mostra qual caminho de uma decisão foi seguido — essencial para validar algoritmos com <code>se/senao</code>.</p>"}
+    ]}
+  ],
+  practice: `<p>Faça o teste de mesa (em tabela) do algoritmo abaixo, considerando a=10 e b=4:</p>
+    <pre>1. leia(a)
+2. leia(b)
+3. se a > b entao maior <- a
+4. senao maior <- b
+5. escreva(maior)</pre>`,
+  exercises: [
+    "O que é teste de mesa e para que ele serve?",
+    "Por que fazer o teste de mesa antes de programar pode economizar tempo?",
+    "Monte o teste de mesa do algoritmo de área do retângulo (Aula 04) considerando base=5 e altura=3.",
+    "O que o teste de mesa mostra em um algoritmo que tem uma estrutura de decisão (se/senao)?",
+    "Faça o teste de mesa do algoritmo de par/ímpar considerando n = 12."
+  ]
+},
+
+"aula-08": {
+  title: "Operadores Aritméticos, Relacionais e Lógicos",
+  intro: "Nesta aula vamos estudar os três grupos de operadores usados para construir expressões em lógica de programação: aritméticos (cálculos), relacionais (comparações) e lógicos (combinações de condições).",
+  concepts: [
+    { ico:"+", name:"Operadores Aritméticos", sections:[
+      {label:"Os operadores", body:"<pre>+   soma\\n-   subtração\\n*   multiplicação\\n/   divisão\\n%   resto da divisão (módulo)</pre>"},
+      {label:"Exemplo", body:"<pre>7 + 3   = 10\\n7 - 3   = 4\\n7 * 3   = 21\\n7 / 3   = 2   (divisão inteira)\\n7 % 3   = 1   (resto da divisão)</pre><p>Atenção: quando dividimos dois números inteiros em Java, o resultado também é inteiro — a parte decimal é descartada.</p>"}
+    ]},
+    { ico:"=", name:"Operadores Relacionais", sections:[
+      {label:"Os operadores", body:"<pre>==   igual a\\n!=   diferente de\\n>    maior que\\n<    menor que\\n>=   maior ou igual a\\n<=   menor ou igual a</pre><p>Operadores relacionais comparam dois valores e sempre resultam em <code>true</code> (verdadeiro) ou <code>false</code> (falso).</p>"},
+      {label:"Exemplo", body:"<pre>5 == 5   → true\\n5 != 3   → true\\n5 > 8    → false\\n5 <= 5   → true</pre>"}
+    ]},
+    { ico:"◆", name:"Operadores Lógicos", sections:[
+      {label:"Os operadores", body:"<pre>&&   E (AND)  — verdadeiro se AMBAS as condições forem verdadeiras\\n||   OU (OR)  — verdadeiro se PELO MENOS UMA condição for verdadeira\\n!    NÃO (NOT) — inverte o valor lógico</pre>"},
+      {label:"Tabela-verdade do E (&&)", body:"<pre>A       B       A && B\\ntrue    true    true\\ntrue    false   false\\nfalse   true    false\\nfalse   false   false</pre>"},
+      {label:"Tabela-verdade do OU (||)", body:"<pre>A       B       A || B\\ntrue    true    true\\ntrue    false   true\\nfalse   true    true\\nfalse   false   false</pre>"},
+      {label:"Exemplo combinando operadores", body:"<pre>idade >= 18 && temCarteira == true\\n// verdadeiro somente se a pessoa for maior de idade E tiver carteira</pre>"}
+    ]}
+  ],
+  practice: `<p>Considere idade = 20 e possuiIngresso = false. Calcule o resultado das expressões:</p>
+    <ul>
+      <li>idade >= 18</li>
+      <li>idade >= 18 && possuiIngresso</li>
+      <li>idade >= 18 || possuiIngresso</li>
+      <li>!possuiIngresso</li>
+    </ul>`,
+  exercises: [
+    "Cite os cinco operadores aritméticos e explique o que o operador % (módulo) retorna.",
+    "Cite os seis operadores relacionais e o que eles têm em comum quanto ao tipo de resultado.",
+    "Monte a tabela-verdade do operador && (E).",
+    "Qual é a diferença entre os operadores || (OU) e && (E)?",
+    "Considerando nota = 7 e faltas = 2, qual é o resultado da expressão: nota >= 6 && faltas <= 5 ?"
+  ]
+},
+
+"aula-09": {
+  title: "Expressões e Precedência de Operadores",
+  intro: "Nesta aula vamos aprender a montar expressões combinando vários operadores e entender a ordem de precedência: qual operação é resolvida primeiro quando há mais de uma em uma mesma expressão.",
+  concepts: [
+    { ico:"∑", name:"O que é uma expressão", sections:[
+      {label:"Definição", body:"<p>Uma <b>expressão</b> é uma combinação de valores, variáveis e operadores que, ao ser calculada, produz um resultado — numérico (expressão aritmética) ou lógico (expressão relacional/lógica).</p>"},
+      {label:"Exemplo", body:"<pre>media = (nota1 + nota2 + nota3) / 3;\\naprovado = media >= 6 && faltas <= 10;</pre>"}
+    ]},
+    { ico:"①", name:"Ordem de precedência matemática", sections:[
+      {label:"A ordem", body:"<pre>1º  ( )         parênteses\\n2º  * / %       multiplicação, divisão, módulo\\n3º  + -         soma e subtração</pre><p>Operadores de mesma prioridade são resolvidos da esquerda para a direita.</p>"},
+      {label:"Exemplo passo a passo", body:"<pre>10 + 5 * 2 - 3 % 2\\n\\n1º) 5 * 2  = 10   →  10 + 10 - 3 % 2\\n2º) 3 % 2  = 1    →  10 + 10 - 1\\n3º) 10 + 10 = 20  →  20 - 1\\n4º) 20 - 1 = 19   →  Resultado: 19</pre>"}
+    ]},
+    { ico:"()", name:"Uso de parênteses", sections:[
+      {label:"Por que usar?", body:"<p>Parênteses alteram a ordem natural de precedência, forçando uma operação a ser calculada primeiro — essenciais quando a ordem \"padrão\" não é a que o problema exige.</p>"},
+      {label:"Exemplo", body:"<pre>Sem parênteses:   10 + 5 / 5  = 10 + 1 = 11\\nCom parênteses:  (10 + 5) / 5 = 15 / 5 = 3</pre>"}
+    ]},
+    { ico:"◆", name:"Precedência em expressões lógicas", sections:[
+      {label:"Ordem entre relacionais e lógicos", body:"<pre>1º  operadores relacionais (==, !=, >, <, >=, <=)\\n2º  !  (NÃO)\\n3º  && (E)\\n4º  || (OU)</pre>"},
+      {label:"Exemplo", body:"<pre>idade >= 18 && renda > 2000 || possuiFiador\\n\\n1º) idade >= 18   → true/false\\n2º) renda > 2000  → true/false\\n3º) resultado1 && resultado2\\n4º) (resultado3) || possuiFiador</pre>"}
+    ]}
+  ],
+  practice: `<p>Calcule manualmente o resultado das expressões abaixo, mostrando a ordem em que cada operação é resolvida:</p>
+    <ul>
+      <li>20 - 4 * 3 + 6 / 2</li>
+      <li>(20 - 4) * (3 + 6) / 2</li>
+      <li>8 > 5 && 3 == 3</li>
+    </ul>`,
+  exercises: [
+    "Qual é a ordem de precedência entre +, -, *, / e %?",
+    "Para que servem os parênteses em uma expressão matemática?",
+    "Calcule, mostrando os passos: 12 / 4 + 2 * 3 - 1",
+    "Calcule, mostrando os passos: (12 / 4 + 2) * (3 - 1)",
+    "Entre os operadores relacionais e o operador &&, qual tem maior precedência?",
+    "Calcule o resultado de: idade > 17 && nota >= 6, considerando idade=16 e nota=8."
+  ]
+},
+
+"aula-10": {
+  title: "Instruções Condicionais e Incondicionais",
+  intro: "Nesta aula vamos estudar as instruções condicionais — que permitem ao programa tomar decisões — e as instruções incondicionais, que são executadas sempre, independentemente de qualquer condição.",
+  concepts: [
+    { ico:"➜", name:"Instrução Incondicional", sections:[
+      {label:"O que é?", body:"<p>Uma <b>instrução incondicional</b> é aquela que é sempre executada, na ordem em que aparece no programa, sem depender de nenhuma condição — é o comportamento padrão da programação sequencial.</p>"},
+      {label:"Exemplo", body:"<pre>int a = 5;\\nint b = 10;\\nint soma = a + b;\\nSystem.out.println(soma);</pre><p>Todas essas linhas são executadas sempre, uma após a outra, de cima para baixo.</p>"}
+    ]},
+    { ico:"◇", name:"Instrução Condicional Simples (se)", sections:[
+      {label:"Estrutura", body:"<pre>Portugol:                Java:\\nse (condicao) entao      if (condicao) {\\n   comando                   comando;\\nfimse                    }</pre>"},
+      {label:"Exemplo", body:"<pre>if (idade >= 18) {\\n   System.out.println(\"Maior de idade\");\\n}</pre><p>O comando dentro das chaves só é executado se a condição for verdadeira.</p>"}
+    ]},
+    { ico:"⇄", name:"Instrução Condicional Composta (se/senão)", sections:[
+      {label:"Estrutura", body:"<pre>Portugol:                Java:\\nse (condicao) entao      if (condicao) {\\n   comando1                  comando1;\\nsenao                    } else {\\n   comando2                  comando2;\\nfimse                    }</pre>"},
+      {label:"Exemplo", body:"<pre>if (nota >= 6) {\\n   System.out.println(\"Aprovado\");\\n} else {\\n   System.out.println(\"Reprovado\");\\n}</pre>"}
+    ]},
+    { ico:"▦", name:"Condicional Encadeada (senão se)", sections:[
+      {label:"Estrutura", body:"<pre>if (media >= 9) {\\n   System.out.println(\"Conceito A\");\\n} else if (media >= 7) {\\n   System.out.println(\"Conceito B\");\\n} else if (media >= 5) {\\n   System.out.println(\"Conceito C\");\\n} else {\\n   System.out.println(\"Conceito D\");\\n}</pre><p>Cada <code>else if</code> só é avaliado se a condição anterior for falsa — permitindo verificar várias faixas de valores.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em Java (ou pseudocódigo), um trecho que:</p>
+    <ul>
+      <li>Leia a idade de uma pessoa</li>
+      <li>Mostre "Criança" se idade < 12, "Adolescente" se idade entre 12 e 17, e "Adulto" se idade >= 18</li>
+    </ul>`,
+  exercises: [
+    "Qual é a diferença entre uma instrução condicional e uma incondicional?",
+    "Escreva a estrutura de um if/else em Java.",
+    "O que muda entre um if simples e um if/else?",
+    "Escreva um trecho de código com else if que classifique uma nota em A (>=9), B (>=7), C (>=5) ou D (<5).",
+    "No trecho abaixo, qual será a saída se idade = 15? if (idade >= 18) { System.out.println(\"Adulto\"); } else { System.out.println(\"Menor\"); }"
+  ]
+},
+
+"aula-11": {
+  title: "Instruções de Repetição",
+  intro: "Nesta aula vamos estudar as estruturas de repetição (laços ou loops), que permitem executar um bloco de comandos várias vezes, evitando repetir código manualmente.",
+  concepts: [
+    { ico:"↻", name:"Por que usar repetição?", sections:[
+      {label:"O problema", body:"<p>Imagine mostrar os números de 1 a 1000 na tela. Escrever 1000 comandos <code>System.out.println</code> seria impraticável. As estruturas de repetição resolvem exatamente esse tipo de problema.</p>"}
+    ]},
+    { ico:"for", name:"Estrutura for", sections:[
+      {label:"Quando usar", body:"<p>O <code>for</code> é ideal quando já se sabe (ou é possível calcular) quantas vezes o laço deve se repetir.</p>"},
+      {label:"Estrutura", body:"<pre>for (inicializacao; condicao; incremento) {\\n   comando;\\n}</pre>"},
+      {label:"Exemplo", body:"<pre>for (int i = 1; i <= 5; i++) {\\n   System.out.println(i);\\n}\\n// Saída: 1 2 3 4 5</pre>"}
+    ]},
+    { ico:"while", name:"Estrutura while", sections:[
+      {label:"Quando usar", body:"<p>O <code>while</code> repete um bloco de comandos <b>enquanto</b> uma condição for verdadeira. É útil quando não se sabe de antemão quantas repetições serão necessárias.</p>"},
+      {label:"Estrutura", body:"<pre>while (condicao) {\\n   comando;\\n}</pre>"},
+      {label:"Exemplo", body:"<pre>int i = 1;\\nwhile (i <= 5) {\\n   System.out.println(i);\\n   i++;\\n}\\n// Saída: 1 2 3 4 5</pre><p>Atenção: é preciso garantir que a condição se torne falsa em algum momento, ou o laço se repetirá para sempre (loop infinito).</p>"}
+    ]},
+    { ico:"do", name:"Estrutura do-while", sections:[
+      {label:"Diferença principal", body:"<p>No <code>do-while</code>, o bloco de comandos é executado <b>pelo menos uma vez</b>, e só depois a condição é verificada.</p>"},
+      {label:"Estrutura", body:"<pre>do {\\n   comando;\\n} while (condicao);</pre>"},
+      {label:"Exemplo", body:"<pre>int i = 1;\\ndo {\\n   System.out.println(i);\\n   i++;\\n} while (i <= 5);</pre>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em Java (ou pseudocódigo), um laço que:</p>
+    <ul>
+      <li>Calcule a soma dos números de 1 até 100</li>
+      <li>Depois, escreva a mesma lógica usando uma estrutura de repetição diferente da que você usou primeiro</li>
+    </ul>`,
+  exercises: [
+    "Para que servem as estruturas de repetição?",
+    "Qual é a diferença entre for e while?",
+    "Qual é a principal diferença entre while e do-while?",
+    "O que é um 'loop infinito' e por que ele deve ser evitado?",
+    "Escreva um for que mostre todos os números pares de 2 a 20.",
+    "Escreva um while que mostre a tabuada do 5 (de 5x1 até 5x10)."
+  ]
+},
+
+"aula-12": {
+  title: "Vetores, Matrizes, Pesquisa, Funções e Procedimentos",
+  intro: "Última aula do módulo: vamos conhecer as estruturas homogêneas (vetores e matrizes), como pesquisar valores dentro delas, e o conceito de funções e procedimentos para organizar melhor o código.",
+  concepts: [
+    { ico:"▤", name:"Vetor (Array)", sections:[
+      {label:"O que é?", body:"<p>Um <b>vetor</b> é uma estrutura homogênea que armazena vários valores do mesmo tipo em uma única variável, organizados em posições numeradas a partir do <b>índice 0</b>.</p>"},
+      {label:"Declaração em Java", body:"<pre>int[] notas = new int[5];\\nnotas[0] = 8;\\nnotas[1] = 7;\\n\\n// ou já com valores:\\nint[] notas = {8, 7, 9, 6, 10};</pre>"},
+      {label:"Percorrendo um vetor", body:"<pre>for (int i = 0; i < notas.length; i++) {\\n   System.out.println(notas[i]);\\n}</pre>"}
+    ]},
+    { ico:"▦", name:"Matriz", sections:[
+      {label:"O que é?", body:"<p>Uma <b>matriz</b> é um vetor de duas dimensões (linhas e colunas), útil para representar tabelas, tabuleiros ou grades de valores.</p>"},
+      {label:"Declaração em Java", body:"<pre>int[][] tabuleiro = new int[3][3];\\ntabuleiro[0][0] = 1;\\ntabuleiro[1][2] = 5;</pre>"},
+      {label:"Percorrendo uma matriz", body:"<pre>for (int i = 0; i < 3; i++) {\\n   for (int j = 0; j < 3; j++) {\\n      System.out.print(tabuleiro[i][j] + \" \");\\n   }\\n   System.out.println();\\n}</pre>"}
+    ]},
+    { ico:"⌕", name:"Pesquisa em Vetor e Matriz", sections:[
+      {label:"Pesquisa sequencial", body:"<p>Consiste em percorrer o vetor posição por posição, comparando cada elemento com o valor procurado, até encontrá-lo ou chegar ao fim.</p><pre>int[] numeros = {4, 8, 15, 16, 23};\\nint procurado = 15;\\nint posicao = -1;\\nfor (int i = 0; i < numeros.length; i++) {\\n   if (numeros[i] == procurado) {\\n      posicao = i;\\n      break;\\n   }\\n}</pre>"},
+      {label:"Pesquisa em matriz", body:"<p>Funciona da mesma forma, mas percorrendo linhas e colunas com dois laços aninhados, comparando cada posição <code>[i][j]</code> com o valor procurado.</p>"}
+    ]},
+    { ico:"ƒ", name:"Funções e Procedimentos", sections:[
+      {label:"O que são?", body:"<p><b>Funções</b> e <b>procedimentos</b> são blocos de código reutilizáveis que executam uma tarefa específica. A diferença principal é que uma <b>função</b> retorna um valor, enquanto um <b>procedimento</b> (em Java, um método <code>void</code>) apenas executa uma ação.</p>"},
+      {label:"Exemplo de função", body:"<pre>static int soma(int a, int b) {\\n   return a + b;\\n}\\n\\n// uso:\\nint resultado = soma(3, 4); // resultado = 7</pre>"},
+      {label:"Exemplo de procedimento", body:"<pre>static void mostrarMensagem(String nome) {\\n   System.out.println(\"Olá, \" + nome + \"!\");\\n}\\n\\n// uso:\\nmostrarMensagem(\"Ana\"); // não retorna valor</pre>"},
+      {label:"Por que usar?", body:"<p>Dividir o programa em funções e procedimentos evita repetição de código, facilita a leitura e permite testar cada parte separadamente.</p>"}
+    ]}
+  ],
+  practice: `<p>Escreva, em Java (ou pseudocódigo):</p>
+    <ul>
+      <li>Um vetor com 5 números e um laço que calcule a soma de todos os elementos</li>
+      <li>Uma função chamada <code>maior(int a, int b)</code> que retorna o maior entre dois números</li>
+    </ul>`,
+  exercises: [
+    "O que é um vetor e a partir de qual índice ele começa em Java?",
+    "Qual é a diferença entre um vetor e uma matriz?",
+    "Explique, com suas palavras, como funciona a pesquisa sequencial em um vetor.",
+    "Qual é a diferença entre uma função e um procedimento?",
+    "Escreva uma função em Java que receba um vetor de inteiros e retorne a soma de todos os elementos.",
+    "Escreva um trecho de código que percorra uma matriz 2x2 e mostre todos os seus valores."
+  ]
+},
+
+},
+"aplicativos-computacionais": {
+
+"aula-01": {
+  title: "Introdução aos Sistemas Operacionais",
+  intro: "Nesta aula você vai entender o que é um Sistema Operacional, por que ele existe e como ele se comunica com o hardware do computador. No final, vamos conhecer os cinco principais sistemas operacionais do mercado. Clique em cada conceito abaixo para abrir a explicação.",
+  concepts: [
+    { ico:"SO", name:"Sistema Operacional", sections:[
+      {label:"O que é?", body:"<p>Um <b>Sistema Operacional (SO)</b> é o software principal responsável por administrar os recursos de um dispositivo e fornecer uma interface para que o usuário possa utilizá-lo. Ele funciona como uma ponte entre o usuário, os aplicativos e o hardware.</p>"},
+      {label:"Como funciona?", body:"<p>Quando você liga um computador, vários componentes físicos precisam trabalhar juntos: processador, memória RAM, armazenamento, placa de vídeo, teclado, mouse, placa de rede, dispositivos USB, impressora etc. O usuário não precisa controlar diretamente cada componente — é o Sistema Operacional que faz essa intermediação.</p><pre>┌─────────────────────────────┐\n│           USUÁRIO           │\n├─────────────────────────────┤\n│         APLICATIVOS         │\n│ Chrome • Word • Jogos etc.  │\n├─────────────────────────────┤\n│     SISTEMA OPERACIONAL     │\n├─────────────────────────────┤\n│          HARDWARE           │\n│ CPU • RAM • SSD • GPU etc.  │\n└─────────────────────────────┘</pre>"},
+      {label:"Exemplo prático", body:"<p>Quando você abre uma foto, basta encontrá-la e clicar duas vezes. Por trás disso, o Sistema Operacional coordena a comunicação entre o programa de imagens, a memória RAM, o processador e o armazenamento — sem que o usuário precise informar cada etapa.</p><pre>Usuário → Sistema Operacional → Aplicativo → Memória RAM → Processador → Armazenamento</pre>"}
+    ]},
+    { ico:"⚙", name:"Processador (CPU)", sections:[
+      {label:"O que é?", body:"<p>O processador, também chamado de <b>CPU</b>, é o componente responsável por executar instruções e realizar as operações necessárias para o funcionamento dos programas.</p>"},
+      {label:"Como funciona?", body:"<p>Normalmente existem vários programas querendo utilizar a CPU ao mesmo tempo — por exemplo, um navegador, um app de mensagens, um editor de texto e o próprio sistema. O Sistema Operacional organiza o uso do processador entre esses processos, decidindo quem executa e por quanto tempo.</p>"},
+      {label:"Exemplo prático", body:"<p>Quando você abre uma calculadora e realiza 25 × 10, o processador participa da execução das instruções necessárias para essa operação. O desempenho de uma CPU depende de vários fatores — arquitetura, número de núcleos, eficiência e geração — não apenas da quantidade de GHz.</p>"}
+    ]},
+    { ico:"🧠", name:"Memória RAM", sections:[
+      {label:"O que é?", body:"<p>A <b>memória RAM</b> é um tipo de memória utilizada pelo computador para armazenar temporariamente os dados e programas que estão sendo utilizados naquele momento.</p>"},
+      {label:"Como funciona?", body:"<p>A RAM é uma memória temporária: quando o computador é desligado, os dados armazenados nela são perdidos. Quanto mais RAM disponível, mais programas podem permanecer carregados simultaneamente sem que o sistema precise recorrer tanto a outras formas de armazenamento.</p><pre>PROGRAMA\n   ↓\n  RAM\n   ↓\nPROCESSADOR</pre>"},
+      {label:"RAM x Armazenamento", body:"<pre>RAM\n↓\nTemporária\n↓\nDesliga o PC → dados são perdidos\n\nSSD / HD\n↓\nPermanente\n↓\nDesliga o PC → arquivos continuam salvos</pre>"}
+    ]},
+    { ico:"💾", name:"Armazenamento (SSD/HD)", sections:[
+      {label:"O que é?", body:"<p>SSD significa <b>Solid State Drive</b>. É um dispositivo utilizado para armazenar dados de forma permanente. Diferente da RAM, os dados armazenados no SSD ou HD permanecem salvos mesmo depois que o computador é desligado.</p>"},
+      {label:"Exemplo prático", body:"<p>Quando você salva <code>trabalho.docx</code> no SSD, o arquivo continua armazenado mesmo depois de desligar o computador. É nele que ficam o sistema operacional, os aplicativos instalados, documentos, fotos e vídeos.</p>"}
+    ]},
+    { ico:"⇄", name:"Driver", sections:[
+      {label:"O que é?", body:"<p>Um <b>driver</b> é um software que permite que o Sistema Operacional se comunique corretamente com determinado hardware, como uma impressora, placa de vídeo ou webcam.</p>"},
+      {label:"Como funciona?", body:"<pre>Windows\n   ↓\nDriver da impressora\n   ↓\nImpressora</pre><p>Sem o driver correto, um dispositivo pode não funcionar corretamente ou pode ter funcionalidades limitadas.</p>"}
+    ]},
+    { ico:"▶", name:"Processo", sections:[
+      {label:"O que é?", body:"<p>Quando um programa está sendo executado, ele pode ser representado como um <b>processo</b>. O Sistema Operacional acompanha esses processos e administra os recursos utilizados por eles.</p>"},
+      {label:"Exemplo prático", body:"<pre>Programa instalado\n       ↓\nPrograma iniciado\n       ↓\nProcesso em execução</pre><p>É por isso que ferramentas como o Gerenciador de Tarefas conseguem mostrar aplicativos e processos em execução, junto com CPU, memória e disco utilizados por cada um.</p>"}
+    ]},
+    { ico:"👤", name:"Usuários e Permissões", sections:[
+      {label:"O que é?", body:"<p>Sistemas operacionais controlam quem pode realizar determinadas ações. Cada usuário pode ter arquivos, configurações e permissões próprias — isso é ainda mais importante em ambientes corporativos.</p>"},
+      {label:"Exemplo prático", body:"<pre>Usuário comum\n   ↓\nPode utilizar aplicativos\n\nAdministrador\n   ↓\nPode alterar configurações do sistema</pre><p>As permissões ajudam a proteger o sistema e os dados armazenados nele.</p>"}
+    ]},
+    { ico:"⊞", name:"Windows", sections:[
+      {label:"O que é?", body:"<p>O <b>Windows</b> é uma família de sistemas operacionais desenvolvida pela Microsoft, utilizada em computadores pessoais, notebooks e ambientes corporativos, com interface gráfica baseada em janelas, ícones e menus.</p>"},
+      {label:"Principais elementos", body:"<ul><li><b>Área de trabalho</b> — onde ficam atalhos, arquivos e pastas</li><li><b>Menu Iniciar</b> — acesso a aplicativos, configurações e pesquisa</li><li><b>Explorador de Arquivos</b> — navegação pelo armazenamento</li><li><b>Configurações</b> — rede, contas, privacidade, atualizações</li><li><b>Gerenciador de Tarefas</b> — CPU, memória, disco e processos em execução</li></ul>"},
+      {label:"Exemplo prático", body:"<p>Um atalho na área de trabalho não é o programa em si — excluir um atalho normalmente não desinstala o programa original. Se o Wi-Fi não conectar, o caminho é abrir Configurações → Rede para verificar as conexões disponíveis.</p>"}
+    ]},
+    { ico:"🐧", name:"Linux", sections:[
+      {label:"O que é?", body:"<p><b>Linux</b> é um sistema operacional baseado no kernel Linux — a parte central responsável por fazer a comunicação entre software e hardware. Diferente do Windows, o Linux não é uma única interface: distribuições combinam o kernel com outros componentes para formar um sistema completo.</p>"},
+      {label:"Distribuições", body:"<p>Exemplos de distribuições (\"distros\"): Ubuntu, Debian, Fedora, Arch Linux, Linux Mint e Zorin OS. Cada uma pode ter interface, aplicativos e ferramentas diferentes, mesmo compartilhando o mesmo kernel.</p><pre>Kernel Linux + Ferramentas + Gerenciador de pacotes + Interface + Aplicativos = Distribuição Linux</pre>"},
+      {label:"Terminal", body:"<pre>pwd        → mostra o diretório atual\nls         → lista arquivos e pastas\ncd Documentos → entra na pasta Documentos\nmkdir projeto → cria uma pasta chamada projeto</pre><p>Usar o terminal não é obrigatório: distribuições como Zorin OS também têm interfaces gráficas completas.</p>"},
+      {label:"Windows x Linux", body:"<pre>Desenvolvedor .... Microsoft         | Comunidade / ecossistema Linux\nCódigo aberto .... Não               | Kernel é open source\nDistribuições .... Não se aplica     | Sim (Ubuntu, Fedora...)\nUso em servidores  Muito utilizado   | Muito utilizado</pre>"}
+    ]},
+    { ico:"", name:"macOS", sections:[
+      {label:"O que é?", body:"<p>O <b>macOS</b> é o sistema operacional utilizado nos computadores Mac da Apple, com interface gráfica própria e totalmente integrada ao hardware produzido pela própria empresa.</p>"},
+      {label:"Principais elementos", body:"<p>O <b>Finder</b> funciona como o gerenciador de arquivos do macOS, permitindo navegar, criar pastas, copiar, mover e organizar documentos. Também fazem parte da experiência a <b>Dock</b> (barra de aplicativos) e a barra de menus superior.</p>"}
+    ]},
+    { ico:"▣", name:"Android", sections:[
+      {label:"O que é?", body:"<p>O <b>Android</b> é um sistema operacional utilizado principalmente em smartphones e tablets, permitindo instalar aplicativos, acessar a internet, usar câmera, gerenciar arquivos e conectar dispositivos via Bluetooth.</p>"},
+      {label:"Características específicas", body:"<p>Por ser voltado a dispositivos móveis, o Android também administra recursos como bateria, sensores, tela sensível ao toque, localização e conectividade móvel — algo que sistemas de desktop não precisam gerenciar da mesma forma.</p>"}
+    ]},
+    { ico:"", name:"iOS", sections:[
+      {label:"O que é?", body:"<p>O <b>iOS</b> é o sistema operacional utilizado nos iPhones da Apple. Assim como os demais sistemas, administra aplicativos, memória, armazenamento, rede, permissões e segurança do aparelho.</p>"},
+      {label:"Característica principal", body:"<p>Uma das marcas do iOS é a forte integração com o ecossistema da Apple — iCloud, AirDrop, Handoff — permitindo continuidade entre iPhone, iPad e Mac.</p>"}
+    ]}
+  ],
+  practice: `<p>Identifique no seu próprio computador ou celular:</p>
+    <ul>
+      <li>Qual sistema operacional está instalado e qual a versão</li>
+      <li>Quantidade de memória RAM disponível</li>
+      <li>Tipo e capacidade de armazenamento (SSD ou HD)</li>
+      <li>Modelo do processador</li>
+      <li>Se estiver no Windows: abra o Gerenciador de Tarefas e observe CPU, memória e processos em execução</li>
+      <li>Se estiver no Linux: abra o terminal e experimente <code>pwd</code>, <code>ls</code> e <code>cd ~</code></li>
+    </ul>`,
+  exercises: [
+    "O que é um Sistema Operacional e qual é a sua função em relação ao hardware?",
+    "Explique por que o Sistema Operacional é considerado uma ponte entre o usuário e o hardware.",
+    "Qual é a função da memória RAM e por que ela é chamada de memória temporária?",
+    "O que é um driver e por que ele é necessário?",
+    "Qual é a diferença entre Sistema Operacional e aplicativo?",
+    "O que é um processo em execução?",
+    "O que é o kernel Linux e o que é uma distribuição Linux?",
+    "Cite os cinco sistemas operacionais estudados e o tipo de dispositivo em que cada um é mais utilizado.",
+    "Explique a diferença entre um usuário comum e um administrador.",
+    "Descreva, de forma simplificada, o que acontece quando você abre um documento no computador."
+  ]
+},
+
+"aula-02": {
+  title: "Arquivos, Pastas e Organização do Sistema",
+  intro: "Nesta aula vamos entender como o sistema operacional organiza as informações no computador por meio de arquivos e pastas, e quais boas práticas facilitam encontrar tudo depois.",
+  concepts: [
+    { ico:"▤", name:"Arquivo", sections:[
+      {label:"O que é?", body:"<p>Um <b>arquivo</b> é uma unidade de informação armazenada no computador — pode ser um texto, uma planilha, uma imagem, um vídeo ou qualquer outro tipo de dado salvo.</p>"},
+      {label:"Exemplos", body:"<pre>relatorio.docx\nplanilha.xlsx\napresentacao.pptx\nfoto.jpg\nvideo.mp4</pre>"}
+    ]},
+    { ico:"▢", name:"Extensão de arquivo", sections:[
+      {label:"O que é?", body:"<p>A <b>extensão</b> é o conjunto de letras depois do ponto no nome do arquivo (como <code>.docx</code> ou <code>.jpg</code>). Ela indica o tipo de arquivo e qual programa deve abri-lo.</p>"}
+    ]},
+    { ico:"▣", name:"Pasta", sections:[
+      {label:"O que é?", body:"<p>Uma <b>pasta</b> serve para organizar arquivos e outras pastas, criando uma estrutura hierárquica de armazenamento.</p>"},
+      {label:"Exemplo prático", body:"<pre>Documentos\n│\n├── Escola\n│   ├── Trabalhos\n│   └── Apresentações\n│\n├── Cursos\n│   ├── Redes\n│   └── Informática\n│\n└── Projetos\n    ├── Projeto 01\n    └── Projeto 02</pre>"}
+    ]},
+    { ico:"✓", name:"Boas práticas de organização", sections:[
+      {label:"Nomeação de arquivos", body:"<pre>❌ trabalhofinalnovo2.docx\n✅ Trabalho_Redes_Modulo01.docx</pre><p>Nomes claros e padronizados facilitam localizar arquivos depois, especialmente quando há muitos documentos parecidos.</p>"},
+      {label:"Por que organizar?", body:"<p>Evite guardar tudo em uma única pasta. Uma boa organização de arquivos facilita a localização, o backup, o compartilhamento e a produtividade no dia a dia.</p>"}
+    ]}
+  ],
+  practice: `<p>Crie no seu computador uma estrutura de pastas para organizar seus estudos, seguindo o modelo:</p>
+    <pre>Meus Estudos\n│\n├── T12\n│   ├── Módulo 1\n│   └── Anotações\n│\n└── Outros Cursos</pre>`,
+  exercises: [
+    "Qual é a diferença entre arquivo e pasta?",
+    "O que é a extensão de um arquivo? Dê três exemplos.",
+    "Por que é importante organizar documentos em pastas?",
+    "Crie (na prática) uma estrutura de pastas para um curso e descreva como ficou organizada."
+  ]
+},
+
+"aula-03": {
+  title: "Edição de Textos Profissionais",
+  intro: "Nesta aula vamos ver os recursos essenciais para produzir documentos de texto com padrão profissional — do título à revisão final.",
+  concepts: [
+    { ico:"▤", name:"Editor de texto", sections:[
+      {label:"O que é?", body:"<p>Um <b>editor de texto profissional</b> (como Word, Google Docs ou LibreOffice Writer) permite criar documentos acadêmicos, administrativos e comerciais com formatação avançada.</p>"},
+      {label:"Principais recursos", body:"<ul><li>Formatação de texto (negrito, itálico, cor)</li><li>Títulos e subtítulos</li><li>Alinhamento e espaçamento</li><li>Tabelas e imagens</li><li>Cabeçalhos, rodapés e numeração de páginas</li><li>Revisão ortográfica</li></ul>"}
+    ]},
+    { ico:"§", name:"Estrutura de um documento", sections:[
+      {label:"Modelo básico", body:"<pre>TÍTULO\n\nIntrodução\n\nDesenvolvimento\n\nConclusão\n\nReferências</pre>"},
+      {label:"Exemplo prático", body:"<p>Um relatório profissional pode conter: <b>Título</b> (\"Relatório de Atividades\"), <b>Objetivo</b> (apresentar as atividades realizadas), <b>Desenvolvimento</b> (descrição das atividades) e <b>Conclusão</b> (resultados obtidos).</p>"}
+    ]},
+    { ico:"✓", name:"Padronização e revisão", sections:[
+      {label:"Por que padronizar?", body:"<p>Um documento profissional deve apresentar clareza, organização e padronização visual — mesma fonte, mesmo espaçamento e hierarquia de títulos ao longo de todo o texto.</p>"},
+      {label:"Revisão ortográfica", body:"<p>A maioria dos editores sublinha automaticamente palavras com possíveis erros. Revisar o texto antes de finalizar evita erros de digitação e melhora a credibilidade do documento.</p>"}
+    ]}
+  ],
+  practice: `<p>Crie um relatório de uma página sobre uma atividade realizada durante o curso, utilizando título, introdução, desenvolvimento, conclusão e revisão ortográfica.</p>`,
+  exercises: [
+    "O que caracteriza um documento profissional?",
+    "Para que servem os estilos de título (Título 1, Título 2...) em um editor de texto?",
+    "Qual é a função do cabeçalho e do rodapé em um documento?",
+    "Por que a padronização visual é importante em um documento?",
+    "Cite três recursos de um editor de texto e explique para que servem."
+  ]
+},
+
+"aula-04": {
+  title: "Planilhas Eletrônicas",
+  intro: "Nesta aula vamos aprender a organizar dados, montar fórmulas e usar funções básicas em planilhas eletrônicas.",
+  concepts: [
+    { ico:"▦", name:"Planilha, linhas e colunas", sections:[
+      {label:"O que é?", body:"<p>Uma <b>planilha eletrônica</b> é utilizada para organizar, calcular e analisar informações. Ela é formada por linhas, colunas e células — o cruzamento de uma linha com uma coluna.</p>"},
+      {label:"Exemplo", body:"<pre>Produto   Quantidade   Valor\nTeclado       2         R$ 80\nMouse         3         R$ 50\nMonitor       1         R$ 700</pre>"}
+    ]},
+    { ico:"ƒ", name:"Fórmulas e Funções", sections:[
+      {label:"Fórmula", body:"<p>Uma <b>fórmula</b> realiza um cálculo entre valores de células. Por exemplo, para calcular o total de uma linha: <code>=Quantidade*Valor</code>.</p>"},
+      {label:"Funções comuns", body:"<pre>=SOMA()      → soma um intervalo de células\n=MÉDIA()     → calcula a média\n=MÁXIMO()    → maior valor do intervalo\n=MÍNIMO()    → menor valor do intervalo\n=CONT.SE()   → conta células que atendem a uma condição</pre>"}
+    ]},
+    { ico:"▥", name:"Recursos avançados", sections:[
+      {label:"O que existe além de fórmulas?", body:"<ul><li><b>Filtros</b> — exibem apenas os dados que atendem a um critério</li><li><b>Classificação</b> — organiza dados em ordem crescente ou decrescente</li><li><b>Tabelas e tabelas dinâmicas</b> — resumem grandes volumes de dados</li><li><b>Gráficos</b> — representam os dados visualmente</li><li><b>Formatação condicional</b> — destaca células automaticamente conforme uma regra</li></ul>"}
+    ]}
+  ],
+  practice: `<p>Monte uma planilha de controle de gastos mensais com colunas de categoria, valor e data, e utilize a função <code>=SOMA()</code> para calcular o total gasto.</p>`,
+  exercises: [
+    "O que é uma célula em uma planilha eletrônica?",
+    "Qual é a diferença entre fórmula e função?",
+    "Para que serve a função SOMA?",
+    "Para que servem os filtros em uma planilha?",
+    "Qual é a utilidade de um gráfico dentro de uma planilha?"
+  ]
+},
+
+"aula-05": {
+  title: "Criação de Apresentações",
+  intro: "Nesta aula vamos aprender a estruturar apresentações digitais claras e visualmente organizadas, evitando os erros mais comuns.",
+  concepts: [
+    { ico:"▭", name:"Slide e estrutura", sections:[
+      {label:"O que é?", body:"<p>Uma <b>apresentação digital</b> é utilizada para transmitir informações de forma visual, dividida em slides — e uma boa apresentação deve evitar excesso de texto em cada um deles.</p>"},
+      {label:"Estrutura sugerida", body:"<pre>Slide 1 → Título\nSlide 2 → Introdução\nSlide 3 → Conceito principal\nSlide 4 → Exemplos\nSlide 5 → Dados / imagens\nSlide 6 → Conclusão</pre>"}
+    ]},
+    { ico:"✓", name:"Boas práticas visuais", sections:[
+      {label:"O que fazer", body:"<ul><li>Títulos claros em cada slide</li><li>Pouco texto por slide</li><li>Imagens relevantes ao conteúdo</li><li>Gráficos em vez de tabelas longas</li><li>Contraste adequado entre texto e fundo</li><li>Fontes legíveis, mesmo à distância</li></ul>"},
+      {label:"O que evitar", body:"<p>Evite colocar um texto enorme em um único slide — isso faz a plateia ler em vez de ouvir a explicação, e reduz o impacto da apresentação.</p>"}
+    ]}
+  ],
+  practice: `<p>Crie uma apresentação com 5 slides explicando um assunto já estudado neste módulo, aplicando as boas práticas vistas nesta aula.</p>`,
+  exercises: [
+    "Qual é o objetivo principal de uma apresentação digital?",
+    "Por que não devemos colocar muito texto em um único slide?",
+    "Qual é a importância das imagens em uma apresentação?",
+    "O que torna um slide visualmente organizado?"
+  ]
+},
+
+"aula-06": {
+  title: "Internet e Segurança Digital",
+  intro: "Nesta aula vamos entender o que é a internet, como navegamos por ela e quais cuidados de segurança digital são essenciais no dia a dia.",
+  concepts: [
+    { ico:"◈", name:"Internet", sections:[
+      {label:"O que é?", body:"<p>A <b>internet</b> é uma rede mundial que permite a comunicação e troca de informações entre dispositivos, possibilitando pesquisa, comunicação, acesso a serviços, armazenamento, educação, trabalho e entretenimento.</p>"}
+    ]},
+    { ico:"▤", name:"Navegador, URL e Site", sections:[
+      {label:"Navegador", body:"<p>É o programa utilizado para acessar páginas web. Exemplos: Firefox, Chrome, Edge e Brave.</p>"},
+      {label:"URL", body:"<p>É o endereço utilizado para localizar um recurso na internet — por exemplo, o endereço de uma página específica.</p>"},
+      {label:"Site", body:"<p>É o conjunto de páginas e recursos disponibilizados na web sob um mesmo domínio.</p>"}
+    ]},
+    { ico:"🔒", name:"Segurança digital", sections:[
+      {label:"Boas práticas", body:"<ul><li>Utilizar senhas fortes e diferentes para cada serviço</li><li>Ativar autenticação em dois fatores sempre que disponível</li><li>Verificar links antes de clicar</li><li>Evitar downloads de fontes desconhecidas</li><li>Manter sistemas e aplicativos atualizados</li></ul>"},
+      {label:"Por que verificar links?", body:"<p>Links maliciosos podem levar a páginas falsas que roubam senhas e dados pessoais (phishing). Sempre observe o endereço completo antes de inserir informações sensíveis.</p>"}
+    ]}
+  ],
+  practice: `<p>Pesquise um tema acadêmico utilizando diferentes fontes (pelo menos duas) e compare as informações encontradas, observando se são consistentes entre si.</p>`,
+  exercises: [
+    "O que é a internet?",
+    "O que é um navegador? Cite dois exemplos.",
+    "O que é uma URL?",
+    "Cite três boas práticas de segurança digital.",
+    "Por que devemos verificar links antes de acessá-los?"
+  ]
+},
+
+"aula-07": {
+  title: "Computação em Nuvem",
+  intro: "Nesta aula vamos entender o que é computação em nuvem, como ela funciona e quais cuidados devemos ter ao usar serviços em nuvem.",
+  concepts: [
+    { ico:"☁", name:"Computação em nuvem", sections:[
+      {label:"O que é?", body:"<p><b>Computação em nuvem</b> é a utilização de recursos computacionais através da internet. Em vez de manter tudo exclusivamente no computador, arquivos e serviços podem ser armazenados ou executados em servidores remotos.</p>"},
+      {label:"Como funciona?", body:"<pre>COMPUTADOR\n     ↓\n   INTERNET\n     ↓\nSERVIDORES EM NUVEM\n     ↓\nARQUIVOS / SERVIÇOS / APLICATIVOS</pre>"}
+    ]},
+    { ico:"✓", name:"Vantagens", sections:[
+      {label:"Principais benefícios", body:"<ul><li>Acesso a partir de diferentes dispositivos</li><li>Colaboração entre várias pessoas no mesmo arquivo</li><li>Sincronização automática</li><li>Alta disponibilidade</li><li>Facilidade de compartilhamento</li></ul>"}
+    ]},
+    { ico:"⚠", name:"Cuidados", sections:[
+      {label:"O que observar", body:"<ul><li>Segurança da conta (senha forte, verificação em duas etapas)</li><li>Permissões concedidas a cada arquivo compartilhado</li><li>Backups adicionais em caso de falha do serviço</li><li>Dependência de conexão com a internet</li></ul>"}
+    ]}
+  ],
+  practice: `<p>Compare, em poucas linhas, o que muda entre guardar um arquivo apenas no computador e guardá-lo também em um serviço de nuvem.</p>`,
+  exercises: [
+    "O que é computação em nuvem?",
+    "Qual é a principal diferença entre armazenamento local e armazenamento em nuvem?",
+    "Cite dois benefícios de usar a nuvem.",
+    "Por que as permissões de acesso são importantes em arquivos na nuvem?"
+  ]
+},
+
+"aula-08": {
+  title: "Google Drive",
+  intro: "Nesta aula vamos conhecer o Google Drive na prática — como armazenar, organizar e compartilhar arquivos em nuvem.",
+  concepts: [
+    { ico:"▲", name:"Google Drive", sections:[
+      {label:"O que é?", body:"<p>O <b>Google Drive</b> é uma plataforma de armazenamento em nuvem que permite guardar, organizar e compartilhar arquivos como documentos, planilhas, apresentações, PDFs, imagens e vídeos.</p>"}
+    ]},
+    { ico:"▣", name:"Organização de pastas", sections:[
+      {label:"Exemplo de estrutura", body:"<pre>Meu Drive\n│\n├── Cursos\n│   ├── Redes\n│   └── Informática\n│\n├── Trabalhos\n│\n└── Documentos</pre>"}
+    ]},
+    { ico:"⇄", name:"Compartilhamento e permissões", sections:[
+      {label:"Níveis de acesso", body:"<p>Um arquivo pode ser compartilhado com diferentes níveis de acesso: <b>visualização</b> (apenas ler), <b>comentário</b> (ler e comentar) ou <b>edição</b> (alterar o conteúdo).</p>"}
+    ]}
+  ],
+  practice: `<p>Crie uma pasta chamada "Curso de Informática" e, dentro dela, crie as subpastas:</p>
+    <pre>01 - Textos\n02 - Planilhas\n03 - Apresentações\n04 - Redes\n05 - Projetos</pre>`,
+  exercises: [
+    "O que é o Google Drive?",
+    "Qual é a vantagem de armazenar arquivos na nuvem em vez de apenas no computador?",
+    "Por que devemos controlar as permissões de compartilhamento de um arquivo?",
+    "Como você organizaria suas pastas dentro do Drive para os estudos do T12?"
+  ]
+},
+
+"aula-09": {
+  title: "Google Workspace",
+  intro: "Nesta aula vamos conhecer o conjunto de ferramentas do Google Workspace e como elas permitem colaboração em tempo real.",
+  concepts: [
+    { ico:"▦", name:"Google Workspace", sections:[
+      {label:"O que é?", body:"<p>O <b>Google Workspace</b> reúne ferramentas de produtividade, comunicação e colaboração, incluindo Gmail, Google Drive, Docs, Sheets, Slides, Meet, Forms e Calendar.</p>"}
+    ]},
+    { ico:"⇄", name:"Colaboração em tempo real", sections:[
+      {label:"Como funciona?", body:"<p>Várias pessoas podem trabalhar simultaneamente no mesmo arquivo, cada uma vendo as alterações das outras em tempo real, de acordo com as permissões configuradas.</p><pre>Pessoa A ─┐\nPessoa B ─┼→ Google Docs\nPessoa C ─┘</pre>"}
+    ]},
+    { ico:"▤", name:"Ferramentas principais", sections:[
+      {label:"Para que serve cada uma?", body:"<ul><li><b>Google Docs</b> — edição de texto colaborativa</li><li><b>Google Sheets</b> — planilhas colaborativas</li><li><b>Google Slides</b> — apresentações colaborativas</li><li><b>Google Meet</b> — videoconferências</li><li><b>Google Forms</b> — formulários e questionários</li><li><b>Google Calendar</b> — organização de agenda</li></ul>"}
+    ]}
+  ],
+  practice: `<p>Crie um documento no Google Docs e compartilhe-o com outra pessoa, permitindo que ela edite o conteúdo junto com você.</p>`,
+  exercises: [
+    "O que é o Google Workspace?",
+    "Cite cinco ferramentas que fazem parte do Workspace.",
+    "Qual é a vantagem da colaboração em tempo real?",
+    "Qual ferramenta do Workspace pode ser utilizada para videoconferências?"
+  ]
+},
+
+"aula-10": {
+  title: "Documentação Técnica de Redes",
+  intro: "Nesta aula vamos entender por que documentar uma rede é essencial e o que costuma constar nesse tipo de documentação técnica.",
+  concepts: [
+    { ico:"▤", name:"Documentação técnica", sections:[
+      {label:"O que é?", body:"<p>A <b>documentação técnica</b> registra informações importantes sobre uma rede de computadores, como equipamentos, endereços IP, cabos, switches, roteadores, servidores, topologia, configurações e responsáveis.</p>"},
+      {label:"Exemplo de documentação", body:"<pre>Equipamento   IP              Função\nRoteador      192.168.1.1     Gateway\nServidor      192.168.1.10    Arquivos\nPC-01         192.168.1.20    Estação</pre>"}
+    ]},
+    { ico:"◈", name:"Endereço IP", sections:[
+      {label:"O que é?", body:"<p>Um <b>endereço IP</b> identifica um dispositivo dentro de uma rede, permitindo que ele seja encontrado e se comunique com outros equipamentos.</p>"}
+    ]},
+    { ico:"▣", name:"Topologia de rede", sections:[
+      {label:"O que é?", body:"<p>A <b>topologia</b> é a forma como os dispositivos de uma rede estão conectados entre si.</p>"},
+      {label:"Exemplo simples", body:"<pre>             INTERNET\n                 │\n              ROTEADOR\n                 │\n              SWITCH\n          ┌──────┼──────┐\n          │      │      │\n        PC-01  PC-02  SERVIDOR</pre>"}
+    ]},
+    { ico:"✓", name:"Por que documentar?", sections:[
+      {label:"Benefícios", body:"<p>A documentação facilita a manutenção, a identificação de problemas, o suporte técnico, a expansão da rede e o controle dos equipamentos instalados.</p>"}
+    ]}
+  ],
+  practice: `<p>Desenhe a topologia de rede de uma pequena empresa fictícia, indicando roteador, switch e pelo menos três dispositivos conectados.</p>`,
+  exercises: [
+    "O que é documentação técnica de uma rede?",
+    "Por que é importante documentar uma rede?",
+    "O que é topologia de rede?",
+    "Qual é a função de um switch em uma rede local?",
+    "Cite três informações que podem constar em uma documentação de rede."
+  ]
+},
+
+"aula-11": {
+  title: "Normas ABNT",
+  intro: "Nesta aula vamos entender o que são as normas ABNT e como elas ajudam a padronizar trabalhos acadêmicos e técnicos.",
+  concepts: [
+    { ico:"▤", name:"ABNT", sections:[
+      {label:"O que é?", body:"<p>A <b>ABNT</b> (Associação Brasileira de Normas Técnicas) estabelece padrões utilizados em diferentes tipos de documentos técnicos e acadêmicos, garantindo uniformidade na forma como os trabalhos são apresentados.</p>"}
+    ]},
+    { ico:"§", name:"Estrutura de um trabalho acadêmico", sections:[
+      {label:"Estrutura comum", body:"<pre>CAPA\n\nSUMÁRIO\n\nINTRODUÇÃO\n\nDESENVOLVIMENTO\n\nCONCLUSÃO\n\nREFERÊNCIAS</pre>"}
+    ]},
+    { ico:"❝", name:"Citação e Referência", sections:[
+      {label:"O que é uma citação?", body:"<p>Ao utilizar uma informação de outra fonte dentro do texto, é necessário indicar de onde ela veio, de acordo com as regras aplicáveis ao tipo de trabalho.</p>"},
+      {label:"O que é uma referência?", body:"<p>É a lista completa, ao final do trabalho, com os dados de todas as fontes utilizadas (autor, título, ano, entre outros), permitindo que o leitor localize o material original.</p>"}
+    ]}
+  ],
+  practice: `<p>Crie um pequeno trabalho de 2 a 3 páginas sobre tecnologia, organizando-o de acordo com a estrutura apresentada nesta aula (capa, sumário, introdução, desenvolvimento, conclusão e referências).</p>`,
+  exercises: [
+    "O que significa a sigla ABNT?",
+    "Qual é a finalidade da padronização de trabalhos acadêmicos?",
+    "O que são referências bibliográficas?",
+    "Cite três partes que compõem a estrutura de um trabalho acadêmico.",
+    "Por que devemos sempre indicar as fontes utilizadas em um trabalho?"
+  ]
+},
+
+"aula-12": {
+  title: "Ferramentas de IA Aplicadas aos Estudos",
+  intro: "Nesta aula vamos ver como usar ferramentas de Inteligência Artificial como apoio aos estudos, sem substituir o aprendizado real.",
+  concepts: [
+    { ico:"◆", name:"Inteligência Artificial nos estudos", sections:[
+      {label:"O que é?", body:"<p>Ferramentas de <b>Inteligência Artificial (IA)</b> podem auxiliar estudantes em diferentes etapas do aprendizado: explicar conteúdos, criar resumos, gerar perguntas e exercícios, revisar textos e organizar um plano de estudos.</p>"}
+    ]},
+    { ico:"❝", name:"Prompt (pedido para a IA)", sections:[
+      {label:"O que é?", body:"<p>Um <b>prompt</b> é o pedido ou instrução que você dá para a IA. Quanto mais claro e específico o prompt, melhor tende a ser o resultado.</p>"},
+      {label:"Comparação", body:"<pre>❌ \"Explique redes.\"\n\n✅ \"Explique o conceito de endereço IP como se eu estivesse\n   começando a estudar redes, com exemplos práticos, e depois\n   crie 5 questões para eu responder.\"</pre>"}
+    ]},
+    { ico:"⚠", name:"Uso responsável da IA", sections:[
+      {label:"Cuidados importantes", body:"<p>A IA deve funcionar como ferramenta de apoio, não como substituta do estudo. É importante verificar informações, comparar fontes, compreender o conteúdo e não copiar respostas sem entendê-las.</p>"}
+    ]},
+    { ico:"↻", name:"Fluxo de estudo com IA", sections:[
+      {label:"Como aplicar na prática", body:"<pre>CONTEÚDO\n   ↓\nIA EXPLICA\n   ↓\nALUNO ESTUDA\n   ↓\nQUESTÕES\n   ↓\nERROS IDENTIFICADOS\n   ↓\nREVISÃO\n   ↓\nNOVO TESTE</pre>"}
+    ]}
+  ],
+  practice: `<p>Escolha um conteúdo já estudado neste módulo e peça para uma ferramenta de IA: explicar o assunto, criar um resumo, gerar 10 questões, corrigir suas respostas e explicar seus erros.</p>`,
+  exercises: [
+    "Cite três formas de utilizar IA nos estudos.",
+    "Por que é importante verificar informações geradas por uma IA?",
+    "Como podemos utilizar a IA para revisar conteúdos antes de uma prova?",
+    "Qual é a diferença entre usar IA para aprender e simplesmente copiar uma resposta pronta?",
+    "Escreva um prompt (pedido) para estudar um conteúdo de informática usando IA."
+  ]
+},
+
+"aula-13": {
+  title: "Introdução à Edição de Textos",
+  intro: "Nesta aula você vai entender o que é um editor de texto, como sua interface é organizada e como criar, salvar e nomear documentos da forma como isso é feito em ambientes profissionais. Ao final, você vai simular a criação de um relatório real, do zero até a exportação em PDF.",
+  concepts: [
+    { ico:"📝", name:"O que é um editor de texto", sections:[
+      {label:"O que é?", body:`<p>Um <b>editor de texto</b> é um programa utilizado para criar, editar e formatar documentos digitais — desde um simples bilhete até um relatório empresarial de dezenas de páginas. Diferente de um bloco de notas simples, um editor de texto profissional permite controlar fonte, cor, alinhamento, imagens, tabelas, cabeçalhos e muitos outros elementos visuais.</p>`},
+      {label:"Para que serve?", body:`<p>Ele serve para transformar uma ideia em um documento organizado e apresentável: um currículo, um trabalho escolar, um comunicado da empresa, uma carta, uma proposta comercial. A diferença entre uma boa e uma má apresentação profissional muitas vezes está exatamente no domínio dessa ferramenta.</p>`},
+      {label:"Exemplos de editores", body:`<pre>Microsoft Word     → editor pago, padrão em muitas empresas
+Google Docs        → editor gratuito, online, colaborativo
+LibreOffice Writer  → editor gratuito, instalado no computador
+Pages (Apple)      → editor da Apple, integrado ao macOS/iOS</pre><p>Todos compartilham os mesmos conceitos fundamentais: uma vez que você aprende um, é fácil se adaptar aos outros.</p>`},
+      {label:"Dica profissional", body:`<p>Se você não sabe qual editor a empresa ou escola usa, salve seus documentos em formatos compatíveis (como <code>.docx</code>) em vez de depender de recursos exclusivos de um único programa. Isso evita que a formatação "quebre" ao abrir o arquivo em outro editor.</p>`}
+    ]},
+    { ico:"🖥️", name:"Interface de um editor de texto", sections:[
+      {label:"Área de edição", body:`<p>É o espaço em branco no centro da tela onde o texto é digitado e visualizado. É ali que o documento realmente existe — o restante da interface (menus, barras) apenas oferece ferramentas para manipular o que está nessa área.</p>`},
+      {label:"Barra de ferramentas", body:`<p>Reúne os botões mais usados no dia a dia: negrito, itálico, alinhamento, cor da fonte, tamanho da letra, entre outros. Ela existe para que você não precise abrir um menu inteiro só para aplicar uma formatação simples.</p>`},
+      {label:"Menus", body:`<p>Organizam todas as funções do programa em categorias, como <b>Arquivo</b> (abrir, salvar, imprimir), <b>Inserir</b> (imagens, tabelas, links) e <b>Revisão</b> (ortografia, comentários, controle de alterações). Recursos mais avançados, usados com menos frequência, costumam ficar nos menus em vez da barra de ferramentas.</p>`},
+      {label:"Barra de status", body:`<p>Geralmente na parte inferior da tela, mostra informações como número de páginas, contagem de palavras e o nível de zoom do documento. É útil, por exemplo, para conferir rapidamente se um texto atingiu o limite de palavras exigido em um trabalho.</p>`},
+      {label:"Exemplo prático", body:`<pre>┌─────────────────────────────────────┐
+│  Menus: Arquivo Editar Inserir ...   │
+├─────────────────────────────────────┤
+│  Barra de ferramentas: B I U  ≡ ≡ ≡  │
+├─────────────────────────────────────┤
+│                                       │
+│         ÁREA DE EDIÇÃO               │
+│                                       │
+├─────────────────────────────────────┤
+│  Página 1 de 3   •   482 palavras    │
+└─────────────────────────────────────┘</pre>`}
+    ]},
+    { ico:"📄", name:"Criar, abrir e salvar documentos", sections:[
+      {label:"Criar documento", body:`<p>Ao abrir o editor, você geralmente encontra a opção de iniciar um <b>documento em branco</b> ou escolher um modelo pronto (como currículo ou carta). Para a maioria das tarefas do dia a dia, começar em branco e formatar aos poucos é o caminho mais flexível.</p>`},
+      {label:"Salvar x Salvar como", body:`<p><b>Salvar</b> grava as alterações no mesmo arquivo que já existe. <b>Salvar como</b> cria uma cópia do documento com um novo nome, local ou formato — muito útil quando você quer manter uma versão anterior intacta antes de fazer mudanças grandes.</p><pre>Salvar        → sobrescreve o arquivo atual
+Salvar como   → cria um novo arquivo (não apaga o original)</pre>`},
+      {label:"Abrir documento existente", body:`<p>É possível reabrir um arquivo salvo anteriormente através do menu Arquivo &gt; Abrir, ou diretamente pelo gerenciador de arquivos do computador, clicando duas vezes sobre ele. O editor associado à extensão do arquivo é aberto automaticamente.</p>`},
+      {label:"Fechar documento", body:`<p>Fechar um documento não apaga o arquivo — apenas encerra a janela de edição. Se houver alterações não salvas, a maioria dos editores exibe um aviso perguntando se você deseja salvar antes de fechar. Nunca ignore esse aviso sem pensar: é a última chance de não perder o trabalho feito.</p>`}
+    ]},
+    { ico:"🗂️", name:"Formatos de arquivo", sections:[
+      {label:"DOCX", body:`<p>É o formato padrão do Microsoft Word, também aceito por praticamente todos os outros editores atuais. É o formato mais indicado quando o documento ainda vai passar por edições — o seu ou de outra pessoa.</p>`},
+      {label:"ODT", body:`<p>É o formato aberto usado principalmente pelo LibreOffice Writer. Funciona de forma parecida com o DOCX, mas nem sempre é aceito sem ajustes em programas mais antigos ou fechados a esse padrão.</p>`},
+      {label:"PDF", body:`<p><b>PDF</b> (Portable Document Format) preserva exatamente a aparência do documento — fontes, espaçamentos e imagens — independentemente do dispositivo ou programa usado para abri-lo. Por isso é o formato ideal para <i>enviar</i> um documento finalizado, como um currículo ou um contrato.</p>`},
+      {label:"TXT", body:`<p>É um formato de texto puro, sem nenhuma formatação (sem negrito, cor ou fonte especial). É usado quando o conteúdo em si importa mais do que a aparência, como em anotações rápidas ou em arquivos de configuração.</p>`},
+      {label:"Documento editável x documento final", body:`<pre>DOCX / ODT  → documento EDITÁVEL (ainda pode ser alterado)
+PDF         → documento FINAL (aparência preservada, difícil de editar)</pre><p>Uma boa prática profissional é manter o arquivo editável guardado para você e enviar a versão em PDF para quem só precisa ler ou imprimir o documento.</p>`}
+    ]},
+    { ico:"🏷️", name:"Organização e nomeação de arquivos", sections:[
+      {label:"Por que isso importa?", body:`<p>Um documento bem formatado perde valor se ninguém consegue encontrá-lo depois. Nomear e organizar arquivos de forma consistente economiza tempo e evita retrabalho, principalmente quando existem várias versões do mesmo documento.</p>`},
+      {label:"Nomeação profissional", body:`<pre>❌ documento1.docx
+❌ trabalho final finalmente.docx
+❌ RELATORIO   VENDAS.docx
+
+✅ Relatorio_Vendas_Agosto_2026.docx
+✅ Curriculo_Joao_Silva.docx</pre><p>Um bom nome de arquivo diz, só de olhar, o que ele contém e a que período ou versão se refere — sem espaços duplos, acentos problemáticos ou palavras genéricas como "final2".</p>`},
+      {label:"Organização em pastas", body:`<p>Além de nomear bem, separe documentos por assunto ou projeto em pastas (por exemplo, <code>Relatórios/2026/Agosto</code>). Isso facilita tanto encontrar quanto fazer backup dos arquivos mais importantes.</p>`}
+    ]},
+    { ico:"🎯", name:"Situação prática guiada", sections:[
+      {label:"O desafio", body:`<p>Você recebeu a tarefa de criar um documento chamado <b>Relatório Mensal de Vendas</b>. Vamos percorrer, passo a passo, todo o caminho — do documento em branco até o arquivo pronto para ser enviado.</p>`},
+      {label:"Passo a passo", body:`<pre>1. Criar o documento
+   → Abrir o editor e iniciar um documento em branco.
+
+2. Escolher o formato
+   → Trabalhar em DOCX enquanto o relatório ainda está em construção.
+
+3. Nomear o arquivo
+   → "Relatorio_Vendas_Agosto_2026.docx"
+
+4. Salvar
+   → Usar "Salvar como" na primeira vez, escolhendo a pasta correta.
+
+5. Organizar
+   → Guardar o arquivo em uma pasta "Relatórios/2026/Agosto".
+
+6. Exportar para PDF
+   → Quando o relatório estiver pronto, exportar uma cópia em PDF
+     para enviar por e-mail, mantendo o DOCX original editável.</pre>`}
+    ]}
+  ],
+  practice: `<p>Crie, no seu computador, um documento chamado <b>Relatório Mensal de Vendas</b> seguindo exatamente os seis passos vistos na última seção. Ao final, você deve ter dois arquivos: um <code>.docx</code> (editável) e um <code>.pdf</code> (final), guardados em uma pasta organizada.</p>`,
+  exercises: [
+    "O que é um editor de texto e qual a diferença dele para um simples bloco de notas?",
+    "Cite três editores de texto diferentes e uma característica de cada um.",
+    "Para que serve a barra de status de um editor de texto?",
+    "Qual é a diferença entre 'Salvar' e 'Salvar como'? Dê um exemplo de situação em que usar 'Salvar como' é mais indicado.",
+    "Explique, com suas palavras, a diferença entre um documento editável e um documento final.",
+    "Você precisa enviar seu currículo para uma empresa. Qual formato de arquivo preserva melhor a aparência do documento: DOCX ou PDF? Justifique.",
+    "Analise os nomes de arquivo abaixo e reescreva-os de forma profissional: 'trabalho2.docx', 'CURRICULO NOVO.docx', 'relatorio_final_finalV2.docx'.",
+    "Por que é recomendável guardar a versão editável de um documento mesmo depois de exportá-lo em PDF?",
+    "Descreva, em suas próprias palavras, o caminho completo para criar e organizar um documento chamado 'Comunicado Interno'."
+  ]
+},
+"aula-14": {
+  title: "Formatação de Textos",
+  intro: "Nesta aula você vai aprender a controlar a aparência do texto: fonte, tamanho, estilos, cores, alinhamento e espaçamento. Mais do que decorar botões, o objetivo é entender quando e por que usar cada formatação em um documento profissional.",
+  concepts: [
+    { ico:"🔤", name:"Fonte e tamanho", sections:[
+      {label:"O que é?", body:`<p>A <b>fonte</b> (ou família tipográfica) é o estilo visual das letras — como Arial, Times New Roman ou Calibri. O <b>tamanho</b> define a altura dos caracteres, normalmente medido em pontos (pt).</p>`},
+      {label:"Como escolher?", body:`<p>Documentos profissionais costumam usar fontes sóbrias e de fácil leitura (Arial, Calibri, Times New Roman), evitando fontes decorativas. O tamanho mais comum para o corpo do texto é entre 11 e 12pt; títulos usam tamanhos maiores para criar hierarquia visual.</p>`},
+      {label:"Erro comum", body:`<p>Misturar várias fontes diferentes no mesmo documento passa uma impressão de desorganização. O ideal é usar no máximo duas fontes: uma para títulos e outra para o corpo do texto.</p>`}
+    ]},
+    { ico:"𝐁", name:"Negrito, itálico e sublinhado", sections:[
+      {label:"O que é negrito?", body:`<p><b>Negrito</b> é uma formatação utilizada para aumentar o destaque visual de uma palavra, expressão ou trecho do documento. Em documentos profissionais, ele pode ser utilizado para destacar títulos, informações importantes, nomes de campos ou termos que precisam chamar a atenção do leitor.</p><p>Por exemplo, em um relatório, o título "Resultados do mês" pode utilizar negrito para criar uma hierarquia visual que separa esse trecho do restante do texto corrido, guiando o olhar de quem lê.</p>`},
+      {label:"Quando NÃO usar negrito", body:`<p>Usar negrito em excesso — em frases inteiras ou em parágrafos longos — anula o próprio efeito de destaque: se tudo está em negrito, nada se destaca de verdade. A recomendação profissional é reservar o negrito para palavras-chave pontuais, nunca para blocos extensos de texto.</p>`},
+      {label:"Itálico", body:`<p>O <b>itálico</b> inclina as letras e costuma ser usado para palavras estrangeiras (como <i>deadline</i>), títulos de obras (livros, filmes) ou para dar uma ênfase mais sutil que o negrito.</p>`},
+      {label:"Sublinhado", body:`<p>O <b>sublinhado</b> traça uma linha sob o texto. Hoje em dia é usado com moderação em documentos profissionais, pois pode ser confundido visualmente com um link. Muitas vezes o negrito ou o itálico comunicam a mesma ênfase de forma mais limpa.</p>`}
+    ]},
+    { ico:"🎨", name:"Cor e realce", sections:[
+      {label:"Cor da fonte", body:`<p>Altera a cor das letras. Em documentos formais, o preto (ou um cinza-escuro) é o padrão; cores são reservadas para casos específicos, como destacar um alerta ou seguir a identidade visual de uma empresa.</p>`},
+      {label:"Realce (marca-texto digital)", body:`<p>Funciona como um marca-texto: aplica uma cor de fundo sobre o texto selecionado, sem alterar a cor das letras. É útil para sinalizar trechos que precisam de revisão antes da versão final — mas deve ser removido do documento definitivo.</p>`}
+    ]},
+    { ico:"↔️", name:"Alinhamento", sections:[
+      {label:"Os quatro tipos", body:`<pre>Esquerda      → texto colado à margem esquerda (padrão da maioria dos textos)
+Centralizado  → usado em títulos e capas
+Direita       → usado em datas, assinaturas, informações de cabeçalho
+Justificado   → estica o texto para ocupar toda a largura da linha,
+                comum em relatórios e trabalhos acadêmicos</pre>`},
+      {label:"Exemplo prático", body:`<p>Em uma carta profissional, é comum ver a data alinhada à direita, o título centralizado e o corpo do texto justificado — essa combinação organiza visualmente as diferentes funções de cada parte do documento.</p>`}
+    ]},
+    { ico:"↕️", name:"Espaçamento e recuo", sections:[
+      {label:"Espaçamento entre linhas", body:`<p>Define a distância vertical entre uma linha e outra dentro do mesmo parágrafo. Espaçamentos de 1,15 a 1,5 linhas são comuns em documentos profissionais, pois facilitam a leitura sem desperdiçar espaço.</p>`},
+      {label:"Espaçamento entre parágrafos", body:`<p>Define o espaço extra deixado antes ou depois de cada parágrafo, separando visualmente um bloco de texto do próximo sem a necessidade de linhas em branco manuais (que são consideradas uma prática pouco profissional).</p>`},
+      {label:"Recuo e tabulação", body:`<p>O <b>recuo</b> desloca todo um parágrafo para a direita, geralmente usado em citações longas. A <b>tabulação</b> (tecla Tab) desloca apenas a primeira linha de um parágrafo, marcando visualmente onde ele começa — um recurso tradicional em textos corridos.</p>`}
+    ]},
+    { ico:"✂️", name:"Seleção, copiar, recortar e colar", sections:[
+      {label:"Seleção de texto", body:`<p>Selecionar significa marcar um trecho do texto (clicando e arrastando, ou usando <code>Shift</code> + setas) para que uma ação — como copiar ou formatar — seja aplicada apenas àquele trecho.</p>`},
+      {label:"Copiar, recortar e colar", body:`<pre>Copiar   (Ctrl+C) → duplica o trecho selecionado, mantendo o original
+Recortar (Ctrl+X) → remove o trecho do lugar original
+Colar    (Ctrl+V) → insere o conteúdo copiado ou recortado em outro local</pre>`},
+      {label:"Pincel de formatação", body:`<p>Copia a formatação (fonte, cor, tamanho) de um trecho de texto e a aplica em outro, sem precisar repetir cada ajuste manualmente. É uma das ferramentas que mais economiza tempo ao padronizar um documento longo.</p>`}
+    ]},
+    { ico:"⌨️", name:"Atalhos de teclado", sections:[
+      {label:"Os mais usados", body:`<pre>Ctrl + B   → negrito
+Ctrl + I   → itálico
+Ctrl + U   → sublinhado
+Ctrl + Z   → desfazer
+Ctrl + Y   → refazer
+Ctrl + C / Ctrl + X / Ctrl + V → copiar / recortar / colar
+Ctrl + S   → salvar</pre><p>Memorizar os atalhos mais usados no dia a dia aumenta muito a velocidade de produção de um documento, evitando idas constantes ao mouse.</p>`}
+    ]},
+    { ico:"🧭", name:"Formatar x organizar visualmente", sections:[
+      {label:"Qual a diferença?", body:`<p><b>Formatar um texto</b> significa alterar características pontuais, como cor, fonte ou negrito. <b>Organizar visualmente um documento</b> é uma tarefa mais ampla: envolve pensar em hierarquia, espaçamento, estrutura e consistência ao longo de todo o arquivo — não apenas em trechos isolados.</p>`},
+      {label:"Boa prática profissional", body:`<p>Um documento pode estar cheio de formatações (várias cores, negritos, fontes diferentes) e, ainda assim, parecer desorganizado. Por isso, antes de formatar palavra por palavra, vale planejar como o documento vai se organizar como um todo — títulos, espaçamentos e alinhamentos consistentes fazem mais diferença do que efeitos visuais isolados.</p>`}
+    ]}
+  ],
+  practice: `<p>Pegue um texto de pelo menos três parágrafos (pode ser um resumo escolar) e aplique: um título centralizado em negrito, corpo do texto justificado com espaçamento de 1,15, uma palavra-chave em negrito por parágrafo e uma citação com recuo.</p>`,
+  exercises: [
+    "Qual é a diferença entre negrito e itálico? Dê um exemplo de uso adequado para cada um.",
+    "Explique por que usar negrito em um parágrafo inteiro é considerado um erro de formatação.",
+    "Associe cada situação ao alinhamento mais adequado: (a) título de uma capa, (b) data no topo de uma carta, (c) corpo de um relatório formal.",
+    "O que é o pincel de formatação e em que situação ele economiza tempo?",
+    "Qual é a diferença entre recortar e copiar um trecho de texto?",
+    "Explique, com suas palavras, a diferença entre 'formatar um texto' e 'organizar visualmente um documento'.",
+    "Cite três atalhos de teclado e a ação de cada um.",
+    "Você está revisando um relatório e percebe trechos em cores diferentes sem motivo aparente. Isso é uma boa prática? Justifique.",
+    "Quando o uso do sublinhado pode causar confusão em um documento digital?"
+  ]
+},
+"aula-15": {
+  title: "Estrutura e Organização de Documentos",
+  intro: "Formatar palavra por palavra não é suficiente para um documento profissional. Nesta aula você vai aprender a estruturar o documento como um todo: títulos, estilos, margens, cabeçalho, rodapé e sumário — os elementos que dão organização e credibilidade a um texto longo.",
+  concepts: [
+    { ico:"🏷️", name:"Título, subtítulo e hierarquia visual", sections:[
+      {label:"O que é hierarquia visual?", body:`<p>É a forma como o tamanho, o peso e a posição dos textos indicam qual informação é mais importante. Um título maior chama mais atenção que um subtítulo, que por sua vez se destaca mais que o texto comum — isso ajuda o leitor a entender rapidamente a estrutura do documento, mesmo antes de ler o conteúdo.</p>`},
+      {label:"Exemplo prático", body:`<pre>RELATÓRIO MENSAL DE VENDAS        ← Título (maior, em destaque)
+1. Introdução                     ← Subtítulo (nível 1)
+1.1 Objetivo do relatório         ← Subtítulo (nível 2)
+Texto corrido...                  ← Corpo do texto</pre>`}
+    ]},
+    { ico:"🧩", name:"Estilos", sections:[
+      {label:"O que são estilos?", body:`<p><b>Estilos</b> são conjuntos de formatação pré-definidos (fonte, tamanho, cor, espaçamento) aplicados a um clique, como "Título 1" ou "Título 2". Em vez de formatar cada título manualmente, você aplica o estilo e todo o padrão visual é definido de uma vez.</p>`},
+      {label:"Por que usar estilos em vez de formatar manualmente?", body:`<p>Formatar cada título à mão (aumentando a fonte, colocando em negrito) parece mais rápido no início, mas gera dois problemas: inconsistência (um título fica levemente diferente do outro) e retrabalho (se você decidir mudar a cor de todos os títulos, precisa alterar um por um). Com estilos, basta editar o estilo "Título 1" uma vez e todos os títulos daquele nível mudam automaticamente.</p>`},
+      {label:"Outra vantagem: sumário automático", body:`<p>Editores de texto conseguem gerar um sumário automaticamente <i>a partir dos estilos de título usados</i> no documento. Se os títulos não estiverem marcados com estilo (apenas formatados manualmente), o sumário automático simplesmente não os reconhece.</p>`}
+    ]},
+    { ico:"📐", name:"Margens, orientação e tamanho do papel", sections:[
+      {label:"Margens", body:`<p>São os espaços em branco entre o texto e a borda da página. Margens muito estreitas deixam o documento visualmente "apertado"; margens muito largas desperdiçam espaço. O padrão de 2 a 3 cm em cada lado costuma funcionar bem para a maioria dos documentos.</p>`},
+      {label:"Orientação da página", body:`<pre>Retrato (vertical)   → padrão para a maioria dos textos
+Paisagem (horizontal) → usado para tabelas largas, gráficos ou apresentações impressas</pre>`},
+      {label:"Tamanho do papel", body:`<p>No Brasil, o padrão mais comum é o <b>A4</b>. Formatos diferentes (como Carta, usado nos Estados Unidos) podem causar cortes de conteúdo ou margens estranhas ao imprimir se o documento não for ajustado antes.</p>`}
+    ]},
+    { ico:"📑", name:"Cabeçalho, rodapé e número de página", sections:[
+      {label:"Cabeçalho e rodapé", body:`<p>São áreas fixas no topo e na base de cada página, usadas para repetir informações como o nome do documento, da empresa ou do autor, sem precisar digitá-las em cada página manualmente.</p>`},
+      {label:"Número de página", body:`<p>É inserido automaticamente pelo editor e se atualiza sozinho conforme o documento cresce ou diminui. É essencial em documentos com várias páginas, tanto para referência quanto para garantir que nenhuma folha se perca ao imprimir.</p>`}
+    ]},
+    { ico:"✂️", name:"Quebras de página", sections:[
+      {label:"O que é?", body:`<p>Uma <b>quebra de página</b> força o conteúdo seguinte a começar em uma nova página, mesmo que ainda haja espaço na página atual. É diferente de simplesmente apertar Enter várias vezes até "empurrar" o texto — essa prática quebra o layout assim que qualquer parágrafo anterior é editado.</p>`},
+      {label:"Quando usar?", body:`<p>É útil para garantir que um capítulo, uma seção ou uma tabela específica sempre comece em uma nova página, independentemente de quanto texto exista antes dela.</p>`}
+    ]},
+    { ico:"📚", name:"Sumário", sections:[
+      {label:"O que é?", body:`<p>O <b>sumário</b> lista os títulos e subtítulos do documento junto com o número da página em que cada um aparece, permitindo que o leitor navegue rapidamente até a seção desejada.</p>`},
+      {label:"Como é gerado?", body:`<p>Quando os títulos usam os estilos corretos (Título 1, Título 2...), o editor consegue montar o sumário automaticamente — e atualizá-lo com um clique sempre que o documento mudar, sem que você precise reescrevê-lo manualmente.</p>`}
+    ]},
+    { ico:"🔧", name:"Exemplo: de um documento desorganizado a um documento profissional", sections:[
+      {label:"Documento mal organizado", body:`<pre>relatorio de vendas
+
+introdução
+esse relatorio fala sobre as vendas do mes
+
+resultados
+as vendas cresceram 12%
+
+conclusão
+foi um bom mes</pre><p>Sem hierarquia de títulos, sem espaçamento consistente (linhas em branco soltas no lugar de espaçamento de parágrafo) e sem capitalização adequada.</p>`},
+      {label:"Documento reorganizado", body:`<pre>RELATÓRIO DE VENDAS — Agosto de 2026
+
+1. Introdução
+Este relatório apresenta os resultados de vendas do mês de agosto.
+
+2. Resultados
+As vendas cresceram 12% em relação ao mês anterior.
+
+3. Conclusão
+Agosto foi um mês de crescimento consistente para a equipe comercial.</pre><p>Mesmo conteúdo, mas agora com título em destaque, subtítulos numerados, texto revisado e espaçamento consistente entre as seções — o que muda completamente a percepção de profissionalismo do documento.</p>`}
+    ]}
+  ],
+  practice: `<p>Pegue o relatório criado na Aula 01 e aplique nele estilos de título (Título 1 para o nome do relatório, Título 2 para as seções), configure margens de 2,5 cm, adicione um cabeçalho com o nome do documento, um rodapé com numeração de página e gere um sumário automático.</p>`,
+  exercises: [
+    "O que é hierarquia visual e por que ela ajuda o leitor de um documento?",
+    "Explique, com um exemplo, por que usar estilos de título é melhor do que formatar cada título manualmente.",
+    "Qual é a diferença entre orientação retrato e orientação paisagem? Dê um exemplo de documento que usaria cada uma.",
+    "Para que servem o cabeçalho e o rodapé de um documento?",
+    "Explique a diferença entre forçar uma quebra de página com Enter várias vezes e usar a ferramenta de quebra de página do editor.",
+    "O que é necessário para que um sumário automático seja gerado corretamente?",
+    "Reescreva o documento desorganizado do exemplo desta aula, propondo sua própria estrutura de títulos.",
+    "Cite três elementos que tornam um documento profissional mesmo antes de o leitor começar a ler o conteúdo."
+  ]
+},
+"aula-16": {
+  title: "Listas e Tabelas",
+  intro: "Nem toda informação deve ser escrita em forma de parágrafo. Nesta aula você vai aprender a organizar dados em listas e tabelas — recursos que tornam um documento mais fácil de ler e de comparar informações.",
+  concepts: [
+    { ico:"•", name:"Lista com marcadores", sections:[
+      {label:"O que é?", body:`<p>É uma lista em que cada item é precedido por um símbolo (marcador), como um ponto ou traço, sem indicar ordem entre os itens.</p>`},
+      {label:"Quando usar?", body:`<p>Use marcadores quando a ordem dos itens não importa — por exemplo, uma lista de materiais necessários ou de características de um produto.</p><pre>Materiais necessários:
+• Papel A4
+• Caneta
+• Régua</pre>`}
+    ]},
+    { ico:"1.", name:"Lista numerada", sections:[
+      {label:"O que é?", body:`<p>É uma lista em que cada item recebe um número sequencial, indicando ordem ou prioridade.</p>`},
+      {label:"Quando usar?", body:`<p>Use listas numeradas quando a sequência importa — como em um passo a passo, um ranking ou etapas de um processo.</p><pre>Como exportar um documento em PDF:
+1. Abrir o menu Arquivo
+2. Selecionar "Exportar"
+3. Escolher o formato PDF
+4. Salvar o arquivo</pre>`}
+    ]},
+    { ico:"▸", name:"Lista multinível", sections:[
+      {label:"O que é?", body:`<p>É uma lista organizada em níveis, com sublistas dentro dos itens principais — útil para representar categorias e subcategorias.</p><pre>1. Equipamentos de rede
+   1.1 Roteador
+   1.2 Switch
+2. Equipamentos de informática
+   2.1 Computador
+   2.2 Impressora</pre>`},
+      {label:"Quando usar cada tipo de lista", body:`<pre>Marcadores  → itens sem ordem entre si
+Numerada    → itens que seguem uma sequência ou passo a passo
+Multinível  → itens organizados em categorias e subcategorias</pre>`}
+    ]},
+    { ico:"▦", name:"Criação de tabelas", sections:[
+      {label:"O que é uma tabela?", body:`<p>Uma <b>tabela</b> organiza informações em <b>linhas</b> (horizontais) e <b>colunas</b> (verticais), formando <b>células</b> — o cruzamento entre uma linha e uma coluna, onde o conteúdo é digitado.</p>`},
+      {label:"Cabeçalho da tabela", body:`<p>É a primeira linha, geralmente destacada em negrito ou com uma cor de fundo diferente, indicando o que cada coluna representa.</p><pre>| Tarefa          | Responsável | Prazo      | Status      |
+|-----------------|-------------|------------|-------------|
+| Enviar relatório| Maria       | 05/09/2026 | Concluído   |
+| Revisar contrato| João        | 08/09/2026 | Em andamento|</pre>`},
+      {label:"Por que usar tabela em vez de parágrafo?", body:`<p>A mesma informação escrita em texto corrido ("a tarefa de enviar o relatório é de responsabilidade de Maria, com prazo até 05/09, e já foi concluída; a tarefa de revisar o contrato é de João...") exige mais esforço de leitura do que uma tabela, na qual cada dado tem um local fixo e comparável de forma imediata.</p>`}
+    ]},
+    { ico:"⛶", name:"Mesclar e dividir células", sections:[
+      {label:"Mesclar células", body:`<p>Une duas ou mais células em uma só — usado, por exemplo, para criar um título que ocupe várias colunas de uma tabela.</p>`},
+      {label:"Dividir células", body:`<p>Faz o processo inverso: separa uma célula em duas ou mais, permitindo detalhar uma informação que antes ocupava um único espaço.</p>`}
+    ]},
+    { ico:"▤", name:"Alinhamento e bordas em tabelas", sections:[
+      {label:"Alinhamento", body:`<p>Textos costumam ficar alinhados à esquerda dentro das células, enquanto números ficam melhor alinhados à direita — isso facilita a comparação visual de valores em colunas diferentes.</p>`},
+      {label:"Bordas", body:`<p>Bordas visíveis ajudam a separar visualmente linhas e colunas, mas um excesso de linhas grossas pode poluir a tabela. Em muitos documentos profissionais, usa-se apenas uma linha fina sob o cabeçalho e entre as linhas, mantendo a tabela limpa.</p>`}
+    ]}
+  ],
+  practice: `<p>Crie uma tabela de controle de tarefas com as colunas Tarefa, Responsável, Prazo e Status, preenchida com pelo menos quatro linhas de exemplo. Em seguida, crie uma lista numerada com o passo a passo de como você montou essa tabela.</p>`,
+  exercises: [
+    "Qual é a diferença entre lista com marcadores e lista numerada? Dê um exemplo de uso para cada uma.",
+    "Em que situação uma lista multinível é mais adequada do que uma lista simples?",
+    "O que são linhas, colunas e células em uma tabela?",
+    "Para que serve mesclar células em uma tabela?",
+    "Explique por que uma tabela pode comunicar uma informação com controle de prazos melhor do que um parágrafo de texto corrido.",
+    "Você recebeu uma lista de cinco ingredientes de uma receita, sem ordem de uso específica. Que tipo de lista você utilizaria?",
+    "Você recebeu instruções de montagem de um móvel, que devem ser seguidas em ordem. Que tipo de lista é mais indicada?",
+    "Crie (na prática) uma tabela comparando três produtos com as colunas Nome, Preço e Avaliação."
+  ]
+},
+"aula-17": {
+  title: "Imagens e Elementos Gráficos",
+  intro: "Um documento profissional muitas vezes precisa de mais do que texto: logotipos, fotos, gráficos e formas ajudam a comunicar informação de forma visual. Nesta aula você vai aprender a inserir e organizar esses elementos sem comprometer a aparência do documento.",
+  concepts: [
+    { ico:"🖼️", name:"Inserção de imagens", sections:[
+      {label:"Como inserir?", body:`<p>A maioria dos editores permite inserir uma imagem pelo menu Inserir &gt; Imagem, selecionando o arquivo salvo no computador, ou colando uma imagem copiada de outro lugar diretamente no documento.</p>`},
+      {label:"Formatos comuns", body:`<pre>JPG / JPEG  → fotos, boa compressão, tamanho de arquivo menor
+PNG         → permite fundo transparente, ideal para logotipos
+GIF         → imagens simples ou animadas, pouco usado em documentos formais</pre>`}
+    ]},
+    { ico:"↔️", name:"Redimensionamento e proporção", sections:[
+      {label:"Redimensionar", body:`<p>É alterar o tamanho da imagem dentro do documento, arrastando um dos cantos (para manter a proporção) ou uma das bordas (o que pode distorcer a imagem).</p>`},
+      {label:"Proporção", body:`<p>Manter a <b>proporção</b> significa preservar a relação entre largura e altura da imagem original. Arrastar apenas uma borda lateral ou superior, sem usar o canto, tende a esticar ou achatar a imagem de forma perceptível e pouco profissional.</p>`}
+    ]},
+    { ico:"⛶", name:"Posicionamento e quebra de texto", sections:[
+      {label:"Posicionamento", body:`<p>Define onde a imagem fica na página e como ela se comporta em relação ao texto ao redor — se fixa em um ponto específico ou se move junto com o parágrafo em que foi inserida.</p>`},
+      {label:"Quebra de texto (texto ao redor)", body:`<pre>Alinhado com o texto  → a imagem ocupa uma linha própria, como se
+                          fosse um caractere gigante
+Quadrado / Estreito   → o texto contorna a imagem dos lados
+Atrás / Na frente do texto → a imagem fica sobreposta ao texto</pre><p>Para a maioria dos documentos de texto (relatórios, trabalhos), a opção "Alinhado com o texto" é a mais previsível e fácil de controlar; opções de sobreposição exigem mais cuidado para não prejudicar a leitura.</p>`}
+    ]},
+    { ico:"◇", name:"Formas e ícones", sections:[
+      {label:"Formas", body:`<p>São elementos gráficos simples (retângulos, setas, círculos) que podem ser inseridos para criar diagramas básicos, destacar uma área ou construir um fluxograma simples dentro do próprio editor de texto.</p>`},
+      {label:"Ícones", body:`<p>São pequenas imagens simbólicas (como um ícone de e-mail ou de telefone) usadas para tornar informações de contato ou seções mais reconhecíveis visualmente, comuns em currículos modernos.</p>`}
+    ]},
+    { ico:"🔍", name:"Qualidade da imagem", sections:[
+      {label:"Resolução", body:`<p>Uma imagem de baixa resolução (poucos pixels) fica borrada ou "pixelada" quando ampliada. Para documentos que serão impressos, é importante usar imagens de boa qualidade desde o início, já que aumentar o tamanho de uma imagem pequena não melhora sua nitidez.</p>`}
+    ]},
+    { ico:"⚠️", name:"Erros comuns ao usar imagens", sections:[
+      {label:"Principais erros", body:`<ul>
+        <li><b>Imagem esticada</b> — arrastar apenas uma borda e distorcer a proporção original.</li>
+        <li><b>Imagem de baixa resolução</b> — usar uma foto pequena ampliada, resultando em um efeito borrado.</li>
+        <li><b>Excesso de elementos</b> — encher o documento de imagens, ícones e formas sem necessidade, poluindo a leitura.</li>
+        <li><b>Falta de alinhamento</b> — imagens "soltas" no meio do texto, sem alinhamento com margens ou parágrafos próximos.</li>
+        <li><b>Imagens sem relação com o conteúdo</b> — inserir elementos apenas para preencher espaço, sem função de comunicação.</li>
+      </ul><p>Cada um desses erros, isoladamente, pode parecer pequeno — mas juntos são o principal motivo pelo qual documentos com boa intenção visual acabam parecendo amadores.</p>`}
+    ]}
+  ],
+  practice: `<p>Insira uma imagem em um documento de teste, redimensione-a mantendo a proporção (usando o canto, não a borda), configure a quebra de texto como "Quadrado" e escreva um parágrafo ao redor dela sem que o texto fique cortado ou desalinhado.</p>`,
+  exercises: [
+    "Qual é a diferença entre redimensionar uma imagem pelo canto e redimensionar pela borda lateral?",
+    "O que é quebra de texto em relação a uma imagem inserida em um documento?",
+    "Cite três erros comuns ao inserir imagens em um documento profissional.",
+    "Por que usar uma imagem de baixa resolução pode prejudicar a aparência de um documento impresso?",
+    "Em que situação usar formas (como setas e retângulos) pode ajudar a comunicar uma ideia em um documento de texto?",
+    "Analise: um colega inseriu uma foto grande esticada horizontalmente em um relatório. O que você recomendaria a ele?",
+    "Por que inserir imagens sem relação com o conteúdo do documento é considerado um erro, mesmo que a imagem tenha boa qualidade?"
+  ]
+},
+"aula-18": {
+  title: "Documentos Profissionais",
+  intro: "Esta é uma das aulas mais importantes da matéria. Cada tipo de documento profissional tem uma finalidade e uma estrutura esperada — e conhecer esse padrão é o que diferencia um documento amador de um documento que passa confiança e credibilidade. Clique em cada tipo de documento para estudá-lo em detalhe.",
+  concepts: [
+    { ico:"👤", name:"Currículo", sections:[
+      {label:"Finalidade", body:`<p>Apresentar, de forma resumida e organizada, a formação, experiência e habilidades de uma pessoa para um processo seletivo.</p>`},
+      {label:"Estrutura esperada", body:`<pre>Nome completo + contato (e-mail, telefone)
+Resumo profissional (2 a 3 linhas)
+Formação acadêmica
+Experiência profissional (mais recente primeiro)
+Habilidades e cursos complementares</pre>`},
+      {label:"Erros comuns", body:`<p>Currículos com mais de duas páginas para quem está começando, fotos informais, fontes decorativas, informações desatualizadas e blocos de texto longos em vez de listas objetivas.</p>`},
+      {label:"Exemplo prático", body:`<p>Em vez de escrever "Trabalhei na empresa X fazendo atendimento ao cliente por dois anos, onde aprendi muita coisa", um currículo profissional resume: <b>"Atendente ao cliente — Empresa X (2023–2025)."</b> seguido de uma lista curta com as principais responsabilidades.</p>`}
+    ]},
+    { ico:"📊", name:"Relatório", sections:[
+      {label:"Finalidade", body:`<p>Informar, de forma organizada, resultados, atividades ou dados coletados em um período — usado tanto em ambientes escolares quanto corporativos.</p>`},
+      {label:"Estrutura esperada", body:`<pre>Título e período de referência
+Introdução (objetivo do relatório)
+Desenvolvimento (dados, tabelas, gráficos)
+Conclusão (resumo dos resultados)</pre>`},
+      {label:"Erros comuns", body:`<p>Misturar opinião pessoal com dados objetivos sem deixar claro qual é qual, apresentar números sem contexto (por exemplo, "vendas aumentaram" sem dizer quanto) e não incluir uma conclusão que resuma os principais pontos.</p>`}
+    ]},
+    { ico:"✉️", name:"Ofício", sections:[
+      {label:"Finalidade", body:`<p>Comunicação formal, geralmente usada entre órgãos públicos ou entre uma empresa e uma instituição, para tratar de assuntos oficiais.</p>`},
+      {label:"Estrutura esperada", body:`<pre>Número do ofício e data
+Destinatário (cargo e instituição)
+Assunto
+Corpo do texto, formal e direto
+Fecho ("Atenciosamente")
+Assinatura e cargo do remetente</pre>`},
+      {label:"Erros comuns", body:`<p>Usar linguagem informal, omitir o número de referência do ofício (dificultando o controle de protocolo) ou não indicar claramente o assunto tratado logo no início.</p>`}
+    ]},
+    { ico:"📋", name:"Memorando", sections:[
+      {label:"Finalidade", body:`<p>Comunicação interna, usada dentro de uma mesma empresa ou instituição, para avisos, solicitações ou instruções entre setores.</p>`},
+      {label:"Estrutura esperada", body:`<pre>De: (setor ou pessoa remetente)
+Para: (setor ou pessoa destinatária)
+Data
+Assunto
+Corpo do texto, curto e objetivo</pre>`},
+      {label:"Exemplo prático", body:`<p>Um memorando do setor de TI para todos os funcionários pode avisar: <b>"Assunto: Manutenção programada. Informamos que o sistema ficará indisponível no dia 10/09, das 22h às 23h, para manutenção."</b> — direto, sem rodeios.</p>`}
+    ]},
+    { ico:"📝", name:"Requerimento", sections:[
+      {label:"Finalidade", body:`<p>Documento usado para solicitar formalmente algo a uma instituição — como uma segunda via de documento, uma matrícula ou um benefício.</p>`},
+      {label:"Estrutura esperada", body:`<pre>Identificação de quem solicita (nome, documento, contato)
+Destinatário (a quem se dirige o pedido)
+Corpo do texto explicando o que está sendo requerido e por quê
+Local, data e assinatura</pre>`},
+      {label:"Erros comuns", body:`<p>Não explicar claramente o motivo do pedido, esquecer de incluir dados de identificação completos ou não assinar o documento antes de protocolá-lo.</p>`}
+    ]},
+    { ico:"✒️", name:"Carta profissional", sections:[
+      {label:"Finalidade", body:`<p>Comunicação formal entre pessoas ou empresas — usada, por exemplo, para uma carta de apresentação, de recomendação ou de agradecimento profissional.</p>`},
+      {label:"Estrutura esperada", body:`<pre>Local e data
+Saudação ("Prezado(a) ...")
+Corpo do texto, organizado em parágrafos curtos
+Fecho e assinatura</pre>`},
+      {label:"Exemplo prático", body:`<p>Uma carta de apresentação para uma vaga de emprego deve responder, em poucos parágrafos: quem é o candidato, por que está interessado na vaga e o que ele pode oferecer — sem repetir tudo o que já está no currículo.</p>`}
+    ]},
+    { ico:"📢", name:"Comunicado", sections:[
+      {label:"Finalidade", body:`<p>Informar um grupo de pessoas sobre algo relevante — um evento, uma mudança de horário, uma nova política — de forma direta e visível.</p>`},
+      {label:"Estrutura esperada", body:`<pre>Título (ex.: "COMUNICADO")
+Data
+Corpo do texto curto e direto, respondendo:
+o quê, quando, onde e por quê</pre>`},
+      {label:"Erros comuns", body:`<p>Comunicados longos demais, com informações irrelevantes misturadas ao aviso principal, fazem com que o leitor perca o ponto central da mensagem.</p>`}
+    ]},
+    { ico:"💼", name:"Proposta comercial", sections:[
+      {label:"Finalidade", body:`<p>Apresentar uma oferta de produto ou serviço a um possível cliente, incluindo condições, prazos e valores.</p>`},
+      {label:"Estrutura esperada", body:`<pre>Apresentação da empresa/profissional
+Descrição do problema ou necessidade do cliente
+Solução proposta
+Valores e condições de pagamento
+Prazo de validade da proposta</pre>`},
+      {label:"Erros comuns", body:`<p>Não deixar claro o prazo de validade da proposta, omitir valores (obrigando o cliente a perguntar novamente) ou apresentar a solução antes de demonstrar entendimento do problema do cliente.</p>`}
+    ]},
+    { ico:"🏢", name:"Documento empresarial (padrão geral)", sections:[
+      {label:"O que têm em comum", body:`<p>Independentemente do tipo específico, documentos empresariais compartilham características: identificação clara de remetente e destinatário, linguagem formal e objetiva, estrutura previsível (introdução, desenvolvimento, fechamento) e cuidado visual (fonte padronizada, espaçamento consistente, ausência de erros de revisão).</p>`},
+      {label:"Aparência profissional", body:`<p>Um documento empresarial bem estruturado transmite organização mesmo antes de ser lido por completo — títulos claros, espaçamento consistente e ausência de erros de digitação já comunicam cuidado e seriedade.</p>`}
+    ]}
+  ],
+  practice: `<p>Escolha três dos documentos estudados nesta aula (por exemplo: currículo, memorando e proposta comercial) e crie uma versão simplificada de cada um, seguindo a estrutura apresentada, usando um cenário fictício de sua escolha.</p>`,
+  exercises: [
+    "Qual é a diferença entre um ofício e um memorando? Em que contexto cada um é usado?",
+    "Cite três erros comuns na produção de um currículo.",
+    "Para que serve um requerimento? Dê um exemplo de situação em que ele seria necessário.",
+    "Qual é a estrutura básica esperada em uma proposta comercial?",
+    "Explique por que uma proposta comercial deve deixar claro o prazo de validade.",
+    "Você precisa avisar a todos os funcionários de uma empresa sobre uma manutenção no sistema. Que tipo de documento é mais adequado: comunicado ou carta profissional? Justifique.",
+    "O que diferencia visualmente e estruturalmente um documento empresarial 'amador' de um documento profissional bem elaborado?",
+    "Escreva um pequeno memorando avisando sua turma sobre a data de uma prova.",
+    "Escreva os primeiros dois parágrafos de uma carta de apresentação para uma vaga de estágio na área de tecnologia."
+  ]
+},
+"aula-19": {
+  title: "Revisão e Colaboração",
+  intro: "Um bom documento não termina quando o texto é escrito — ele termina quando é revisado. Nesta aula você vai aprender a usar ferramentas de revisão e colaboração, essenciais quando um documento passa por mais de uma pessoa antes de ser finalizado.",
+  concepts: [
+    { ico:"🔎", name:"Revisão ortográfica e gramatical", sections:[
+      {label:"O que é?", body:`<p>É a verificação automática de erros de escrita (ortográficos) e de construção de frases (gramaticais), geralmente indicados por um sublinhado colorido no próprio texto enquanto você digita.</p>`},
+      {label:"Por que revisar antes de enviar?", body:`<p>Erros de digitação em um documento profissional — mesmo pequenos — passam uma impressão de descuido. Revisar antes de enviar ou entregar um documento é uma etapa tão importante quanto escrevê-lo, especialmente em contextos formais como e-mails corporativos, currículos e propostas.</p>`}
+    ]},
+    { ico:"🔁", name:"Localizar e substituir", sections:[
+      {label:"Localizar", body:`<p>Permite encontrar rapidamente uma palavra ou trecho específico dentro de um documento longo, sem precisar rolar página por página.</p>`},
+      {label:"Substituir", body:`<p>Permite trocar automaticamente todas as ocorrências de uma palavra por outra — muito útil, por exemplo, quando o nome de um cliente ou de um produto muda e precisa ser atualizado em várias partes do documento de uma só vez.</p>`}
+    ]},
+    { ico:"💬", name:"Comentários", sections:[
+      {label:"O que são?", body:`<p>São anotações vinculadas a um trecho específico do texto, visíveis na margem do documento, usadas para sugerir mudanças, fazer perguntas ou justificar uma decisão sem alterar o texto original.</p>`},
+      {label:"Quando usar?", body:`<p>Use comentários quando quiser discutir um trecho com outra pessoa sem modificar o conteúdo diretamente — por exemplo, perguntando "Podemos confirmar esse número antes de publicar?" ao lado de um dado do relatório.</p>`}
+    ]},
+    { ico:"✍️", name:"Controle de alterações", sections:[
+      {label:"O que é?", body:`<p>É um recurso que registra visualmente cada mudança feita no documento (inclusões em uma cor, exclusões em outra), permitindo que outra pessoa veja exatamente o que foi alterado antes de aceitar essas mudanças.</p>`},
+      {label:"Aceitar e rejeitar alterações", body:`<p>Depois que uma alteração é sugerida, o responsável pelo documento pode <b>aceitar</b> (incorporando a mudança ao texto final) ou <b>rejeitar</b> (mantendo o texto como estava antes), mantendo o controle total sobre a versão definitiva.</p>`},
+      {label:"Por que isso importa em ambientes profissionais?", body:`<p>Em um trabalho em equipe, várias pessoas podem sugerir mudanças no mesmo documento. O controle de alterações evita que uma edição sobrescreva outra silenciosamente, garantindo que todas as sugestões sejam vistas e avaliadas antes de virarem parte definitiva do texto.</p>`}
+    ]},
+    { ico:"🕓", name:"Histórico de versões", sections:[
+      {label:"O que é?", body:`<p>É um registro automático das versões salvas anteriormente de um documento, permitindo visualizar — e, se necessário, restaurar — uma versão anterior caso algo tenha sido alterado ou apagado por engano.</p>`}
+    ]},
+    { ico:"🔗", name:"Compartilhamento e permissões", sections:[
+      {label:"Compartilhamento", body:`<p>Editores online (como o Google Docs) permitem compartilhar um documento com outras pessoas por meio de um link ou de um convite por e-mail, sem precisar enviar o arquivo repetidamente por mensagem.</p>`},
+      {label:"Permissões", body:`<pre>Visualização → a pessoa só pode ler o documento
+Comentário   → a pessoa pode ler e deixar comentários, sem editar o texto
+Edição       → a pessoa pode alterar o conteúdo diretamente</pre><p>Definir a permissão correta evita tanto o excesso de restrição (impedindo colaboração necessária) quanto o excesso de liberdade (permitindo alterações indevidas em um documento sensível).</p>`}
+    ]}
+  ],
+  practice: `<p>Escreva um parágrafo qualquer com pelo menos três erros de digitação propositais. Em seguida, ative a revisão ortográfica do seu editor, corrija os erros apontados e utilize a ferramenta "Localizar e substituir" para trocar uma palavra específica em todo o texto.</p>`,
+  exercises: [
+    "Por que revisar um documento antes de enviá-lo é considerado uma etapa essencial em ambientes profissionais?",
+    "Qual é a diferença entre um comentário e uma alteração feita com o controle de alterações ativado?",
+    "Para que serve a ferramenta 'Localizar e substituir'? Dê um exemplo prático de uso.",
+    "O que acontece quando uma alteração sugerida é 'rejeitada' em um documento com controle de alterações ativo?",
+    "Explique a diferença entre as permissões de visualização, comentário e edição em um documento compartilhado.",
+    "Para que serve o histórico de versões de um documento?",
+    "Você está revisando um contrato junto com um colega e não tem certeza se uma mudança sugerida por ele deve ser aceita. Que ferramenta vocês deveriam estar usando para essa revisão, e por quê?"
+  ]
+},
+"aula-20": {
+  title: "Exportação, Impressão e Compartilhamento",
+  intro: "Um documento só cumpre sua função quando chega até quem precisa dele, na forma correta. Nesta aula você vai aprender a diferença entre salvar e exportar, como preparar um documento para impressão e como compartilhá-lo de forma profissional.",
+  concepts: [
+    { ico:"💾", name:"Salvar x Salvar como x Exportar", sections:[
+      {label:"Relembrando salvar e salvar como", body:`<p><b>Salvar</b> grava as alterações no arquivo atual, no mesmo formato. <b>Salvar como</b> cria uma cópia, podendo mudar nome, local ou formato do arquivo.</p>`},
+      {label:"Exportar", body:`<p><b>Exportar</b> gera uma nova versão do documento em outro formato, geralmente pensada para leitura ou impressão, e não para continuar sendo editada — o exemplo mais comum é exportar um DOCX para PDF.</p>`}
+    ]},
+    { ico:"📤", name:"Exportar para PDF", sections:[
+      {label:"Por que exportar em PDF?", body:`<p>O PDF preserva exatamente a formatação do documento (fontes, espaçamentos, imagens), independentemente do dispositivo ou programa usado para abri-lo — o que evita que a aparência "quebre" ao chegar até quem vai ler.</p>`},
+      {label:"Diferença entre DOCX e PDF", body:`<pre>DOCX → editável, ideal enquanto o documento ainda está em construção
+PDF  → praticamente fixo, ideal para a versão final que será enviada</pre><p>Uma boa prática é sempre manter o arquivo DOCX guardado (para futuras edições) e enviar apenas o PDF para quem só precisa ler ou imprimir.</p>`}
+    ]},
+    { ico:"🖨️", name:"Impressão", sections:[
+      {label:"Visualização de impressão", body:`<p>É uma prévia de como o documento vai sair impresso, permitindo verificar antecipadamente margens, quebras de página e enquadramento de imagens antes de gastar papel.</p>`},
+      {label:"O que conferir antes de imprimir", body:`<ul>
+        <li><b>Margens</b> — se estão dentro da área imprimível da impressora.</li>
+        <li><b>Orientação</b> — retrato ou paisagem, conforme o conteúdo.</li>
+        <li><b>Número de páginas</b> — conferir se o total corresponde ao esperado, sem páginas em branco extras no fim do documento.</li>
+      </ul>`}
+    ]},
+    { ico:"🔗", name:"Compartilhamento", sections:[
+      {label:"Formas de compartilhar", body:`<p>Um documento pode ser compartilhado como anexo de e-mail (geralmente em PDF, para preservar a formatação), por um link de acesso (em editores online) ou por meio de serviços de armazenamento em nuvem.</p>`},
+      {label:"Permissões ao compartilhar", body:`<p>Antes de compartilhar, é importante definir se a outra pessoa poderá apenas visualizar, comentar ou editar o documento — evitando alterações indesejadas em versões finais ou sensíveis.</p>`}
+    ]},
+    { ico:"🏷️", name:"Nomenclatura profissional de arquivos", sections:[
+      {label:"Exemplo comparativo", body:`<pre>❌ documento_final_novo2_agoraVai.docx
+❌ RELATORIO(1)(1)FINAL.pdf
+
+✅ Relatorio_Vendas_Agosto_2026.docx
+✅ Relatorio_Vendas_Agosto_2026.pdf</pre>`},
+      {label:"Por que isso importa?", body:`<p>Nomes de arquivo confusos ("novo2", "finalV3", "agoraVai") dificultam saber qual é realmente a versão correta e mais recente — um problema comum quando várias pessoas trocam versões do mesmo arquivo por e-mail. Um padrão de nomenclatura com nome do documento + assunto + data resolve essa confusão de forma simples.</p>`}
+    ]}
+  ],
+  practice: `<p>Pegue um documento já criado em uma aula anterior, exporte-o em PDF e compare visualmente as duas versões (DOCX e PDF) lado a lado. Depois, renomeie os dois arquivos seguindo o padrão profissional apresentado nesta aula.</p>`,
+  exercises: [
+    "Qual é a diferença entre 'salvar como' e 'exportar' um documento?",
+    "Por que o PDF é o formato mais indicado para enviar um documento já finalizado?",
+    "Cite dois itens que devem ser conferidos na visualização de impressão antes de imprimir um documento.",
+    "Reescreva os nomes de arquivo abaixo seguindo um padrão profissional: 'trabalho_final(2)novo.docx', 'CV ATUALIZADISSIMO.pdf'.",
+    "Explique por que é recomendável manter a versão DOCX de um documento mesmo depois de compartilhar apenas o PDF.",
+    "Você precisa enviar um contrato para assinatura, mas não quer que a outra pessoa consiga alterar o conteúdo antes de assinar. Qual formato de arquivo você usaria?"
+  ]
+},
+"aula-21": {
+  title: "Projeto Prático — Relatório Mensal de Atividades",
+  intro: "Chegou a hora de reunir tudo o que você aprendeu nesta matéria em um único documento completo. Nesta aula você vai produzir, do zero, um Relatório Mensal de Atividades profissional — com capa, títulos, tabela, imagem, cabeçalho, rodapé, revisão e exportação em PDF.",
+  concepts: [
+    { ico:"🎯", name:"O que é o projeto", sections:[
+      {label:"Objetivo", body:`<p>Produzir um documento chamado <b>"Relatório Mensal de Atividades"</b> que reúna, na prática, os principais recursos estudados nas aulas anteriores: formatação, estrutura, listas ou tabelas, imagem, cabeçalho, rodapé, numeração de páginas, revisão e exportação.</p>`},
+      {label:"O que o documento deve conter", body:`<ul>
+        <li>Capa com título do relatório, nome do autor e período de referência</li>
+        <li>Título e subtítulos organizados com estilos</li>
+        <li>Texto formatado (negrito, alinhamento, espaçamento consistente)</li>
+        <li>Uma tabela com dados de atividades</li>
+        <li>Uma imagem relacionada ao conteúdo</li>
+        <li>Cabeçalho e rodapé configurados</li>
+        <li>Numeração de páginas</li>
+        <li>Organização por seções (Introdução, Desenvolvimento, Conclusão)</li>
+        <li>Revisão ortográfica concluída</li>
+        <li>Exportação final em PDF</li>
+      </ul>`}
+    ]},
+    { ico:"🪜", name:"Passo a passo do projeto", sections:[
+      {label:"Etapa 1 — Planejamento", body:`<p>Antes de abrir o editor, defina: qual período o relatório vai cobrir, quais atividades serão listadas e qual imagem (ou gráfico simples) representa bem o conteúdo. Planejar evita ficar formatando e reformatando o documento no meio do processo.</p>`},
+      {label:"Etapa 2 — Capa e estrutura", body:`<p>Crie a capa com o título centralizado (ex.: "Relatório Mensal de Atividades — Setembro de 2026"), seu nome e a data. Em seguida, use uma quebra de página e comece o corpo do relatório com os estilos de título (Título 1 para o nome do relatório, Título 2 para as seções: Introdução, Desenvolvimento, Conclusão).</p>`},
+      {label:"Etapa 3 — Corpo do texto", body:`<p>Escreva a introdução explicando o objetivo do relatório, desenvolva o conteúdo com pelo menos uma tabela de atividades e uma imagem relacionada, e finalize com uma conclusão que resuma os resultados do período.</p>`},
+      {label:"Etapa 4 — Elementos de página", body:`<p>Configure margens consistentes, adicione um cabeçalho com o nome do relatório e um rodapé com numeração automática de páginas. Se o documento tiver mais de duas seções, gere um sumário automático usando os estilos de título aplicados.</p>`},
+      {label:"Etapa 5 — Revisão", body:`<p>Releia o documento inteiro, corrija os erros apontados pela revisão ortográfica, confira se a formatação está consistente (mesma fonte, mesmo espaçamento) e se todas as informações da tabela estão corretas.</p>`},
+      {label:"Etapa 6 — Exportação final", body:`<p>Salve a versão editável em DOCX com um nome profissional (ex.: <code>Relatorio_Atividades_Setembro_2026.docx</code>) e exporte uma cópia em PDF com o mesmo nome, pronta para ser enviada ou entregue.</p>`}
+    ]},
+    { ico:"✅", name:"Checklist final", sections:[
+      {label:"Antes de considerar o projeto concluído, confira", body:`<pre>☐ Documento organizado em seções claras
+☐ Títulos corretamente formatados com estilos
+☐ Texto revisado (sem erros de ortografia)
+☐ Tabela criada e com dados coerentes
+☐ Imagem inserida, redimensionada e bem posicionada
+☐ Cabeçalho configurado
+☐ Rodapé configurado
+☐ Numeração de páginas ativa
+☐ Documento salvo em DOCX com nome profissional
+☐ PDF exportado com o mesmo nome</pre>`}
+    ]}
+  ],
+  practice: `<p>Produza o Relatório Mensal de Atividades completo, seguindo todas as etapas descritas nesta aula. Ao final, você deve ter dois arquivos: a versão editável (.docx) e a versão final (.pdf), ambos nomeados de forma profissional.</p>`,
+  exercises: [
+    "Antes de montar o documento, liste três atividades fictícias que você usaria na tabela do seu relatório.",
+    "Por que é recomendável planejar o conteúdo do relatório antes de começar a formatá-lo?",
+    "Descreva, em ordem, as seis etapas seguidas para produzir o relatório desta aula.",
+    "Depois de finalizar seu relatório, revise-o utilizando a checklist apresentada e aponte se algum item ainda não foi atendido.",
+    "Explique por que a revisão ortográfica deve ser feita depois que todo o conteúdo já foi escrito, e não durante a digitação de cada frase.",
+    "Compare o relatório que você produziu nesta aula com o documento simples criado na Aula 01. Quais recursos novos você conseguiu aplicar?"
+  ]
+}
+
+},
+
+"principios-de-hardware":{
+"aula-01":{
+  title:"Fundamentos de Hardware",
+  intro:"Nesta aula você vai distinguir hardware, software e firmware, conhecer os tipos de computadores e classificar componentes pelo papel no sistema.",
+  objectives:["Diferenciar hardware, software e firmware.","Classificar tipos de computador.","Identificar periféricos.","Explicar onboard e offboard."],
+  concepts:[
+    {ico:"⚙",name:"Hardware, Software e Firmware",sections:[
+      {label:"Hardware",body:"<p>Parte <b>física</b>: placa-mãe, CPU, RAM, disco, gabinete, periféricos.</p>"},
+      {label:"Software",body:"<p>Conjunto de <b>instruções</b>. Divide-se em sistema (SO, drivers) e aplicação (editores, jogos).</p>"},
+      {label:"Firmware",body:"<p>Software gravado em chip. Ex.: BIOS/UEFI, firmware de SSD.</p><pre>Hardware  → corpo\nFirmware  → reflexos básicos\nSoftware  → pensamentos conscientes</pre>"}
+    ]},
+    {ico:"▣",name:"Tipos de computador",sections:[
+      {label:"Desktop",body:"<p>Modular, fácil de atualizar.</p>"},
+      {label:"Notebook",body:"<p>Portátil, integrado.</p>"},
+      {label:"Workstation",body:"<p>Alto desempenho (CAD, vídeo).</p>"},
+      {label:"Servidor",body:"<p>Serviços em rede, 24/7.</p>"}
+    ]},
+    {ico:"➜",name:"Periféricos",sections:[
+      {label:"Tipos",body:"<pre>Entrada      → teclado, mouse, scanner\nSaída        → monitor, impressora\nEntrada/Saída → touch, pendrive, HD externo</pre>"}
+    ]},
+    {ico:"◈",name:"Onboard x Offboard",sections:[
+      {label:"Onboard",body:"<p>Integrado à placa-mãe (vídeo, áudio, rede).</p>"},
+      {label:"Offboard",body:"<p>Em placa separada, permite upgrade.</p>"}
+    ]},
+    {ico:"✓",name:"Compatibilidade e Upgrade",sections:[
+      {label:"Compatibilidade",body:"<p>Socket, tipo de memória, formato físico, potência da fonte, espaço no gabinete.</p>"},
+      {label:"Upgrade",body:"<p>Ex.: HD → SSD, +RAM, GPU melhor, cooler mais eficiente.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"Hardware",def:"Parte física."},{term:"Firmware",def:"Software em chip."},{term:"Onboard",def:"Integrado."},{term:"Offboard",def:"Placa separada."}],
+  practice:`<p>Identifique no seu computador (ou em fotos) placa-mãe, CPU com cooler, RAM, armazenamento, fonte e GPU. Anote o que reconheceu.</p>`,
+  exercises:["Diferencie hardware, software e firmware.","Cite 2 periféricos de cada tipo.","O que é onboard?","Por que compatibilidade importa?","Cite 2 upgrades possíveis."],
+  quiz:[
+    {q:"Firmware é:",options:["Windows","BIOS/UEFI","Chrome","Word"],correct:1,explanation:"Gravado em chip."},
+    {q:"Componente soldado na placa-mãe é:",options:["Offboard","Onboard","Firmware","Periférico"],correct:1,explanation:"Onboard."},
+    {q:"Upgrade depende de:",options:["Qualquer peça","Compatibilidade","Sorte","Cor"],correct:1,explanation:"Compatibilidade é essencial."},
+    {q:"Servidor prioriza:",options:["Tela","Disponibilidade 24/7","Preço baixo","Cor"],correct:1,explanation:"Disponibilidade e redundância."}
+  ],
+  mastery:["Diferencio HW/SW/FW.","Classifico computadores.","Reconheço periféricos.","Entendo onboard/offboard."]
+},
+
+"aula-02":{
+  title:"Placa-mãe",
+  intro:"A placa-mãe conecta todos os componentes. Vamos estudar formatos, socket, chipset, slots e conectores.",
+  objectives:["Explicar função.","Diferenciar formatos.","Identificar slots e conectores."],
+  concepts:[
+    {ico:"▦",name:"Função e formatos",sections:[
+      {label:"Função",body:"<p>Interligar CPU, RAM, armazenamento, placas, fonte e periféricos.</p>"},
+      {label:"Formatos",body:"<pre>ATX        → padrão, 7 slots\nMicro-ATX  → menor, 4 slots\nMini-ITX   → compacto, 1 slot</pre>"}
+    ]},
+    {ico:"◇",name:"Socket e Chipset",sections:[
+      {label:"Socket",body:"<p>Encaixe do processador. Deve ser idêntico à CPU. Ex.: LGA1700, AM5.</p>"},
+      {label:"Chipset",body:"<p>Define recursos: USB, PCIe, SATA, overclock.</p>"}
+    ]},
+    {ico:"▤",name:"Slots",sections:[
+      {label:"Tipos",body:"<pre>DIMM → RAM\nPCI Express x16 → GPU\nM.2 → SSD compacto\nSATA → HDs/SSDs SATA</pre>"}
+    ]},
+    {ico:"⚡",name:"Conectores de energia",sections:[
+      {label:"Principais",body:"<pre>ATX 24 pinos  → placa-mãe\nEPS 4/8 pinos → CPU</pre>"}
+    ]},
+    {ico:"➜",name:"Headers",sections:[
+      {label:"Painel frontal",body:"<p>Power SW, Reset SW, LEDs. Consulte o manual.</p>"},
+      {label:"Fan headers",body:"<p>Conectores para ventoinhas.</p>"}
+    ]},
+    {ico:"🔋",name:"CMOS e CR2032",sections:[
+      {label:"CMOS",body:"<p>Guarda hora, data e config da BIOS.</p>"},
+      {label:"CR2032",body:"<p>Bateria que mantém a CMOS energizada.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"Socket",def:"Encaixe do processador."},{term:"Chipset",def:"Circuito de recursos."},{term:"CMOS",def:"Memória de configurações."}],
+  practice:`<p>Consulte o manual da placa-mãe e liste: formato, socket, slots de RAM, slot M.2 e conectores de energia.</p>`,
+  exercises:["Função da placa-mãe?","Diferença ATX/mATX/ITX?","O que é chipset?","Cite 3 slots.","Função do ATX 24 pinos?","Se a CR2032 acabar, o que acontece?"],
+  quiz:[
+    {q:"LGA1700 precisa de:",options:["Qualquer socket","LGA1700","AM5","M.2"],correct:1,explanation:"Socket idêntico."},
+    {q:"CR2032:",options:["Alimenta CPU","Mantém CMOS","Armazena arquivos","É fonte"],correct:1,explanation:"Mantém CMOS."},
+    {q:"Slot para GPU:",options:["DIMM","SATA","PCIe x16","M.2"],correct:2,explanation:"PCIe x16."},
+    {q:"Micro-ATX é:",options:["Maior que ATX","Menor que ATX","Igual a ITX","Chipset"],correct:1,explanation:"Menor formato."}
+  ],
+  mastery:["Sei função da placa-mãe.","Diferencio formatos.","Reconheço slots e conectores."]
+},
+
+"aula-03":{
+  title:"Processadores (CPU)",
+  intro:"O processador executa as instruções do computador.",
+  objectives:["Definir CPU.","Diferenciar núcleos, threads, clock, cache, TDP.","Reconhecer arquiteturas."],
+  concepts:[
+    {ico:"◈",name:"O que é a CPU",sections:[
+      {label:"Definição",body:"<p>Busca, decodifica e executa instruções.</p><pre>Buscar → Decodificar → Executar → Gravar</pre>"}
+    ]},
+    {ico:"▣",name:"Núcleos, threads, clock, cache",sections:[
+      {label:"Núcleos",body:"<p>Processadores independentes dentro do chip.</p>"},
+      {label:"Threads",body:"<p>2 threads por núcleo (Hyper-Threading/SMT).</p>"},
+      {label:"Clock",body:"<p>Frequência em GHz.</p>"},
+      {label:"Cache",body:"<p>Memória interna (L1/L2/L3).</p>"},
+      {label:"TDP",body:"<p>Calor dissipado, define cooler e fonte.</p>"}
+    ]},
+    {ico:"▤",name:"Arquiteturas",sections:[
+      {label:"x86 / x64",body:"<p>32 bits x 64 bits.</p>"},
+      {label:"Intel x AMD",body:"<p>Core i3/i5/i7/i9 x Ryzen 3/5/7/9.</p>"}
+    ]},
+    {ico:"⚙",name:"Vídeo integrado",sections:[
+      {label:"Com vídeo",body:"<p>Dispensa GPU dedicada em uso básico.</p>"},
+      {label:"Sem vídeo",body:"<p>Precisa GPU dedicada (ex.: Intel F).</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"Socket",def:"Encaixe do CPU."},{term:"TDP",def:"Calor dissipado."},{term:"Cache",def:"Memória interna."}],
+  practice:`<p>Investigue modelo, núcleos, threads, clock, TDP do seu CPU.</p>`,
+  exercises:["Defina CPU.","Diferença núcleo/thread.","Explique clock, cache, TDP.","O que é x64?","Por que CPU sem vídeo exige GPU?"],
+  quiz:[
+    {q:"8 núcleos e 16 threads:",options:["16 físicos","8 físicos x 2 lógicas","Sem HT","Intel"],correct:1,explanation:"2 threads por núcleo."},
+    {q:"TDP é:",options:["Velocidade","Calor","Tamanho","Threads"],correct:1,explanation:"Calor dissipado."},
+    {q:"Intel F:",options:["Mais rápido","Sem vídeo","Servidor","Water cooler"],correct:1,explanation:"Sem GPU integrada."},
+    {q:"Compatibilidade depende de:",options:["Clock RAM","Socket","Cooler","Fans"],correct:1,explanation:"Socket."}
+  ],
+  mastery:["Entendo CPU.","Diferencio núcleos/threads.","Reconheço x86/x64."]
+},
+
+"aula-04":{
+  title:"Memória RAM",
+  intro:"Memória volátil de trabalho.",
+  objectives:["Explicar RAM.","Diferenciar DDRs.","Compreender Dual Channel."],
+  concepts:[
+    {ico:"🧠",name:"O que é RAM",sections:[
+      {label:"Definição",body:"<p>Guarda temporariamente programas e dados. Volátil.</p>"}
+    ]},
+    {ico:"◈",name:"Gerações DDR",sections:[
+      {label:"Linha",body:"<pre>DDR → DDR2 → DDR3 → DDR4 → DDR5</pre><p>Encaixes diferentes, não intercambiáveis.</p>"}
+    ]},
+    {ico:"⚡",name:"Parâmetros",sections:[
+      {label:"Capacidade",body:"<p>4, 8, 16, 32, 64 GB.</p>"},
+      {label:"Frequência",body:"<p>MHz.</p>"},
+      {label:"Latência",body:"<p>CL — menor é melhor.</p>"}
+    ]},
+    {ico:"⇄",name:"DIMM x SO-DIMM",sections:[
+      {label:"Formatos",body:"<pre>DIMM     → desktop\nSO-DIMM  → notebook</pre>"}
+    ]},
+    {ico:"◆",name:"Dual Channel",sections:[
+      {label:"Conceito",body:"<p>Dois módulos em paralelo, dobrando a banda.</p><pre>2 × 8 GB ≠ 1 × 16 GB</pre>"}
+    ]}
+  ],
+  keyTerms:[{term:"Volátil",def:"Perde dados ao desligar."},{term:"Dual Channel",def:"Operação paralela."}],
+  practice:`<p>Verifique módulos, capacidade, frequência e se estão em Dual Channel.</p>`,
+  exercises:["Por que RAM é volátil?","Diferença DIMM/SO-DIMM?","Explique Dual Channel.","O que é CL?","Pode misturar DDR4/DDR5?"],
+  quiz:[
+    {q:"RAM é:",options:["Permanente","Volátil","Substitui HD","Só SO"],correct:1,explanation:"Volátil."},
+    {q:"Dual Channel:",options:["1 módulo","2 em paralelo","Só notebook","Só DDR5"],correct:1,explanation:"Dois canais."},
+    {q:"1×16 vs 2×8:",options:["Igual","2×8 melhor em DC","1×16 sempre melhor","Nenhum"],correct:1,explanation:"Dual Channel dobra banda."},
+    {q:"Notebook usa:",options:["DIMM","SO-DIMM","PCIe","M.2"],correct:1,explanation:"SO-DIMM."}
+  ],
+  mastery:["Entendo RAM.","Diferencio DDRs.","Conheço Dual Channel."]
+},
+
+"aula-05":{
+  title:"Armazenamento",
+  intro:"HDD, SSD SATA e SSD NVMe.",
+  objectives:["Explicar tipos.","Diferenciar M.2 SATA/NVMe."],
+  concepts:[
+    {ico:"▬",name:"HDD",sections:[
+      {label:"Funcionamento",body:"<p>Pratos magnéticos + cabeça. Lento, barato por GB.</p>"},
+      {label:"RPM",body:"<p>5400 ou 7200 RPM.</p>"},
+      {label:"Fragmentação",body:"<p>Perde desempenho com o uso.</p>"}
+    ]},
+    {ico:"◆",name:"SSD SATA",sections:[
+      {label:"Como funciona",body:"<p>NAND Flash + controlador. ~550 MB/s.</p>"}
+    ]},
+    {ico:"⚡",name:"SSD NVMe",sections:[
+      {label:"Como funciona",body:"<p>PCIe + NVMe. 2.000 a 7.000 MB/s.</p>"}
+    ]},
+    {ico:"⚠",name:"M.2 ≠ NVMe",sections:[
+      {label:"Atenção",body:"<pre>M.2 SATA  → SATA (~550 MB/s)\nM.2 NVMe  → PCIe (muito mais rápido)</pre><p>M.2 é formato; NVMe é protocolo.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"NAND Flash",def:"Memória não volátil."},{term:"NVMe",def:"Protocolo sobre PCIe."}],
+  practice:`<p>Verifique o tipo de armazenamento do PC (Windows: Gerenciador de Tarefas → Desempenho → Disco; Linux: <code>lsblk</code>).</p>`,
+  exercises:["Como funciona HDD?","O que é NAND Flash?","M.2 SATA x NVMe?","Por que fragmentação só afeta HDD?","NVMe em slot SATA?"],
+  quiz:[
+    {q:"M.2 é:",options:["Protocolo","Formato físico","Sinônimo de NVMe","Só HD"],correct:1,explanation:"Formato físico."},
+    {q:"Sem partes móveis:",options:["HDD","SSD","Disquete","Fita"],correct:1,explanation:"SSD."},
+    {q:"NVMe atinge:",options:["50 MB/s","550 MB/s","2.000+ MB/s","10 MB/s"],correct:2,explanation:"Via PCIe."},
+    {q:"7200 RPM > 5400 porque:",options:["Mais pratos","Gira mais rápido","Silencioso","NAND"],correct:1,explanation:"Acesso mais ágil."}
+  ],
+  mastery:["Entendo HDD/SSD.","Diferencio M.2 SATA/NVMe."]
+},
+
+"aula-06":{
+  title:"Fonte de Alimentação (PSU)",
+  intro:"A fonte converte AC em DC.",
+  objectives:["Explicar função.","Conhecer 80 PLUS.","Dimensionar fonte."],
+  concepts:[
+    {ico:"⚡",name:"Função",sections:[
+      {label:"O que faz?",body:"<p>Converte AC em DC (12V, 5V, 3,3V).</p><pre>Potência → W\nTensão → V\nCorrente → A\nEficiência → %</pre>"}
+    ]},
+    {ico:"✓",name:"80 PLUS",sections:[
+      {label:"Certificações",body:"<pre>White → 80%\nBronze → 82–85%\nSilver → 85–88%\nGold → 87–90%\nPlatinum → 90–92%\nTitanium → 92%+</pre>"}
+    ]},
+    {ico:"▤",name:"Conectores",sections:[
+      {label:"Principais",body:"<pre>ATX 24 → placa-mãe\nEPS → CPU\nPCIe → GPU\nSATA Power → HD/SSD\nMolex → antigos</pre>"}
+    ]},
+    {ico:"◈",name:"Modularidade",sections:[
+      {label:"Tipos",body:"<pre>Modular       → cabos soltos\nSemi-modular  → essenciais fixos\nNão modular   → tudo fixo</pre>"}
+    ]},
+    {ico:"⛨",name:"Proteções",sections:[
+      {label:"Siglas",body:"<pre>OVP → sobretensão\nUVP → subtensão\nOCP → sobrecorrente\nOPP → sobrepotência\nSCP → curto-circuito\nOTP → sobretemperatura</pre>"}
+    ]},
+    {ico:"⚠",name:"Dimensionamento",sections:[
+      {label:"Regra",body:"<pre>Potência ≠ qualidade</pre><p>500 W boas > 600 W ruins. Margem 20–30%.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"PSU",def:"Fonte."},{term:"80 PLUS",def:"Certificação."}],
+  practice:`<p>Leia a etiqueta da fonte do seu PC: marca, potência, certificação e linhas.</p>`,
+  exercises:["Função da fonte?","O que é 80 PLUS Gold?","Cite 3 proteções.","Diferença modular/não modular.","Potência > qualidade?"],
+  quiz:[
+    {q:"80 PLUS mede:",options:["Potência","Eficiência","Peso","Cabos"],correct:1,explanation:"Eficiência energética."},
+    {q:"600 W sem certificação:",options:["Sempre melhor","Pode ser pior que 500 W boa","Igual","Mais segura"],correct:1,explanation:"Qualidade importa."},
+    {q:"OVP:",options:["Sobretensão","Subtensão","Curto","Ruído"],correct:0,explanation:"Over Voltage Protection."},
+    {q:"EPS alimenta:",options:["GPU","CPU","HDD","Fans"],correct:1,explanation:"CPU."}
+  ],
+  mastery:["Entendo fonte.","Conheço 80 PLUS.","Sei dimensionar."]
+},
+
+"aula-07":{
+  title:"Placa de Vídeo (GPU)",
+  intro:"Processador gráfico.",
+  objectives:["Definir GPU.","Diferenciar integrado/dedicado."],
+  concepts:[
+    {ico:"◆",name:"O que é GPU",sections:[
+      {label:"Definição",body:"<p>Processador especializado em cálculos gráficos e paralelos.</p>"},
+      {label:"VRAM",body:"<p>Memória dedicada, separada da RAM.</p>"}
+    ]},
+    {ico:"⇄",name:"Integrado x Dedicado",sections:[
+      {label:"Integrado",body:"<p>Embutido no processador.</p>"},
+      {label:"Dedicado",body:"<p>Placa separada com VRAM própria.</p>"}
+    ]},
+    {ico:"▤",name:"PCI Express",sections:[
+      {label:"Conexão",body:"<p>Slot PCIe x16, alimentação PCIe 6/8 pinos.</p>"}
+    ]},
+    {ico:"➜",name:"Saídas de vídeo",sections:[
+      {label:"Tipos",body:"<pre>HDMI         → vídeo+áudio\nDisplayPort  → alto desempenho\nDVI          → legado\nVGA          → obsoleto</pre>"}
+    ]},
+    {ico:"⚡",name:"Consumo",sections:[
+      {label:"Importante",body:"<p>GPUs potentes exigem fonte robusta.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"GPU",def:"Processador gráfico."},{term:"VRAM",def:"Memória da GPU."}],
+  practice:`<p>Verifique modelo, VRAM e saídas da sua GPU.</p>`,
+  exercises:["O que é GPU?","O que é VRAM?","Integrado x dedicado?","Slot para GPU?","3 saídas de vídeo?","Por que precisa de energia extra?"],
+  quiz:[
+    {q:"GPU é especializada em:",options:["Série","Paralelo/gráficos","Armazenamento","Rede"],correct:1,explanation:"Processamento paralelo."},
+    {q:"VRAM está na:",options:["CPU","GPU","HDD","RAM"],correct:1,explanation:"GPU."},
+    {q:"Slot padrão:",options:["DIMM","M.2","PCIe x16","SATA"],correct:2,explanation:"PCIe x16."},
+    {q:"GPU potente:",options:["Sem energia extra","Precisa PCIe","Integrada","Passiva"],correct:1,explanation:"Cabos PCIe."}
+  ],
+  mastery:["Entendo GPU.","Diferencio integrado/dedicado."]
+},
+
+"aula-08":{
+  title:"Sistemas de Refrigeração",
+  intro:"Dissipadores, coolers e pasta térmica.",
+  objectives:["Compreender refrigeração.","Entender thermal throttling."],
+  concepts:[
+    {ico:"✦",name:"Dissipador e cooler",sections:[
+      {label:"Dissipador",body:"<p>Peça metálica que dissipa calor.</p>"},
+      {label:"Cooler",body:"<p>Dissipador + ventoinha.</p>"},
+      {label:"Heatpipe",body:"<p>Tubo que transporta calor.</p>"}
+    ]},
+    {ico:"🧴",name:"Pasta térmica",sections:[
+      {label:"O que é?",body:"<p>Preenche microfissuras e melhora a transferência de calor. Trocar a cada 1–2 anos.</p>"}
+    ]},
+    {ico:"⇄",name:"Air x Water",sections:[
+      {label:"Air cooler",body:"<p>Simples, barato, confiável.</p>"},
+      {label:"Water cooler",body:"<p>Mais eficiente, mais caro.</p>"}
+    ]},
+    {ico:"↻",name:"Fluxo de ar",sections:[
+      {label:"Conceito",body:"<pre>Ar frio entra → aquece → ar quente sai</pre>"}
+    ]},
+    {ico:"⚠",name:"Thermal throttling",sections:[
+      {label:"O que é?",body:"<p>CPU reduz frequência por calor excessivo.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"Heatpipe",def:"Tubo de condução de calor."},{term:"Throttling",def:"Redução por calor."}],
+  practice:`<p>Monitore a temperatura do CPU em uso normal e sob carga.</p>`,
+  exercises:["Para que serve dissipador?","Função da pasta?","O que é heatpipe?","Vantagem de cada cooler?","Descreva fluxo de ar.","O que é throttling?"],
+  quiz:[
+    {q:"Pasta térmica:",options:["Fixa cooler","Melhora transferência","Aumenta clock","Refrigera GPU"],correct:1,explanation:"Condução de calor."},
+    {q:"Thermal throttling:",options:["Falha da fonte","Redução por calor","Cooler","Pasta"],correct:1,explanation:"Reduz clock."},
+    {q:"Fluxo correto:",options:["Quente entra frente","Frio entra, quente sai","Qualquer","Só sai"],correct:1,explanation:"Frio entra, quente sai."},
+    {q:"Water cooler:",options:["Mais barato","Mais eficiente e silencioso","Passivo","Alumínio"],correct:1,explanation:"Mais eficiente."}
+  ],
+  mastery:["Entendo refrigeração.","Reconheço air/water cooler."]
+},
+
+"aula-09":{
+  title:"Gabinete",
+  intro:"Invólucro dos componentes.",
+  objectives:["Reconhecer formatos.","Verificar compatibilidade."],
+  concepts:[
+    {ico:"▣",name:"Formatos",sections:[
+      {label:"Tipos",body:"<pre>Full Tower  → grande\nMid Tower   → comum\nMini Tower  → compacto\nMini-ITX    → muito pequeno</pre>"}
+    ]},
+    {ico:"✓",name:"Compatibilidade",sections:[
+      {label:"Verificar",body:"<pre>Formato placa-mãe\nTamanho da fonte\nComprimento GPU\nAltura do cooler\nRadiador</pre>"}
+    ]},
+    {ico:"➜",name:"Airflow",sections:[
+      {label:"Suporte",body:"<p>Pontos para ventoinhas (frente, trás, topo) e radiadores.</p>"}
+    ]},
+    {ico:"▤",name:"Baias",sections:[
+      {label:"O que são?",body:"<p>Compartimentos para HD/SSD SATA.</p>"}
+    ]},
+    {ico:"⇄",name:"Painel frontal",sections:[
+      {label:"O que tem",body:"<pre>USB, áudio, Power, Reset, LEDs</pre>"}
+    ]},
+    {ico:"◈",name:"Organização",sections:[
+      {label:"Por quê?",body:"<p>Melhora airflow, manutenção e evita poeira.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"Airflow",def:"Fluxo de ar."},{term:"Baia",def:"Compartimento para discos."}],
+  practice:`<p>Analise o gabinete do seu PC: formato, baias, pontos para ventoinhas.</p>`,
+  exercises:["Cite 3 formatos.","O que verificar antes de comprar?","O que é airflow?","Para que servem baias?","3 elementos do painel.","Por que organizar cabos?"],
+  quiz:[
+    {q:"Verificar antes de comprar:",options:["Só cor","Compatibilidade","Só preço","Marca"],correct:1,explanation:"Compatibilidade física."},
+    {q:"Airflow é:",options:["Fluxo de ar","Tipo de ventoinha","Material","Fonte"],correct:0,explanation:"Fluxo de ar."},
+    {q:"Baias servem para:",options:["Ventoinhas","HD/SSD","Placa-mãe","Cabos"],correct:1,explanation:"Discos."},
+    {q:"Mini-ITX é:",options:["Grande","Muito pequeno","Médio","Fonte"],correct:1,explanation:"Muito pequeno."}
+  ],
+  mastery:["Reconheço formatos.","Verifico compatibilidade."]
+},
+
+"aula-10":{
+  title:"Montagem do Computador",
+  intro:"Passo a passo completo de montagem.",
+  objectives:["Realizar montagem completa."],
+  concepts:[
+    {ico:"▤",name:"Preparação",sections:[
+      {label:"Antes",body:"<ul><li>Bancada limpa</li><li>Pulseira antiestática</li><li>Chave, pasta térmica</li><li>Manual à mão</li></ul>"}
+    ]},
+    {ico:"⚙",name:"CPU e cooler",sections:[
+      {label:"Passos",body:"<pre>1. Levantar alavanca\n2. Posicionar CPU\n3. Fechar alavanca\n4. Pasta térmica\n5. Instalar cooler + CPU_FAN</pre>"}
+    ]},
+    {ico:"▦",name:"RAM e SSD",sections:[
+      {label:"RAM",body:"<p>Slots A2/B2 para Dual Channel.</p>"},
+      {label:"SSD",body:"<p>M.2 na placa. SATA nas baias.</p>"}
+    ]},
+    {ico:"◈",name:"Placa e fonte",sections:[
+      {label:"Ordem",body:"<pre>1. Placa com standoffs\n2. Fonte no gabinete\n3. ATX 24 pinos\n4. EPS da CPU</pre>"}
+    ]},
+    {ico:"✓",name:"Conexões",sections:[
+      {label:"Frontais",body:"<p>Power SW, Reset SW, HDD LED, USB, áudio.</p>"},
+      {label:"GPU",body:"<p>PCIe x16 + cabos PCIe.</p>"},
+      {label:"Ventoinhas",body:"<p>CHA_FAN ou fonte.</p>"}
+    ]},
+    {ico:"⚠",name:"Conferência",sections:[
+      {label:"Checklist",body:"<pre>☐ CPU + cooler\n☐ RAM\n☐ ATX + EPS\n☐ GPU\n☐ SATA\n☐ Painel frontal\n☐ Nada solto</pre>"}
+    ]}
+  ],
+  keyTerms:[{term:"Standoff",def:"Espaçador."},{term:"Power SW",def:"Cabo do botão Power."}],
+  practice:`<p>Simule uma montagem usando PCPartPicker.</p>`,
+  exercises:["Por que pulseira?","Dual Channel?","Standoffs?","Ordem de montagem?","Headers do cooler?","4 itens a conferir?"],
+  quiz:[
+    {q:"Standoffs:",options:["Cooler","Evitam curto","Clock","Ventoinha"],correct:1,explanation:"Elevam a placa-mãe."},
+    {q:"Dual Channel:",options:["Qualquer slot","A2 e B2","Slot 1","Fora"],correct:1,explanation:"Conforme manual."},
+    {q:"Cooler em:",options:["CHA_FAN","CPU_FAN","SATA","ATX"],correct:1,explanation:"CPU_FAN."},
+    {q:"Antes do boot:",options:["Nada","Conferir conexões","Instalar SO","BIOS"],correct:1,explanation:"Conferir tudo."}
+  ],
+  mastery:["Sei preparar bancada.","Sei instalar componentes.","Sei conferir conexões."]
+},
+
+"aula-11":{
+  title:"Primeiro Boot e BIOS/UEFI",
+  intro:"O que acontece quando se aperta Power.",
+  objectives:["Entender boot.","Reconhecer POST/BIOS/UEFI."],
+  concepts:[
+    {ico:"⚡",name:"Fluxo do boot",sections:[
+      {label:"Sequência",body:"<pre>Power → Fonte → Placa-mãe → POST\n→ BIOS/UEFI → Boot → SO</pre>"}
+    ]},
+    {ico:"▣",name:"POST",sections:[
+      {label:"O que é?",body:"<p>Teste inicial de CPU, RAM, vídeo. Erros via bipes ou LEDs.</p>"}
+    ]},
+    {ico:"◈",name:"BIOS x UEFI",sections:[
+      {label:"Diferença",body:"<p>BIOS texto; UEFI gráfico com GPT e Secure Boot.</p>"}
+    ]},
+    {ico:"➜",name:"Boot Order",sections:[
+      {label:"Config",body:"<p>Ordem de dispositivos inicializáveis.</p>"}
+    ]},
+    {ico:"⛨",name:"Secure Boot / TPM",sections:[
+      {label:"Secure Boot",body:"<p>Só sistemas assinados digitalmente.</p>"},
+      {label:"TPM",body:"<p>Chaves criptográficas. Necessário para Win 11.</p>"}
+    ]},
+    {ico:"◈",name:"CMOS",sections:[
+      {label:"O que é?",body:"<p>Guarda config. Mantida por CR2032.</p>"}
+    ]},
+    {ico:"▤",name:"Configurações",sections:[
+      {label:"Comuns",body:"<pre>Boot Order\nSecure Boot\nVirtualização\nXMP/DOCP\nFan Control\nSATA Mode</pre>"}
+    ]}
+  ],
+  keyTerms:[{term:"POST",def:"Power-On Self-Test."},{term:"UEFI",def:"Firmware moderno."}],
+  practice:`<p>Entre na BIOS e anote: versão, RAM, discos detectados, boot order.</p>`,
+  exercises:["Descreva boot.","O que é POST?","BIOS x UEFI?","O que é Boot Order?","Secure Boot?","O que é TPM?"],
+  quiz:[
+    {q:"Teste inicial:",options:["POST","BIOS","Boot","CMOS"],correct:0,explanation:"POST."},
+    {q:"UEFI tem:",options:["Interface gráfica + GPT","Só texto","Só Linux","Sem Secure Boot"],correct:0,explanation:"Moderno."},
+    {q:"Secure Boot:",options:["Internet","Bloqueia não assinados","RAM","Drivers"],correct:1,explanation:"Só assinados."},
+    {q:"CMOS mantida por:",options:["Fonte","CR2032","CPU","Disco"],correct:1,explanation:"Bateria."}
+  ],
+  mastery:["Entendo boot.","Conheço POST/BIOS/UEFI.","Configuro opções."]
+},
+
+"aula-12":{
+  title:"Instalação do Sistema Operacional",
+  intro:"Do pendrive ao primeiro login.",
+  objectives:["Criar pendrive bootável.","Particionar.","Instalar Windows/Linux."],
+  concepts:[
+    {ico:"▤",name:"Pendrive bootável",sections:[
+      {label:"Como criar",body:"<p>Rufus, Ventoy, Balena Etcher. Mínimo 8 GB.</p>"}
+    ]},
+    {ico:"◈",name:"Particionamento",sections:[
+      {label:"GPT x MBR",body:"<pre>MBR → até 2 TB\nGPT → sem limite</pre>"},
+      {label:"UEFI x Legacy",body:"<pre>UEFI → GPT\nLegacy → MBR</pre>"}
+    ]},
+    {ico:"➜",name:"Windows",sections:[
+      {label:"Passos",body:"<pre>1. Boot pendrive\n2. Idioma\n3. Instalar → Personalizada\n4. Selecionar disco\n5. Criar usuário</pre>"}
+    ]},
+    {ico:"◆",name:"Linux",sections:[
+      {label:"Passos",body:"<pre>1. Boot\n2. Try/Install\n3. Tipo de instalação\n4. Usuário\n5. Reiniciar</pre>"}
+    ]},
+    {ico:"⚡",name:"Pós-instalação",sections:[
+      {label:"O que fazer",body:"<ul><li>Verificar drivers</li><li>Atualizar sistema</li><li>Configurar rede/hora</li><li>Ponto de restauração</li></ul>"}
+    ]}
+  ],
+  keyTerms:[{term:"GPT",def:"Esquema moderno."},{term:"MBR",def:"Esquema antigo."}],
+  practice:`<p>Crie pendrive bootável de Linux leve e teste em VM.</p>`,
+  exercises:["O que é pendrive bootável?","GPT x MBR?","UEFI x Legacy?","Instalação do Windows?","O que fazer depois?"],
+  quiz:[
+    {q:"GPT é:",options:["Antigo","Moderno","Fonte","Antivírus"],correct:1,explanation:"Moderno."},
+    {q:"MBR limite:",options:["1 TB","2 TB","4 TB","Sem limite"],correct:1,explanation:"2 TB."},
+    {q:"Pendrive bootável:",options:["Arquivos","Instalar SO","Aumentar RAM","BIOS"],correct:1,explanation:"Instalação."},
+    {q:"Após instalar:",options:["Nada","Atualizar drivers","Desligar","Formatar"],correct:1,explanation:"Atualizar."}
+  ],
+  mastery:["Sei criar pendrive.","Diferencio GPT/MBR."]
+},
+
+"aula-13":{
+  title:"Drivers",
+  intro:"Software de comunicação hardware-SO.",
+  objectives:["Definir driver.","Usar Gerenciador de Dispositivos."],
+  concepts:[
+    {ico:"◈",name:"O que é driver",sections:[
+      {label:"Definição",body:"<pre>Hardware → Driver → SO → Aplicativo</pre>"}
+    ]},
+    {ico:"▤",name:"Tipos",sections:[
+      {label:"Por componente",body:"<pre>Chipset, vídeo, áudio, rede, USB, armazenamento</pre>"}
+    ]},
+    {ico:"⚙",name:"Gerenciador",sections:[
+      {label:"Para que serve?",body:"<p>Lista hardware, indica problemas, permite atualizar/remover.</p>"},
+      {label:"No Linux",body:"<p>Maioria embutida no kernel.</p>"}
+    ]},
+    {ico:"✓",name:"Boas práticas",sections:[
+      {label:"O que fazer",body:"<ul><li>Site oficial</li><li>Manter chipset/vídeo</li><li>Ponto de restauração</li><li>Evitar pacotes duvidosos</li></ul>"}
+    ]}
+  ],
+  keyTerms:[{term:"Driver",def:"Comunicação HW-SO."}],
+  practice:`<p>Verifique dispositivos com alerta no Gerenciador de Dispositivos.</p>`,
+  exercises:["O que é driver?","3 tipos?","Gerenciador?","Linux?","Por que só fonte oficial?"],
+  quiz:[
+    {q:"Driver:",options:["Antivírus","Comunicação HW-SO","Hardware","Cabo"],correct:1,explanation:"Software de comunicação."},
+    {q:"Gerenciador:",options:["Só Linux","Lista hardware e drivers","Substitui SO","Formata"],correct:1,explanation:"Painel do Windows."},
+    {q:"Linux drivers:",options:["Pagos","No kernel","Só servidor","CD"],correct:1,explanation:"Embutidos."},
+    {q:"Baixar drivers de:",options:["Aleatório","Site oficial","Fórum","E-mail"],correct:1,explanation:"Oficial."}
+  ],
+  mastery:["Entendo driver.","Conheço tipos.","Sei usar gerenciador."]
+},
+
+"aula-14":{
+  title:"Manutenção Preventiva",
+  intro:"Práticas que evitam falhas.",
+  objectives:["Aplicar rotina.","Prevenir ESD."],
+  concepts:[
+    {ico:"🧹",name:"Limpeza interna",sections:[
+      {label:"Procedimento",body:"<ul><li>Desligar e remover energia</li><li>Ar comprimido</li><li>Pincel macio</li><li>4–6 meses</li></ul>"}
+    ]},
+    {ico:"🌡",name:"Temperatura",sections:[
+      {label:"Monitorar",body:"<p>HWMonitor, Core Temp, sensors.</p>"},
+      {label:"Pasta térmica",body:"<p>Trocar a cada 1–2 anos.</p>"}
+    ]},
+    {ico:"▤",name:"Cabos",sections:[
+      {label:"Por quê?",body:"<p>Airflow, manutenção, evitar poeira.</p>"}
+    ]},
+    {ico:"⚡",name:"ESD",sections:[
+      {label:"O que é?",body:"<p>Descarga eletrostática. Pode danificar silenciosamente.</p>"},
+      {label:"Evitar",body:"<ul><li>Pulseira</li><li>Metal aterrado</li><li>Evitar sintéticos</li><li>Segurar pelas bordas</li></ul>"}
+    ]},
+    {ico:"✓",name:"Inspeção",sections:[
+      {label:"Observar",body:"<ul><li>Capacitores estufados</li><li>Cabos derretidos</li><li>Ventoinhas travando</li><li>Oxidação</li></ul>"}
+    ]}
+  ],
+  keyTerms:[{term:"ESD",def:"Descarga eletrostática."}],
+  practice:`<p>Faça inspeção visual e limpe com ar comprimido.</p>`,
+  exercises:["3 práticas de limpeza.","Por que trocar pasta?","O que é ESD?","3 sinais visuais.","Relação cabos/manutenção?","Frequência?"],
+  quiz:[
+    {q:"ESD é:",options:["Pasta","Descarga eletrostática","Driver","Conector"],correct:1,explanation:"Electrostatic Discharge."},
+    {q:"Pasta térmica:",options:["Nunca","1–2 anos","Todo mês","Só notebook"],correct:1,explanation:"Periodicamente."},
+    {q:"Limpeza em ambiente empoeirado:",options:["Anual","4–6 meses","Semanal","Nunca"],correct:1,explanation:"4–6 meses."},
+    {q:"Antes de mexer:",options:["Tapete","Pulseira ou aterramento","Ligar","Remover bateria"],correct:1,explanation:"Evitar ESD."}
+  ],
+  mastery:["Aplico limpeza.","Monitoro temperatura.","Prevenção ESD."]
+},
+
+"aula-15":{
+  title:"Diagnóstico e Solução de Problemas",
+  intro:"Método lógico de diagnóstico.",
+  objectives:["Aplicar método.","Reconhecer causas."],
+  concepts:[
+    {ico:"⚠",name:"Não liga",sections:[
+      {label:"Verificar",body:"<pre>1. Tomada e cabo\n2. Chave seletora\n3. ATX 24 pinos\n4. EPS da CPU\n5. Power SW\n6. Curto\n7. Fonte\n8. Placa-mãe</pre>"}
+    ]},
+    {ico:"▣",name:"Sem imagem",sections:[
+      {label:"Verificar",body:"<pre>1. Monitor e entrada\n2. Cabo de vídeo\n3. RAM (um módulo)\n4. GPU encaixada\n5. Cabo PCIe\n6. Vídeo integrado x dedicado\n7. CPU\n8. Reset CMOS</pre>"}
+    ]},
+    {ico:"↻",name:"Reinicia sozinho",sections:[
+      {label:"Causas",body:"<ul><li>Temperatura</li><li>Fonte fraca</li><li>RAM</li><li>CPU instável</li><li>GPU</li><li>Drivers</li></ul>"}
+    ]},
+    {ico:"⚠",name:"SSD não aparece",sections:[
+      {label:"Verificar",body:"<ul><li>Cabo SATA</li><li>M.2 encaixado</li><li>SATA Mode (AHCI)</li><li>Slot suporta NVMe?</li></ul>"}
+    ]},
+    {ico:"✓",name:"Método",sections:[
+      {label:"Como fazer",body:"<pre>1. Isolar\n2. Trocar por peças boas\n3. Um componente por vez\n4. Observar bipes/LEDs\n5. Consultar manual\n6. Anotar</pre>"}
+    ]}
+  ],
+  keyTerms:[{term:"Diagnóstico",def:"Identificação da causa."}],
+  practice:`<p>Escolha um cenário e elabore checklist em ordem.</p>`,
+  exercises:["O que verificar se não liga?","4 causas de sem imagem?","3 causas de reiniciar?","Por que testar com peças boas?","Bipes ajudam?","Por que anotar?"],
+  quiz:[
+    {q:"Sem imagem, primeiro verificar:",options:["Fonte","Monitor e cabo","Formatar","Placa-mãe"],correct:1,explanation:"O mais simples primeiro."},
+    {q:"Reinicia sozinho:",options:["Superaquecimento/fonte","Teclado","Mouse","Monitor"],correct:0,explanation:"Causas típicas."},
+    {q:"M.2 NVMe em slot SATA:",options:["Funciona","Não reconhecido","Mais rápido","HD"],correct:1,explanation:"Slot precisa suportar NVMe."},
+    {q:"Método:",options:["Trocar tudo","Uma peça por vez","Ignorar bipes","Só software"],correct:1,explanation:"Isolar causas."}
+  ],
+  mastery:["Aplico método.","Reconheço causas."]
+},
+
+"aula-16":{
+  title:"Ferramentas e Segurança",
+  intro:"Ferramentas e procedimentos de segurança.",
+  objectives:["Reconhecer ferramentas.","Aplicar segurança."],
+  concepts:[
+    {ico:"🔧",name:"Ferramentas mecânicas",sections:[
+      {label:"Chaves",body:"<pre>Phillips → parafusos\nFenda → ranhura\nAlicate → segurar/cortar\nTorx → notebooks</pre>"}
+    ]},
+    {ico:"⛨",name:"Proteção ESD",sections:[
+      {label:"Pulseira",body:"<p>Conecta ao terra para evitar descarga nos componentes.</p>"}
+    ]},
+    {ico:"⚡",name:"Multímetro",sections:[
+      {label:"O que faz",body:"<p>Mede tensão, corrente e resistência.</p>"},
+      {label:"Testador de fonte",body:"<p>Verifica linhas via LEDs.</p>"}
+    ]},
+    {ico:"🧪",name:"Consumíveis",sections:[
+      {label:"Limpeza",body:"<pre>Pasta térmica → calor\nÁlcool isopropílico → limpeza\nAr comprimido → poeira\nPincel macio → placas</pre>"}
+    ]},
+    {ico:"▣",name:"Software",sections:[
+      {label:"Ferramentas",body:"<ul><li>Pendrive bootável</li><li>HWMonitor/Core Temp/sensors</li><li>Gerenciador de Dispositivos</li></ul>"}
+    ]},
+    {ico:"✓",name:"Segurança",sections:[
+      {label:"Boas práticas",body:"<ul><li>Bancada seca e organizada</li><li>Desligar antes</li><li>Sem pressa</li><li>Parafusos em recipiente</li></ul>"}
+    ]}
+  ],
+  keyTerms:[{term:"Multímetro",def:"Mede grandezas."},{term:"Testador de fonte",def:"Verifica linhas."}],
+  practice:`<p>Monte lista de ferramentas essenciais para bancada.</p>`,
+  exercises:["4 ferramentas mecânicas?","Pulseira antiestática?","Multímetro mede?","Testador de fonte?","Álcool isopropílico?","3 softwares?"],
+  quiz:[
+    {q:"Multímetro:",options:["Drivers","Tensão/corrente/resistência","Formatar","Placas"],correct:1,explanation:"Grandezas elétricas."},
+    {q:"Pulseira evita:",options:["Superaquecimento","ESD","Curto","Vírus"],correct:1,explanation:"Descarga estática."},
+    {q:"Álcool isopropílico:",options:["Lubrificar","Limpeza","Velocidade","Cola"],correct:1,explanation:"Evapora sem resíduo."},
+    {q:"Antes de mexer:",options:["Ligado","Desligar e remover energia","Trocar fonte","Formatar"],correct:1,explanation:"Segurança."}
+  ],
+  mastery:["Reconheço ferramentas.","Aplico segurança."]
+},
+
+"aula-17":{
+  title:"Laboratórios Práticos",
+  intro:"12 laboratórios que consolidam a disciplina.",
+  objectives:["Executar os laboratórios.","Consolidar conhecimentos."],
+  concepts:[
+    {ico:"①",name:"Labs 01-04",sections:[
+      {label:"Lab 01 — Componentes",body:"<p>Reconhecer placa-mãe, CPU, RAM, armazenamento, GPU, fonte.</p>"},
+      {label:"Lab 02 — Conectores",body:"<p>Localizar ATX, EPS, PCIe, SATA, headers no manual.</p>"},
+      {label:"Lab 03 — CPU + cooler",body:"<p>Instalar CPU, pasta, cooler.</p>"},
+      {label:"Lab 04 — RAM",body:"<p>Instalar em Dual Channel.</p>"}
+    ]},
+    {ico:"⑤",name:"Labs 05-08",sections:[
+      {label:"Lab 05 — SSD",body:"<p>Instalar M.2 e SATA.</p>"},
+      {label:"Lab 06 — Montagem",body:"<p>Montar PC completo e primeiro boot.</p>"},
+      {label:"Lab 07 — BIOS/UEFI",body:"<p>Explorar configurações.</p>"},
+      {label:"Lab 08 — SO",body:"<p>Criar pendrive e instalar Windows/Linux.</p>"}
+    ]},
+    {ico:"⑨",name:"Labs 09-12",sections:[
+      {label:"Lab 09 — Drivers",body:"<p>Instalar chipset, vídeo, áudio, rede.</p>"},
+      {label:"Lab 10 — Manutenção",body:"<p>Limpeza e troca de pasta.</p>"},
+      {label:"Lab 11 — Diagnóstico",body:"<p>3 cenários da aula 15.</p>"},
+      {label:"Lab 12 — Desafio final",body:"<p>Montagem + configuração + diagnóstico.</p>"}
+    ]}
+  ],
+  keyTerms:[{term:"Laboratório",def:"Atividade prática."}],
+  practice:`<p>Monte cronograma pessoal para os 12 labs.</p>`,
+  exercises:["Por que Lab 03 antes do 06?","Por que Lab 11 depois dos anteriores?","O que Lab 08 exige?","Importância de documentar?","Por que Lab 12 é desafio final?","3 labs com multímetro?"],
+  quiz:[
+    {q:"Lab 12 exige:",options:["Só identificar","Montagem + config + diagnóstico","Formatar","Ler"],correct:1,explanation:"Reúne tudo."},
+    {q:"Lab 04 melhor antes de:",options:["Boot","Instalar no gabinete","SO","Fora"],correct:1,explanation:"Mais fácil antes de fixar."},
+    {q:"Documentar serve para:",options:["Decorar","Revisar e comprovar","Nota","Nada"],correct:1,explanation:"Registrar ajuda."},
+    {q:"Lab 08 usa:",options:["Chaves","Pendrive bootável","Multímetro","Pulseira"],correct:1,explanation:"Instalação de SO."}
+  ],
+  mastery:["Conheço os 12 labs.","Sei a ordem.","Consigo executar."]
+},
+},
+
+"fundamentos-de-redes":{
+"aula-01":{title:"Introdução às Redes",intro:"O que é uma rede de computadores, para que serve e quais elementos a compõem.",objectives:["Definir o que é uma rede de computadores.","Reconhecer os componentes básicos de uma rede.","Identificar exemplos de redes no dia a dia."],concepts:[{ico:"◈",name:"O que é rede",sections:[{label:"Definição",body:"<p>Uma <b>rede de computadores</b> é um conjunto de dois ou mais dispositivos (computadores, celulares, impressoras, servidores etc.) conectados entre si por um meio físico ou sem fio, com o objetivo de <b>compartilhar recursos</b> — como arquivos, impressoras, conexão com a internet — e trocar informações.</p>"},{label:"Exemplos do dia a dia",body:"<ul><li>Wi-Fi de casa conectando celular, notebook e TV</li><li>Rede de um laboratório de informática</li><li>A própria internet, que é uma rede de redes</li><li>Rede de um caixa eletrônico conectado ao banco</li></ul>"}]},{ico:"▣",name:"Componentes de uma rede",sections:[{label:"Elementos básicos",body:"<pre>Dispositivos finais (hosts) → PCs, celulares, servidores, impressoras\nEquipamentos de rede → switch, roteador, access point\nMeios de transmissão → cabo de par trançado, fibra óptica, sinal de rádio (Wi-Fi)\nProtocolos → regras que permitem a comunicação (ex.: TCP/IP)</pre>"},{label:"Como se relacionam",body:"<p>Os <b>dispositivos finais</b> geram e recebem dados; os <b>equipamentos de rede</b> encaminham esses dados; os <b>meios de transmissão</b> são o caminho físico ou sem fio por onde os dados trafegam; e os <b>protocolos</b> definem o 'idioma' comum para que todos se entendam.</p>"}]},{ico:"✓",name:"Por que usar redes",sections:[{label:"Principais benefícios",body:"<ul><li><b>Compartilhamento de arquivos</b> entre usuários sem precisar de pendrive</li><li><b>Comunicação</b> rápida (e-mail, mensagens, videochamadas)</li><li><b>Internet compartilhada</b> entre vários dispositivos com uma única conexão</li><li><b>Compartilhamento de periféricos</b>, como uma impressora usada por todo o escritório</li><li><b>Centralização e backup</b> de dados em servidores</li></ul>"}]}],keyTerms:[{term:"Rede",def:"Conjunto de dispositivos conectados entre si para compartilhar recursos e trocar informações."},{term:"Host",def:"Qualquer dispositivo final conectado à rede (PC, celular, servidor, impressora)."},{term:"Protocolo",def:"Conjunto de regras que define como os dispositivos se comunicam em uma rede."}],practice:`<p>Liste todos os dispositivos conectados à sua rede Wi-Fi em casa (celular, TV, notebook, videogame, etc.) e identifique qual equipamento de rede (roteador) está no centro dessa comunicação.</p>`,exercises:["O que é uma rede de computadores?","Cite 3 exemplos de redes do seu dia a dia.","Quais são os 4 componentes básicos de uma rede?","Cite 3 benefícios de usar uma rede."],quiz:[{q:"Uma rede de computadores é:",options:["Um programa de computador","Um conjunto de dispositivos conectados para compartilhar recursos","Um tipo de cabo","Um sistema operacional"],correct:1,explanation:"Rede é a conexão entre dispositivos para troca de dados e compartilhamento de recursos."}],mastery:["Sei explicar o que é uma rede e citar seus componentes."]},
+
+"aula-02":{title:"PAN, LAN, MAN, WAN",intro:"Classificação das redes de acordo com sua abrangência geográfica.",objectives:["Classificar redes conforme sua abrangência.","Diferenciar PAN, LAN, MAN e WAN com exemplos práticos."],concepts:[{ico:"◈",name:"PAN — Personal Area Network",sections:[{label:"O que é?",body:"<p>Rede <b>pessoal</b>, de alcance muito curto (poucos metros), geralmente conectando dispositivos de um único usuário.</p>"},{label:"Exemplos",body:"<ul><li>Fone de ouvido Bluetooth conectado ao celular</li><li>Smartwatch sincronizado com o celular</li><li>Mouse/teclado sem fio</li></ul>"}]},{ico:"▣",name:"LAN — Local Area Network",sections:[{label:"O que é?",body:"<p>Rede <b>local</b>, restrita a uma área pequena como uma casa, escritório, escola ou laboratório. É a rede mais comum no dia a dia.</p>"},{label:"Exemplo",body:"<p>A rede Wi-Fi/cabeada de um laboratório de informática, onde todos os PCs enxergam o mesmo switch/roteador.</p>"}]},{ico:"▦",name:"MAN — Metropolitan Area Network",sections:[{label:"O que é?",body:"<p>Rede <b>metropolitana</b>, que abrange uma cidade ou região metropolitana — maior que uma LAN, menor que uma WAN.</p>"},{label:"Exemplo",body:"<p>Rede de uma prefeitura interligando várias unidades públicas na mesma cidade, ou a rede de um provedor local de internet.</p>"}]},{ico:"◆",name:"WAN — Wide Area Network",sections:[{label:"O que é?",body:"<p>Rede de <b>longa distância</b>, que conecta redes menores entre cidades, estados ou países. A <b>internet</b> é a maior WAN existente.</p>"},{label:"Exemplo",body:"<p>A rede que liga a matriz de uma empresa em São Paulo às filiais em outros estados.</p>"}]}],keyTerms:[{term:"LAN",def:"Rede local, restrita a um ambiente físico pequeno (casa, escritório, escola)."},{term:"WAN",def:"Rede de longa distância que interliga LANs em diferentes cidades ou países; a internet é o maior exemplo."}],practice:`<p>Classifique estes cenários: (1) fone de ouvido Bluetooth, (2) Wi-Fi do laboratório, (3) acesso à internet no navegador, (4) rede interligando filiais de um banco pelo país.</p>`,exercises:["O que caracteriza uma LAN?","Qual a diferença entre LAN e WAN?","Dê um exemplo de PAN.","A internet pode ser classificada como qual tipo de rede? Por quê?"],quiz:[{q:"A internet é um exemplo de:",options:["PAN","LAN","MAN","WAN"],correct:3,explanation:"A internet interliga redes no mundo todo, sendo a maior WAN existente."}],mastery:["Consigo diferenciar PAN, LAN, MAN e WAN com exemplos."]},
+
+"aula-03":{title:"Topologias de Rede",intro:"As diferentes formas físicas e lógicas de organizar as conexões entre os dispositivos de uma rede.",objectives:["Reconhecer as principais topologias de rede.","Identificar vantagens e desvantagens de cada uma."],concepts:[{ico:"★",name:"Estrela (Star)",sections:[{label:"Como funciona?",body:"<p>Todos os dispositivos se conectam a um ponto central, geralmente um <b>switch</b>. É a topologia mais usada atualmente em redes locais.</p>"},{label:"Vantagens e desvantagens",body:"<ul><li><b>Vantagem:</b> se um cabo falha, só aquele dispositivo é afetado</li><li><b>Desvantagem:</b> se o ponto central (switch) falha, toda a rede cai</li></ul>"}]},{ico:"▬",name:"Barramento (Bus)",sections:[{label:"Como funciona?",body:"<p>Todos os dispositivos compartilham um único cabo central (o 'barramento'). Tecnologia antiga, praticamente em desuso.</p>"},{label:"Limitação",body:"<p>Se o cabo principal se rompe em qualquer ponto, <b>toda a rede para de funcionar</b> — por isso é considerada frágil.</p>"}]},{ico:"◯",name:"Anel (Ring)",sections:[{label:"Como funciona?",body:"<p>Cada dispositivo se conecta apenas aos dois vizinhos, formando um círculo fechado. Os dados circulam no anel até chegar ao destino.</p>"}]},{ico:"✦",name:"Malha (Mesh)",sections:[{label:"Como funciona?",body:"<p>Cada dispositivo se conecta a vários (ou todos) os outros, criando múltiplos caminhos possíveis. É a base estrutural da <b>internet</b>, pois garante redundância: se um caminho falha, os dados seguem por outro.</p>"}]}],keyTerms:[{term:"Topologia",def:"Forma como os dispositivos de uma rede estão fisicamente ou logicamente conectados entre si."},{term:"Redundância",def:"Existência de caminhos alternativos na rede, garantindo funcionamento mesmo se um link falhar."}],practice:`<p>Desenhe (no papel ou em uma ferramenta digital) uma topologia estrela com 1 switch central e 4 computadores.</p>`,exercises:["O que é uma topologia de rede?","Qual a principal desvantagem da topologia estrela?","Por que a internet é baseada em topologia de malha?","O que acontece em uma topologia de barramento se o cabo central rompe?"],quiz:[{q:"Em uma topologia estrela, se o cabo de UM computador falha:",options:["Toda a rede cai","Apenas aquele computador perde conexão","Nada acontece com nenhum PC","O switch para de funcionar"],correct:1,explanation:"Na estrela, cada dispositivo tem uma conexão própria e independente com o switch central."}],mastery:["Conheço as topologias estrela, barramento, anel e malha, com suas vantagens e desvantagens."]},
+
+"aula-04":{title:"Meios de Transmissão",intro:"Os diferentes meios físicos (cabos) e sem fio usados para transportar dados em uma rede.",objectives:["Reconhecer os principais meios de transmissão guiados e não guiados.","Comparar velocidade, custo e aplicação de cada um."],concepts:[{ico:"▤",name:"Par trançado (cabo UTP)",sections:[{label:"O que é?",body:"<p>Cabo com pares de fios entrelaçados (para reduzir interferência eletromagnética), terminado em conectores <b>RJ-45</b>. É o meio mais usado em redes locais por seu baixo custo.</p>"},{label:"Categorias e velocidades",body:"<pre>Cat 5e → até 1 Gbps (100 m)\nCat 6  → até 10 Gbps (até 55 m nessa taxa)\nCat 6a → 10 Gbps (até 100 m)</pre>"}]},{ico:"▬",name:"Cabo coaxial",sections:[{label:"O que é?",body:"<p>Formado por um condutor central envolto em uma malha metálica isolante. Foi muito usado em redes antigas e ainda é usado em TV a cabo e alguns links de internet.</p>"}]},{ico:"✦",name:"Fibra óptica",sections:[{label:"O que é?",body:"<p>Transmite dados como <b>pulsos de luz</b> através de um filamento de vidro ou plástico. É <b>imune a interferências eletromagnéticas</b>, alcança distâncias muito maiores e velocidades muito mais altas que o par trançado — por isso é usada em backbones de operadoras e em conexões de internet de alta velocidade.</p>"}]},{ico:"📡",name:"Meios não guiados (sem fio)",sections:[{label:"O que são?",body:"<p>Transmitem dados pelo ar, sem cabo, usando ondas de rádio (Wi-Fi, Bluetooth), micro-ondas (links entre torres) ou infravermelho (controles remotos).</p>"}]}],keyTerms:[{term:"RJ-45",def:"Conector padrão usado nas pontas dos cabos de par trançado (Ethernet)."},{term:"Meio guiado",def:"Meio de transmissão físico, como cabo de par trançado, coaxial ou fibra óptica."},{term:"Meio não guiado",def:"Transmissão sem fio, pelo ar, como Wi-Fi e Bluetooth."}],practice:`<p>Identifique o tipo de cabo de rede usado no seu computador ou roteador (se houver) e verifique se é Cat 5e ou Cat 6 observando a inscrição impressa no próprio cabo.</p>`,exercises:["Cite 3 meios de transmissão guiados.","Por que o cabo de par trançado é o mais usado em redes locais?","Qual a principal vantagem da fibra óptica sobre o cabo metálico?","O que diferencia um meio guiado de um não guiado?"],quiz:[{q:"A fibra óptica é vantajosa porque:",options:["Tem custo de instalação muito baixo","É imune a interferência eletromagnética e atinge longas distâncias","É mais frágil que o cabo coaxial","É mais barata que o par trançado"],correct:1,explanation:"Por transmitir luz em vez de eletricidade, a fibra não sofre interferência eletromagnética e suporta distâncias e velocidades muito maiores."}],mastery:["Conheço os principais meios de transmissão guiados e não guiados e suas aplicações."]},
+
+"aula-05":{title:"Redes Sem Fio (Wi-Fi)",intro:"Como funciona a comunicação sem fio e os padrões de segurança usados em redes Wi-Fi.",objectives:["Entender o funcionamento básico do Wi-Fi.","Conhecer os padrões de segurança sem fio e sua evolução."],concepts:[{ico:"📶",name:"O que é Wi-Fi",sections:[{label:"Funcionamento",body:"<p>Wi-Fi é uma tecnologia de transmissão de dados por <b>radiofrequência</b>, baseada na família de padrões IEEE 802.11. Permite que dispositivos se conectem a uma rede local sem cabos.</p>"},{label:"Evolução dos padrões",body:"<pre>802.11n  → Wi-Fi 4 (2,4 GHz e 5 GHz, até ~600 Mbps)\n802.11ac → Wi-Fi 5 (5 GHz, até ~3,5 Gbps)\n802.11ax → Wi-Fi 6 (2,4/5/6 GHz, maior eficiência e mais dispositivos simultâneos)</pre>"}]},{ico:"▣",name:"Access Point (AP)",sections:[{label:"O que é?",body:"<p>Equipamento que <b>emite o sinal Wi-Fi</b>, permitindo que dispositivos sem fio se conectem à rede cabeada. Em redes domésticas, essa função costuma estar embutida no próprio roteador.</p>"}]},{ico:"🔒",name:"Segurança em redes Wi-Fi",sections:[{label:"Evolução dos padrões de criptografia",body:"<pre>WEP  → obsoleto e inseguro (quebrado facilmente)\nWPA  → melhoria temporária sobre o WEP, também superado\nWPA2 → padrão consolidado e amplamente usado\nWPA3 → mais recente, com criptografia mais forte e proteção contra ataques de força bruta</pre>"},{label:"Boas práticas",body:"<ul><li>Usar sempre WPA2 ou, preferencialmente, WPA3</li><li>Definir uma senha forte e exclusiva</li><li>Trocar o nome padrão da rede (SSID) e a senha de administração do roteador</li></ul>"}]}],keyTerms:[{term:"SSID",def:"Nome que identifica uma rede Wi-Fi para os usuários (Service Set Identifier)."},{term:"WPA2",def:"Padrão de segurança para redes Wi-Fi, sucessor do WPA, amplamente utilizado até hoje."},{term:"Access Point",def:"Equipamento que emite o sinal Wi-Fi e conecta dispositivos sem fio à rede cabeada."}],practice:`<p>Verifique nas configurações do seu roteador (ou pergunte a quem administra a rede) qual padrão de segurança está em uso: WEP, WPA, WPA2 ou WPA3.</p>`,exercises:["O que é Wi-Fi e em qual padrão (IEEE) ele se baseia?","Qual a função de um Access Point?","Qual a diferença de segurança entre WPA2 e WPA3?","Por que o WEP não deve mais ser usado?"],quiz:[{q:"Atualmente, o padrão de segurança recomendado para redes Wi-Fi é:",options:["WEP","WPA","WPA2 ou WPA3","SSID"],correct:2,explanation:"WEP e WPA estão obsoletos e vulneráveis; o recomendado hoje é WPA2 ou, idealmente, WPA3."}],mastery:["Entendo como o Wi-Fi funciona e conheço os padrões de segurança sem fio."]},
+
+"aula-06":{title:"Modelo OSI",intro:"O modelo teórico de 7 camadas usado para entender como a comunicação em rede acontece.",objectives:["Listar e ordenar as 7 camadas do modelo OSI.","Entender a função de cada camada."],concepts:[{ico:"▤",name:"O que é o modelo OSI",sections:[{label:"Definição",body:"<p>O <b>modelo OSI</b> (Open Systems Interconnection) é um modelo <b>teórico e didático</b> criado pela ISO para dividir o processo de comunicação em rede em <b>7 camadas</b>, cada uma com uma função específica. Ele ajuda a entender, organizar e diagnosticar problemas de rede por camadas.</p>"}]},{ico:"①",name:"As 7 camadas",sections:[{label:"De cima para baixo",body:"<pre>7. Aplicação    → interface com o usuário (navegador, e-mail)\n6. Apresentação → tradução, formatação, criptografia\n5. Sessão       → abre/gerencia/encerra a sessão de comunicação\n4. Transporte   → entrega confiável dos dados (TCP/UDP)\n3. Rede         → endereçamento lógico e rotas (IP)\n2. Enlace       → endereçamento físico (MAC), acesso ao meio\n1. Física       → transmissão de bits pelo cabo/sinal (sinal elétrico, luz, rádio)</pre>"},{label:"Como lembrar a ordem",body:"<p>Mnemônico comum: <i>'A Presa Sessão Trafega Redes Enlaçadas Fisicamente'</i> (Aplicação, Apresentação, Sessão, Transporte, Rede, Enlace, Física) — ou simplesmente decore de cima para baixo: A-P-S-T-R-E-F.</p>"}]}],keyTerms:[{term:"Camada",def:"Nível de abstração do modelo OSI, responsável por uma função específica da comunicação em rede."},{term:"Encapsulamento",def:"Processo de adicionar cabeçalhos de cada camada aos dados conforme eles descem as 7 camadas até serem transmitidos."}],practice:`<p>Descreva, em poucas palavras, o que acontece em cada uma das 7 camadas quando você acessa um site no navegador (desde digitar o endereço até a página aparecer).</p>`,exercises:["O que é o modelo OSI e para que ele serve?","Liste as 7 camadas na ordem correta.","Em qual camada atua o endereço IP?","Em qual camada atua o endereço MAC?"],quiz:[{q:"O endereço IP atua na camada de:",options:["Física","Enlace","Rede","Aplicação"],correct:2,explanation:"O endereçamento lógico (IP) e o roteamento acontecem na camada 3 — Rede."}],mastery:["Conheço as 7 camadas do modelo OSI e a função de cada uma."]},
+
+"aula-07":{title:"Modelo TCP/IP",intro:"O modelo prático de 4 camadas que realmente rege o funcionamento da internet.",objectives:["Listar as 4 camadas do modelo TCP/IP.","Comparar TCP e UDP e saber quando cada um é usado."],concepts:[{ico:"◈",name:"O que é o modelo TCP/IP",sections:[{label:"Definição",body:"<p>Enquanto o OSI é um modelo teórico, o <b>TCP/IP</b> é o conjunto de protocolos <b>realmente usado</b> para o funcionamento da internet. Ele organiza a comunicação em 4 camadas (em vez das 7 do OSI, algumas camadas do OSI são agrupadas).</p>"}]},{ico:"▤",name:"As 4 camadas",sections:[{label:"De cima para baixo",body:"<pre>Aplicação  → HTTP, DNS, FTP, SMTP (equivale às camadas 5, 6, 7 do OSI)\nTransporte → TCP, UDP (equivale à camada 4 do OSI)\nInternet   → IP, ICMP (equivale à camada 3 do OSI)\nAcesso à rede → Ethernet, Wi-Fi (equivale às camadas 1 e 2 do OSI)</pre>"}]},{ico:"⇄",name:"TCP x UDP",sections:[{label:"Comparação",body:"<pre>TCP → orientado a conexão, confiável, confirma entrega (ex.: navegação web, e-mail, download de arquivo)\nUDP → sem conexão, mais rápido, não confirma entrega (ex.: streaming de vídeo, chamadas de voz, jogos online)</pre>"},{label:"Quando usar cada um",body:"<p>Use TCP quando a <b>integridade dos dados</b> é essencial (perder um pacote pode corromper um arquivo). Use UDP quando a <b>velocidade</b> importa mais que a perfeição (perder um pacote de vídeo gera só uma pequena falha visual, sem travar a transmissão).</p>"}]}],keyTerms:[{term:"TCP",def:"Transmission Control Protocol — protocolo confiável, orientado a conexão, que garante a entrega dos dados."},{term:"UDP",def:"User Datagram Protocol — protocolo rápido, sem garantia de entrega, usado quando velocidade importa mais que confiabilidade."},{term:"ICMP",def:"Protocolo usado para diagnóstico e mensagens de erro em redes IP, como o comando ping."}],practice:`<p>Pesquise o que é o protocolo ICMP e experimente usar o comando 'ping' no terminal/prompt de comando para testar a conectividade com um site (ex.: ping google.com).</p>`,exercises:["Quantas camadas tem o modelo TCP/IP e quais são?","Qual a diferença entre TCP e UDP?","Por que streaming de vídeo geralmente usa UDP?","Cite um protocolo que funciona na camada de Aplicação do TCP/IP."],quiz:[{q:"Uma transmissão de vídeo ao vivo (streaming) tende a usar:",options:["TCP","UDP","HTTP apenas","FTP"],correct:1,explanation:"UDP prioriza velocidade sobre confirmação de entrega, ideal para streaming em tempo real."}],mastery:["Conheço as 4 camadas do TCP/IP e sei diferenciar TCP de UDP."]},
+
+"aula-08":{title:"Endereçamento IP",intro:"Como os dispositivos são identificados em uma rede através de endereços IPv4 e IPv6.",objectives:["Entender para que serve o endereço IP.","Diferenciar IPv4 de IPv6.","Reconhecer faixas de IP público e privado."],concepts:[{ico:"◈",name:"O que é um endereço IP",sections:[{label:"Definição",body:"<p>O <b>endereço IP</b> (Internet Protocol) identifica de forma única um dispositivo dentro de uma rede, permitindo que os dados saibam para onde ir — é como o 'endereço postal' de um dispositivo na rede.</p>"}]},{ico:"▣",name:"IPv4",sections:[{label:"Formato",body:"<p>Composto por <b>32 bits</b>, escrito em 4 blocos decimais separados por ponto (cada bloco de 0 a 255):</p><pre>192.168.1.10</pre><p>Isso permite cerca de 4,3 bilhões de endereços — número já insuficiente para todos os dispositivos do mundo, o que motivou a criação do IPv6.</p>"}]},{ico:"◆",name:"IPv6",sections:[{label:"Formato",body:"<p>Composto por <b>128 bits</b>, escrito em <b>8 grupos hexadecimais</b> separados por dois-pontos:</p><pre>2001:0db8:85a3:0000:0000:8a2e:0370:7334</pre><p>Oferece uma quantidade de endereços praticamente inesgotável, resolvendo a escassez do IPv4.</p>"}]},{ico:"⇄",name:"IP Público x IP Privado",sections:[{label:"Faixas de IP privado (uso interno, não roteável na internet)",body:"<pre>10.0.0.0 – 10.255.255.255\n172.16.0.0 – 172.31.255.255\n192.168.0.0 – 192.168.255.255</pre>"},{label:"IP público",body:"<p>É o endereço único e visível na internet, fornecido pelo provedor de acesso (ISP) ao roteador. Todos os dispositivos da rede local 'saem' para a internet usando esse único IP público (técnica chamada NAT).</p>"}]}],keyTerms:[{term:"IPv4",def:"Endereço IP de 32 bits, formato mais antigo e ainda mais usado (ex.: 192.168.1.10)."},{term:"IPv6",def:"Endereço IP de 128 bits, criado para resolver a escassez de endereços do IPv4."},{term:"NAT",def:"Network Address Translation — técnica que permite vários dispositivos com IP privado compartilharem um único IP público."}],practice:`<p>Descubra o IP privado do seu computador (comando 'ipconfig' no Windows ou 'ifconfig'/'ip a' no Linux) e o IP público da sua conexão (pesquisando 'meu IP' em um buscador). Compare os dois.</p>`,exercises:["Para que serve o endereço IP?","Qual a diferença principal entre IPv4 e IPv6?","Cite as três faixas de IP privado.","O que é NAT e por que ele é necessário?"],quiz:[{q:"O endereço 192.168.1.5 é um IP:",options:["Público","Privado","IPv6","De broadcast"],correct:1,explanation:"A faixa 192.168.x.x é reservada para uso privado, dentro de redes locais."}],mastery:["Entendo o que é IP, a diferença entre IPv4/IPv6 e público/privado."]},
+
+"aula-09":{title:"Máscara de Sub-rede e CIDR",intro:"Como a máscara de sub-rede define quais bits do IP identificam a rede e quais identificam o host.",objectives:["Entender a função da máscara de sub-rede.","Interpretar a notação CIDR."],concepts:[{ico:"▤",name:"Máscara de sub-rede",sections:[{label:"O que é e para que serve?",body:"<p>A <b>máscara de sub-rede</b> indica quais partes de um endereço IP representam a <b>rede</b> e quais representam o <b>host</b> (dispositivo) dentro dessa rede.</p><pre>IP:      192.168.1.10\nMáscara: 255.255.255.0\n→ Rede: 192.168.1   |   Host: 10</pre><p>Dois dispositivos só conseguem se comunicar diretamente (sem passar por um roteador) se estiverem na <b>mesma rede</b>, ou seja, com a mesma porção de rede no IP.</p>"}]},{ico:"◆",name:"Notação CIDR",sections:[{label:"O que é?",body:"<p>O <b>CIDR</b> (Classless Inter-Domain Routing) é uma forma simplificada de representar a máscara, indicando apenas quantos bits pertencem à rede, com uma barra ('/') após o IP.</p><pre>255.255.255.0 = /24  (24 bits de rede, 8 bits de host → até 254 hosts)\n255.255.0.0   = /16  (16 bits de rede, 16 bits de host → até 65.534 hosts)\n255.0.0.0     = /8   (8 bits de rede, 24 bits de host)</pre>"},{label:"Exemplo prático",body:"<p>Um endereço '192.168.0.50/24' significa: IP 192.168.0.50, com máscara 255.255.255.0 — ou seja, a rede é 192.168.0.0 e esse dispositivo é o host de número 50 dentro dela.</p>"}]}],keyTerms:[{term:"Máscara de sub-rede",def:"Valor que define, junto ao IP, quais bits identificam a rede e quais identificam o dispositivo (host)."},{term:"CIDR",def:"Notação que representa a máscara de sub-rede como o número de bits de rede após uma barra (ex.: /24)."}],practice:`<p>Dado o endereço 192.168.0.50/24, identifique qual é a porção de rede e qual é a porção de host.</p>`,exercises:["Para que serve a máscara de sub-rede?","O que significa '/24' em notação CIDR?","Quantos hosts cabem, no máximo, em uma rede /24?","Dois dispositivos com máscaras diferentes na mesma faixa de IP conseguem se comunicar diretamente?"],quiz:[{q:"A máscara 255.255.255.0 corresponde, em notação CIDR, a:",options:["/8","/16","/24","/32"],correct:2,explanation:"255.255.255.0 tem 24 bits em '1' (rede), por isso é representada como /24."}],mastery:["Sei calcular e interpretar máscaras de sub-rede e notação CIDR."]},
+
+"aula-10":{title:"Protocolos de Aplicação: HTTP, DNS, DHCP e FTP",intro:"Os principais protocolos que permitem navegar na web, resolver nomes de domínio, obter IP automaticamente e transferir arquivos.",objectives:["Conhecer a função dos protocolos HTTP, DNS, DHCP e FTP.","Diferenciar HTTP de HTTPS."],concepts:[{ico:"🌐",name:"HTTP e HTTPS",sections:[{label:"O que são?",body:"<p>O <b>HTTP</b> (HyperText Transfer Protocol) é o protocolo usado para transferir páginas e recursos da web entre servidor e navegador. O <b>HTTPS</b> é a versão segura, que criptografa a comunicação usando SSL/TLS, protegendo dados sensíveis como senhas e números de cartão.</p>"}]},{ico:"▣",name:"DNS — Domain Name System",sections:[{label:"O que é?",body:"<p>Sistema que <b>traduz nomes de domínio em endereços IP</b>. Sem o DNS, seria preciso decorar o IP de cada site para acessá-lo.</p><pre>www.exemplo.com  →  DNS  →  200.150.10.5</pre>"}]},{ico:"◆",name:"DHCP — Dynamic Host Configuration Protocol",sections:[{label:"O que é?",body:"<p>Protocolo responsável por <b>atribuir automaticamente</b> endereços IP (e outras configurações de rede, como máscara e gateway) aos dispositivos que entram na rede, evitando a configuração manual de cada um.</p>"}]},{ico:"▬",name:"FTP — File Transfer Protocol",sections:[{label:"O que é?",body:"<p>Protocolo usado para <b>transferência de arquivos</b> entre computadores em uma rede, muito usado para publicar arquivos em servidores web (upload/download).</p>"}]}],keyTerms:[{term:"DNS",def:"Sistema que traduz nomes de domínio (como google.com) em endereços IP."},{term:"DHCP",def:"Protocolo que atribui automaticamente endereços IP aos dispositivos de uma rede."},{term:"HTTPS",def:"Versão segura e criptografada do protocolo HTTP."}],practice:`<p>Digite o endereço IP de um site conhecido diretamente no navegador (pode pesquisar 'IP do google.com') e observe que ele carrega mesmo sem digitar o nome — isso mostra o papel do DNS no dia a dia.</p>`,exercises:["Qual a função do protocolo HTTP?","Qual a diferença entre HTTP e HTTPS?","O que faz o DNS?","O que aconteceria se o DHCP não existisse em uma rede grande?"],quiz:[{q:"O protocolo responsável por atribuir IPs automaticamente aos dispositivos é o:",options:["HTTP","DNS","DHCP","FTP"],correct:2,explanation:"O DHCP automatiza a configuração de IP, máscara e gateway para os dispositivos da rede."}],mastery:["Conheço a função dos protocolos HTTP/HTTPS, DNS, DHCP e FTP."]},
+
+"aula-11":{title:"Equipamentos de Rede",intro:"Os principais dispositivos usados para interligar e encaminhar dados em uma rede: hub, switch, roteador e access point.",objectives:["Diferenciar hub, switch, roteador e access point.","Identificar quando usar cada equipamento."],concepts:[{ico:"▬",name:"Hub",sections:[{label:"O que é?",body:"<p>Equipamento antigo que repete o sinal recebido para <b>todas</b> as portas, sem inteligência para identificar o destinatário. Isso gera colisões de dados e desperdício de banda — por isso está <b>obsoleto</b>, substituído pelo switch.</p>"}]},{ico:"▣",name:"Switch",sections:[{label:"O que é?",body:"<p>Equipamento que analisa o endereço <b>MAC</b> de cada pacote e o envia <b>apenas para a porta do dispositivo de destino</b>, evitando colisões e usando a banda de forma muito mais eficiente. É o equipamento padrão para interligar dispositivos em uma LAN hoje.</p>"}]},{ico:"◆",name:"Roteador",sections:[{label:"O que é?",body:"<p>Equipamento que <b>conecta redes diferentes</b> entre si (por exemplo, a rede local à internet), analisando endereços <b>IP</b> e escolhendo a melhor rota para os dados. Em casa, o roteador normalmente também faz o papel de switch e de access point, tudo em um único aparelho.</p>"}]},{ico:"📶",name:"Access Point (AP)",sections:[{label:"O que é?",body:"<p>Equipamento que gera o <b>sinal Wi-Fi</b>, permitindo que dispositivos sem fio se conectem à rede cabeada. É útil em ambientes grandes, onde um único roteador não cobre bem o sinal (usa-se vários APs).</p>"}]}],keyTerms:[{term:"Switch",def:"Equipamento de rede que encaminha dados apenas para a porta do dispositivo de destino, com base no endereço MAC."},{term:"Roteador",def:"Equipamento que conecta redes diferentes (ex.: LAN à internet), encaminhando dados com base no endereço IP."},{term:"MAC",def:"Endereço físico único gravado na placa de rede de um dispositivo, usado na camada de Enlace."}],practice:`<p>Desenhe uma topologia simples contendo: internet → roteador → switch → 3 computadores, indicando com setas o caminho dos dados.</p>`,exercises:["Qual a diferença entre hub e switch?","Qual a função principal de um roteador?","Por que o hub é considerado obsoleto?","Em uma rede doméstica, que equipamentos costumam estar embutidos no roteador?"],quiz:[{q:"O equipamento responsável por conectar a rede local à internet é o:",options:["Hub","Switch","Roteador","Access Point"],correct:2,explanation:"O roteador interliga redes diferentes, como a LAN doméstica e a internet do provedor."}],mastery:["Diferencio hub, switch, roteador e access point e sei a função de cada um."]},
+
+"aula-12":{title:"Segurança em Redes",intro:"As principais ameaças a que uma rede está exposta e as ferramentas e boas práticas usadas para se proteger.",objectives:["Reconhecer as principais ameaças a redes de computadores.","Conhecer as principais ferramentas e boas práticas de proteção."],concepts:[{ico:"⚠",name:"Principais ameaças",sections:[{label:"Tipos de ataque",body:"<ul><li><b>Malware</b> — softwares maliciosos (vírus, worms, ransomware, spyware)</li><li><b>Phishing</b> — mensagens/sites falsos para roubar dados e senhas</li><li><b>Força bruta</b> — tentativas repetidas de adivinhar senhas</li><li><b>Sniffing</b> — captura e leitura de dados que trafegam na rede sem criptografia</li><li><b>DDoS</b> — sobrecarga de um serviço com tráfego excessivo, tirando-o do ar</li></ul>"}]},{ico:"⛨",name:"Ferramentas de proteção",sections:[{label:"Principais defesas",body:"<ul><li><b>Firewall</b> — filtra o tráfego de rede, bloqueando conexões não autorizadas</li><li><b>Antivírus</b> — detecta e remove softwares maliciosos</li><li><b>Criptografia</b> — protege os dados em trânsito, tornando-os ilegíveis para quem os interceptar</li><li><b>VPN</b> — cria um túnel criptografado para navegação segura, especialmente em redes públicas</li><li><b>2FA (autenticação em dois fatores)</b> — exige uma segunda confirmação além da senha</li></ul>"}]},{ico:"✓",name:"Boas práticas do dia a dia",sections:[{label:"Hábitos recomendados",body:"<ul><li>Usar senhas fortes e diferentes para cada serviço</li><li>Manter sistema operacional e aplicativos sempre atualizados</li><li>Fazer backups regulares dos dados importantes</li><li>Evitar clicar em links ou anexos de remetentes desconhecidos</li><li>Usar WPA2/WPA3 e senha forte no Wi-Fi</li></ul>"}]}],keyTerms:[{term:"Firewall",def:"Sistema que filtra o tráfego de rede, permitindo ou bloqueando conexões conforme regras definidas."},{term:"Phishing",def:"Golpe que usa mensagens ou sites falsos para enganar a vítima e roubar dados pessoais ou senhas."},{term:"VPN",def:"Rede privada virtual que cria uma conexão criptografada entre o dispositivo e um servidor, protegendo os dados em trânsito."}],practice:`<p>Liste 3 medidas de segurança já aplicadas na sua rede doméstica (ex.: senha forte no Wi-Fi, antivírus instalado, backup na nuvem) e 1 medida que ainda poderia ser adotada.</p>`,exercises:["O que é phishing e como se proteger dele?","Para que serve um firewall?","O que é uma VPN e quando ela é recomendada?","Cite 3 boas práticas de segurança para o uso diário da internet."],quiz:[{q:"A principal função de um firewall é:",options:["Acelerar a internet","Filtrar o tráfego de rede","Substituir o antivírus","Fazer backup automático"],correct:1,explanation:"O firewall controla quais conexões podem entrar ou sair da rede, funcionando como uma barreira de segurança."}],mastery:["Conheço as principais ameaças a redes e as ferramentas/boas práticas de proteção."]},
+},
+
+"ingles-tecnico":{
+"aula-01":{title:"Introdução ao Inglês Técnico",intro:"Por que inglês na TI.",objectives:["Entender importância."],concepts:[{ico:"◈",name:"Por que",sections:[{label:"Motivos",body:"<p>Documentação e mensagens em inglês.</p>"}]},{ico:"▣",name:"Técnico x Comum",sections:[{label:"Diferença",body:"<p>Foco em leitura.</p>"}]}],keyTerms:[{term:"English",def:"Inglês."}],practice:`<p>Procure 3 mensagens em inglês no SO.</p>`,exercises:["Por que inglês?","Diferença?"],quiz:[{q:"Foco:",options:["Conversação","Leitura","Literatura","Provas"],correct:1,explanation:"Leitura técnica."}],mastery:["Entendo importância."]},
+
+"aula-02":{title:"Vocabulário Técnico",intro:"Termos essenciais.",objectives:["Aprender vocabulário."],concepts:[{ico:"▤",name:"Termos",sections:[{label:"Vocabulário",body:"<pre>file → arquivo\nfolder → pasta\nsave → salvar\nopen → abrir\ninstall → instalar\nupdate → atualizar\ndownload → baixar\nupload → enviar</pre>"}]},{ico:"▣",name:"Verbos",sections:[{label:"Comuns",body:"<pre>to boot → inicializar\nto log in → entrar\nto delete → excluir\nto copy → copiar</pre>"}]}],keyTerms:[{term:"Cognato",def:"Similar em 2 idiomas."}],practice:`<p>Traduza 8 comandos.</p>`,exercises:["Traduza: file, folder.","O que é 'to log in'?"],quiz:[{q:"'Actually':",options:["Atualmente","Na verdade","Ato","Ação"],correct:1,explanation:"Falso cognato."}],mastery:["Conheço vocabulário."]},
+
+"aula-03":{title:"Hardware e Software em Inglês",intro:"Vocabulário técnico.",objectives:["Aprender termos."],concepts:[{ico:"⚙",name:"Hardware",sections:[{label:"Termos",body:"<pre>motherboard → placa-mãe\npower supply → fonte\nhard drive → disco\nkeyboard → teclado\nprinter → impressora</pre>"}]},{ico:"▣",name:"Software",sections:[{label:"Termos",body:"<pre>application → aplicativo\nbrowser → navegador\ndatabase → banco de dados\nserver → servidor</pre>"}]}],keyTerms:[{term:"Motherboard",def:"Placa-mãe."}],practice:`<p>Liste componentes em inglês.</p>`,exercises:["Traduza: motherboard, keyboard.","Traduza: browser, database."],quiz:[{q:"'Motherboard':",options:["CPU","Placa-mãe","Memória","Fonte"],correct:1,explanation:"Placa-mãe."}],mastery:["Conheço termos."]},
+
+"aula-04":{title:"Mensagens de Erro",intro:"Interpretar mensagens.",objectives:["Reconhecer mensagens."],concepts:[{ico:"⚠",name:"Mensagens",sections:[{label:"Comuns",body:"<pre>Access denied → Acesso negado\nFile not found → Arquivo não encontrado\nConnection failed → Conexão falhou\nDisk full → Disco cheio\nOut of memory → Memória esgotada</pre>"}]},{ico:"▣",name:"Comandos",sections:[{label:"Instruções",body:"<pre>Click → Clique\nSelect → Selecione\nEnter → Digite\nTry again → Tente novamente</pre>"}]}],keyTerms:[{term:"Access denied",def:"Acesso negado."}],practice:`<p>Encontre 3 mensagens em inglês.</p>`,exercises:["Traduza: 'File not found'.","O que é 'Try again'?"],quiz:[{q:"'Disk full':",options:["Removido","Cheio","Formatado","Novo"],correct:1,explanation:"Cheio."}],mastery:["Reconheço mensagens."]},
+
+"aula-05":{title:"Redes em Inglês",intro:"Vocabulário de rede.",objectives:["Conhecer termos."],concepts:[{ico:"🌐",name:"Termos",sections:[{label:"Vocabulário",body:"<pre>network → rede\nrouter → roteador\nswitch → switch\nbandwidth → banda\nIP address → endereço IP\ngateway → gateway</pre>"}]},{ico:"▣",name:"Configurações",sections:[{label:"Menus",body:"<pre>Subnet mask → Máscara\nDefault gateway → Gateway\nDHCP → DHCP</pre>"}]}],keyTerms:[{term:"Gateway",def:"Porta de saída."}],practice:`<p>Veja IP, máscara, gateway no PC.</p>`,exercises:["Traduza: router, switch.","O que é 'wireless'?"],quiz:[{q:"'Default gateway':",options:["Porta","IP","Gateway padrão","Máscara"],correct:2,explanation:"Gateway padrão."}],mastery:["Conheço termos de rede."]},
+
+"aula-06":{title:"Segurança em Inglês",intro:"Vocabulário de segurança.",objectives:["Reconhecer termos."],concepts:[{ico:"⛨",name:"Termos",sections:[{label:"Vocabulário",body:"<pre>password → senha\nauthentication → autenticação\nencryption → criptografia\nmalware → malware\nphishing → phishing\npatch → correção\n2FA → autenticação 2 fatores</pre>"}]},{ico:"⚠",name:"Mensagens",sections:[{label:"Avisos",body:"<pre>Access denied\nSuspicious activity\nUnsecured connection</pre>"}]}],keyTerms:[{term:"Encryption",def:"Criptografia."}],practice:`<p>Encontre 3 termos em notícia.</p>`,exercises:["Traduza: firewall, malware.","O que é 2FA?"],quiz:[{q:"'Encryption':",options:["Autenticação","Criptografia","Firewall","Backup"],correct:1,explanation:"Criptografia."}],mastery:["Conheço termos."]},
+
+"aula-07":{title:"Suporte Técnico em Inglês",intro:"Atendimento em inglês.",objectives:["Reconhecer expressões."],concepts:[{ico:"⌨",name:"Atendimento",sections:[{label:"Frases",body:"<pre>How can I help you?\nCould you describe the problem?\nHave you tried restarting?\nPlease hold on</pre>"}]},{ico:"▣",name:"Diagnóstico",sections:[{label:"Perguntas",body:"<pre>When did it start?\nAny error messages?\nWhat operating system?</pre>"}]},{ico:"✓",name:"Respostas",sections:[{label:"Frases",body:"<pre>It doesn't work\nIt's very slow\nI can't connect\nIt keeps crashing</pre>"}]}],keyTerms:[{term:"Troubleshoot",def:"Diagnosticar."}],practice:`<p>Simule diálogo técnico.</p>`,exercises:["Traduza: 'Have you tried restarting?'","O que é 'escalate'?"],quiz:[{q:"'Troubleshoot':",options:["Reiniciar","Diagnosticar","Desligar","Criar"],correct:1,explanation:"Diagnosticar."}],mastery:["Conheço expressões."]},
+
+"aula-08":{title:"Documentação Técnica",intro:"Ler documentação em inglês.",objectives:["Reconhecer estruturas."],concepts:[{ico:"▤",name:"Estruturas",sections:[{label:"O que aparece",body:"<pre>Overview → Visão geral\nPrerequisites → Pré-requisitos\nInstallation → Instalação\nConfiguration → Configuração\nTroubleshooting → Solução\nFAQ → Perguntas frequentes\nDeprecated → Descontinuado</pre>"}]},{ico:"✓",name:"Verbos",sections:[{label:"Ações",body:"<pre>Ensure → Certifique-se\nNote → Observe\nAvoid → Evite\nFollow → Siga</pre>"}]}],keyTerms:[{term:"Deprecated",def:"Descontinuado."}],practice:`<p>Localize seções em documentação.</p>`,exercises:["Traduza: overview, installation.","O que é 'troubleshooting'?"],quiz:[{q:"'Deprecated':",options:["Novo","Recomendado","Descontinuado","Seguro"],correct:2,explanation:"Descontinuado."}],mastery:["Consigo ler documentação."]},
+},
+};
+
+const LABS={
+  "principios-de-hardware":[
+    {num:"01",title:"Identificação de componentes",objetivo:"Reconhecer fisicamente placa-mãe, CPU, RAM, armazenamento, GPU e fonte.",tarefa:"Fotografar cada componente, identificar modelo e anotar função."},
+    {num:"02",title:"Identificação de conectores",objetivo:"Localizar ATX 24-pin, EPS, PCIe, SATA e headers no manual.",tarefa:"Marcar em uma foto da placa cada conector estudado."},
+    {num:"03",title:"Montagem de CPU + cooler",objetivo:"Instalar CPU sem forçar, aplicar pasta térmica, travar cooler.",tarefa:"Executar em bancada e registrar com fotos."},
+    {num:"04",title:"Instalação de RAM",objetivo:"Encaixar módulos em Dual Channel.",tarefa:"Instalar 2 módulos em A2/B2 e conferir na BIOS."},
+    {num:"05",title:"Instalação de SSD",objetivo:"Instalar SSD M.2 e SSD SATA.",tarefa:"Instalar ambos e verificá-los na BIOS."},
+    {num:"06",title:"Montagem completa",objetivo:"Montar um PC do zero seguindo as 20 etapas.",tarefa:"Realizar a montagem completa e primeiro boot."},
+    {num:"07",title:"Configuração da BIOS/UEFI",objetivo:"Explorar as principais configurações com segurança.",tarefa:"Anotar versão da BIOS, RAM, ordem de boot."},
+    {num:"08",title:"Instalação do SO",objetivo:"Criar pendrive bootável, particionar e instalar Windows e Linux.",tarefa:"Instalar em máquina de teste."},
+    {num:"09",title:"Instalação de drivers",objetivo:"Instalar chipset, vídeo, áudio e rede.",tarefa:"Baixar do site oficial e validar no Gerenciador."},
+    {num:"10",title:"Manutenção preventiva",objetivo:"Limpeza interna + troca de pasta térmica.",tarefa:"Desmontar, limpar, trocar pasta e remontar."},
+    {num:"11",title:"Diagnóstico de defeitos",objetivo:"Aplicar método lógico de diagnóstico.",tarefa:"Escolher 3 cenários da aula 15 e resolvê-los."},
+    {num:"12",title:"Desafio final",objetivo:"Montagem + configuração + diagnóstico.",tarefa:"Executar checklist de domínio completo."}
+  ]
+};
+const DOMINIO={
+  "principios-de-hardware":[
+    "Identifico os principais componentes.",
+    "Explico a função de cada componente.",
+    "Identifico conectores da placa-mãe.",
+    "Entendo compatibilidade de CPU.",
+    "Entendo compatibilidade de RAM.",
+    "Diferencio HDD, SSD SATA e NVMe.",
+    "Sei interpretar uma fonte de alimentação.",
+    "Sei escolher uma fonte adequada.",
+    "Entendo GPU integrada e dedicada.",
+    "Entendo airflow.",
+    "Consigo montar um computador.",
+    "Consigo configurar BIOS/UEFI.",
+    "Consigo instalar um sistema operacional.",
+    "Consigo instalar drivers.",
+    "Consigo realizar manutenção preventiva.",
+    "Consigo diagnosticar problemas básicos.",
+    "Conheço procedimentos de segurança."
+  ]
+};
+
+/* ============ QUIZ E DOMÍNIO (localStorage) ============ */
+const QUIZ_KEY = "t12_quiz_v1";
+const MASTERY_KEY = "t12_mastery_v1";
+function readStore(k){ try{ return JSON.parse(localStorage.getItem(k)) || {}; }catch(e){ return {}; } }
+function writeStore(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function quizAnswers(d, l){ return (readStore(QUIZ_KEY)[d + "::" + l] || {}).answers || []; }
+function saveQuizAnswer(d, l, q, o){
+  const s = readStore(QUIZ_KEY), k = d + "::" + l;
+  s[k] = s[k] || { answers: [] };
+  if(s[k].answers[q] != null) return;
+  s[k].answers[q] = o;
+  writeStore(QUIZ_KEY, s);
+}
+function resetQuiz(d, l){ const s = readStore(QUIZ_KEY); delete s[d + "::" + l]; writeStore(QUIZ_KEY, s); }
+function isMastered(scope, i){ return !!(readStore(MASTERY_KEY)[scope] || {})[i]; }
+function toggleMastery(scope, i){
+  const s = readStore(MASTERY_KEY);
+  s[scope] = s[scope] || {};
+  s[scope][i] = !s[scope][i];
+  writeStore(MASTERY_KEY, s);
+}
+function masteryCount(scope, total){
+  let n = 0;
+  for(let i = 0; i < total; i++) if(isMastered(scope, i)) n++;
+  return n;
+}
+
+function renderQuizPanel(quiz, d, l){
+  const ans = quizAnswers(d, l);
+  const answered = ans.filter(a => a != null).length;
+  const hits = quiz.filter((q, i) => ans[i] === q.correct).length;
+  const items = quiz.map((q, i) => {
+    const a = ans[i], done = a != null;
+    const opts = q.options.map((o, j) => {
+      let cls = "";
+      if(done){ if(j === q.correct) cls = "correct"; else if(j === a) cls = "wrong"; }
+      return `<button type="button" class="quiz-opt ${cls}" data-q="${i}" data-o="${j}" ${done ? "disabled" : ""}><span class="q-letter">${"ABCDEFGH"[j]}</span><span>${esc(o)}</span></button>`;
+    }).join("");
+    const fb = done ? `<div class="quiz-feedback ${a === q.correct ? "ok" : "ko"}">${a === q.correct ? "Correto. " : "Incorreto. "}${esc(q.explanation || "")}</div>` : "";
+    return `<div class="quiz-item"><div class="quiz-q"><span class="quiz-num">${String(i+1).padStart(2,"0")}</span><span>${esc(q.q)}</span></div><div class="quiz-options">${opts}</div>${fb}</div>`;
+  }).join("");
+  return `<div class="lesson-block" id="quizBox" data-disc="${d}" data-lesson="${l}">
+    <div class="lb-label">QUIZ DE FIXAÇÃO</div>
+    <div class="quiz-score">${answered}/${quiz.length} respondidas · <b>${hits}</b> acertos${answered ? ` · <button type="button" class="quiz-reset" id="quizReset">refazer</button>` : ""}</div>
+    ${items}
+  </div>`;
+}
+
+function masteryList(items, scope, countId){
+  return `<div class="mastery-list">${items.map((t, i) => `<label><input type="checkbox" data-scope="${esc(scope)}" data-i="${i}" ${isMastered(scope, i) ? "checked" : ""}><span>${esc(t)}</span></label>`).join("")}</div>`;
+}
+
+function pageLab(id){
+  const d = findDiscipline(id), labs = LABS[id];
+  if(!d || !labs) return pageNotFound();
+  setBreadcrumb([{label:"T12", href:"#/"}, {label:"Módulo 1", href:"#/modulo-1"}, {label:d.name, href:`#/disciplina/${d.id}`}, {label:"Laboratórios"}]);
+  const cards = labs.map(l => `
+    <div class="lab-card">
+      <div class="lab-num">${esc(l.num)}</div>
+      <div>
+        <div class="lab-title">${esc(l.title)}</div>
+        <p><b>Objetivo:</b> ${esc(l.objetivo)}</p>
+        <p><b>Tarefa:</b> ${esc(l.tarefa)}</p>
+      </div>
+    </div>`).join("");
+  return `<div class="disc-head"><div class="kicker">${d.num} — LABORATÓRIOS</div><h1>Laboratórios práticos</h1><p class="desc">${esc(d.name)}</p></div><div class="lab-list">${cards}</div>`;
+}
+
+function pageDominio(id){
+  const d = findDiscipline(id), items = DOMINIO[id];
+  if(!d || !items) return pageNotFound();
+  setBreadcrumb([{label:"T12", href:"#/"}, {label:"Módulo 1", href:"#/modulo-1"}, {label:d.name, href:`#/disciplina/${d.id}`}, {label:"Domínio"}]);
+  const scope = "dom::" + id;
+  return `<div class="disc-head"><div class="kicker">${d.num} — DOMÍNIO</div><h1>Checklist de domínio</h1>
+    <p class="desc">Marque cada item quando conseguir realizá-lo sem consulta.</p>
+    <div class="disc-stats"><span><b id="domCount">${masteryCount(scope, items.length)}</b> / ${items.length} itens dominados</span></div></div>
+    <div class="lesson-block">${masteryList(items, scope)}</div>`;
+}
+
+/* ============ GLOSSÁRIO: definições base + termos-chave das aulas ============ */
+(function mergeGlossary(){
+  const seen = new Map();
+  GLOSSARIO.forEach(g => seen.set(g.term.toLowerCase(), g));
+  Object.values(LESSON_CONTENT).forEach(disc => Object.values(disc).forEach(a => {
+    (a.keyTerms || []).forEach(t => { if(!seen.has(t.term.toLowerCase())) seen.set(t.term.toLowerCase(), t); });
+  }));
+  GLOSSARIO.length = 0;
+  [...seen.values()].sort((a, b) => a.term.localeCompare(b.term, "pt-BR")).forEach(g => GLOSSARIO.push({ term:g.term, def:g.def }));
+})();
+
+/* ============ PROGRESS (localStorage) ============ */
+const STORAGE_KEY = "t12_progress_v1";
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const s = raw ? JSON.parse(raw) : { lessons:{} };
+    if(s.lessons && s.lessons["etica-profissional"]){
+      s.lessons["ingles-tecnico"] = Object.assign({}, s.lessons["etica-profissional"], s.lessons["ingles-tecnico"]);
+      delete s.lessons["etica-profissional"];
+    }
+    return s;
+  }catch(e){ return { lessons:{} }; }
+}
+function saveProgress(state){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+let progress = loadProgress();
+
+function isLessonDone(discId, lessonId){
+  return !!(progress.lessons[discId] && progress.lessons[discId][lessonId]);
+}
+function toggleLesson(discId, lessonId){
+  if(!progress.lessons[discId]) progress.lessons[discId] = {};
+  progress.lessons[discId][lessonId] = !progress.lessons[discId][lessonId];
+  saveProgress(progress);
+}
+function disciplineProgress(disc){
+  const lessons = buildLessons(disc);
+  if(lessons.length === 0) return 0;
+  const done = lessons.filter(l => isLessonDone(disc.id, l.id)).length;
+  return Math.round((done/lessons.length)*100);
+}
+function moduleProgress(){
+  const totals = DISCIPLINAS.map(d => disciplineProgress(d));
+  if(totals.length === 0) return 0;
+  return Math.round(totals.reduce((a,b)=>a+b,0)/totals.length);
+}
+
+/* ============ HELPERS ============ */
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function progressBar(pct){
+  return `<div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="progress-pct">${pct}%</div>
+  </div>`;
+}
+function findDiscipline(id){ return DISCIPLINAS.find(d => d.id === id); }
+
+/* ---- minimal line icons (stroke, currentColor) ---- */
+const ICONS = {
+  monitor: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4"/></svg>`,
+  logic: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 4v6a3 3 0 0 0 3 3h4a3 3 0 0 1 3 3v4M7 4H4M7 4h3M17 20h3M17 20h-3"/></svg>`,
+  network: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12 6.5 17.5M12 12l5.5 5.5"/></svg>`,
+  office: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`,
+  ethics: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3v18M5 7l-3 6a3 3 0 0 0 6 0l-3-6ZM19 7l-3 6a3 3 0 0 0 6 0l-3-6ZM5 7h14M8 21h8"/></svg>`,
+  hardware: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>`,
+  book: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M20 18H6.5A2.5 2.5 0 0 0 4 20.5"/></svg>`,
+  layers: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 13l9 5 9-5"/></svg>`,
+  target: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg>`,
+  save: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 4h11l3 3v13H5V4Z"/><path d="M8 4v5h7V4M8 14h8v6H8v-6Z"/></svg>`,
+};
+const DISC_ICON = {
+  "sistemas-operacionais":"monitor",
+  "logica-de-programacao":"logic",
+  "fundamentos-de-redes":"network",
+  "aplicativos-computacionais":"office",
+  "ingles-tecnico":"ethics",
+  "principios-de-hardware":"hardware",
+};
+
+/* ============ NAV / SIDEBAR ============ */
+const NAV_ITEMS = [
+  { href:"#/", label:"Início", ico:"⌂", match:(h)=> h === "#/" || h === "" },
+  { href:"#/modulo-1", label:"Módulo 1", ico:"▣", match:(h)=> h.startsWith("#/modulo-1") || h.startsWith("#/disciplina") || /^#\/(aula|lab|dominio)/.test(h) },
+  { href:"#/buscar", label:"Buscar", ico:"⌕", match:(h)=> h.startsWith("#/buscar") },
+  { href:"#/glossario", label:"Glossário", ico:"▤", match:(h)=> h.startsWith("#/glossario") },
+];
+function renderNav(){
+  const hash = location.hash || "#/";
+  document.getElementById("nav").innerHTML = NAV_ITEMS.map(item => `
+    <a href="${item.href}" class="${item.match(hash) ? 'active':''}">
+      <span class="ico">${item.ico}</span>${esc(item.label)}
+    </a>`).join("");
+}
+
+/* mobile sidebar toggle */
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+document.getElementById("menuBtn").addEventListener("click", () => {
+  sidebar.classList.add("open"); overlay.classList.add("show");
+});
+overlay.addEventListener("click", () => {
+  sidebar.classList.remove("open"); overlay.classList.remove("show");
+});
+
+/* ============ BREADCRUMB ============ */
+function setBreadcrumb(parts){
+  // parts: [{label, href?}]
+  document.getElementById("breadcrumb").innerHTML = parts.map((p,i) => {
+    const sep = i > 0 ? `<span class="sep">/</span>` : "";
+    const el = p.href ? `<a href="${p.href}">${esc(p.label)}</a>` : `<span class="cur">${esc(p.label)}</span>`;
+    return sep + el;
+  }).join("");
+}
+
+/* ============ PAGES ============ */
+function pageHome(){
+  setBreadcrumb([{label:"T12"}]);
+  const mp = moduleProgress();
+  const totalAulas = DISCIPLINAS.reduce((a,d) => a + d.lessonsCount, 0);
+
+  const heroNet = `<svg class="hero-net" viewBox="0 0 900 260" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#d8ab4c" stroke-width="1" opacity="0.35">
+      <line x1="620" y1="40" x2="720" y2="90"/><line x1="720" y1="90" x2="700" y2="180"/>
+      <line x1="720" y1="90" x2="830" y2="70"/><line x1="700" y1="180" x2="800" y2="220"/>
+      <line x1="700" y1="180" x2="600" y2="220"/><line x1="830" y1="70" x2="860" y2="160"/>
+      <line x1="600" y1="220" x2="520" y2="170"/><line x1="520" y1="170" x2="620" y2="40"/>
+      <line x1="860" y1="160" x2="800" y2="220"/>
+    </g>
+    <g fill="#d8ab4c">
+      <circle cx="620" cy="40" r="3"/><circle cx="720" cy="90" r="3.5"/><circle cx="700" cy="180" r="3"/>
+      <circle cx="830" cy="70" r="3"/><circle cx="800" cy="220" r="2.5"/><circle cx="600" cy="220" r="3"/>
+      <circle cx="860" cy="160" r="2.5"/><circle cx="520" cy="170" r="3"/>
+    </g>
+  </svg>`;
+
+  const moduleCard = `
+    <a class="module-card" href="#/modulo-1">
+      <div class="m-top">
+        <div class="m-icon">${ICONS.layers}</div>
+        <div class="m-arrow">→</div>
+      </div>
+      <div class="m-eyebrow">MÓDULO 1</div>
+      <div class="m-title">Fundamentos</div>
+      <div class="m-desc">${esc(DISCIPLINAS[0].desc)}</div>
+      <div class="m-foot">
+        <span>${mp}% concluído</span>
+        <div class="m-track"><div class="m-fill" style="width:${mp}%"></div></div>
+        <span>${DISCIPLINAS.length} disciplinas</span>
+      </div>
+    </a>`;
+
+  const quickCards = DISCIPLINAS.map(d => `
+    <a class="quick-card" href="#/disciplina/${d.id}">
+      <span class="q-icon">${ICONS[DISC_ICON[d.id]]}</span>
+      <div class="q-body">
+        <div class="q-name">${esc(d.name)}</div>
+        <div class="q-sub">Módulo 1</div>
+      </div>
+      <span class="q-go">→</span>
+    </a>`).join("");
+
+  return `
+    <div class="hero">
+      ${heroNet}
+      <div class="hero-inner">
+        <div class="eyebrow">TRILHA DE CONHECIMENTO</div>
+        <h1><span class="gold-text">T12</span></h1>
+        <div class="tagline">Trilha de Conhecimento</div>
+        <p class="desc">Uma biblioteca de estudos organizada para acompanhar toda a sua formação em Redes e Computação.</p>
+        <div class="cta-row">
+          <a class="btn gold" href="#/modulo-1">Começar pelo Módulo 1</a>
+          <a class="btn" href="#/buscar">Pesquisar conteúdo</a>
+        </div>
+        <div class="ctx">REDES E COMPUTAÇÃO — CEET VASCO COUTINHO</div>
+      </div>
+    </div>
+
+    <div class="module-strip">${moduleCard}</div>
+
+    <div class="quick-section">
+      <h2>Acesso rápido</h2>
+      <div class="quick-grid">${quickCards}</div>
+    </div>
+  `;
+}
+
+function pageModule1(){
+  setBreadcrumb([{label:"T12", href:"#/"}, {label:"Módulo 1"}]);
+  const mp = moduleProgress();
+  const items = DISCIPLINAS.map(d => {
+    const pct = disciplineProgress(d);
+    return `
+    <div class="trilha-item">
+      <div class="trilha-dot">${d.num}</div>
+      <a class="trilha-card" href="#/disciplina/${d.id}">
+        <div>
+          <div class="name">${esc(d.name)}</div>
+          <div class="desc">${esc(d.desc)}</div>
+        </div>
+        ${progressBar(pct)}
+      </a>
+    </div>`;
+  }).join("");
+
+  return `
+    <div class="section-head">
+      <div>
+        <h2 style="font-size:30px;">Módulo 1</h2>
+        <p>Seis disciplinas compõem a base da formação.</p>
+      </div>
+      <div class="module-progress">Progresso geral ${progressBar(mp)}</div>
+    </div>
+    <div class="trilha">${items}</div>
+  `;
+}
+
+function pageDisciplina(id){
+  const d = findDiscipline(id);
+  if(!d) return pageNotFound();
+  setBreadcrumb([{label:"T12", href:"#/"}, {label:"Módulo 1", href:"#/modulo-1"}, {label:d.name}]);
+  const lessons = buildLessons(d);
+  const pct = disciplineProgress(d);
+  const doneCount = lessons.filter(l => isLessonDone(d.id, l.id)).length;
+
+  const rows = lessons.map((l, idx) => {
+    const done = isLessonDone(d.id, l.id);
+    const stateIcon = done ? "✓" : "○";
+    const stateClass = done ? "done" : "";
+    return `
+    <a class="lesson-row" href="#/aula/${d.id}/${l.id}">
+      <div class="lesson-num">${l.num}</div>
+      <div class="lesson-state ${stateClass}">${stateIcon}</div>
+      <div class="lesson-title">${esc(l.title)}${l.sub ? `<span class="sub">${esc(l.sub)}</span>` : ""}</div>
+      <div class="lesson-arrow">→</div>
+    </a>`;
+  }).join("");
+
+  return `
+    <div class="disc-head">
+      <div class="kicker">${d.num} — MÓDULO 1</div>
+      <h1>${esc(d.name)}</h1>
+      <p class="desc">${esc(d.desc)}</p>
+      <div class="disc-stats">
+        <span><b>${d.lessonsCount}</b> aulas</span>
+        <span><b>${doneCount}</b> concluídas</span>
+        <span><b>${pct}%</b> de progresso</span>
+      </div>
+    </div>
+    ${LABS[d.id] ? `<div class="disc-actions"><a class="btn gold" href="#/lab/${d.id}">Laboratórios práticos</a><a class="btn" href="#/dominio/${d.id}">Checklist de domínio</a></div>` : ""}
+    <div class="lesson-list">${rows}</div>
+  `;
+}
+
+function pageAula(discId, lessonId){
+  const d = findDiscipline(discId);
+  if(!d) return pageNotFound();
+  const lessons = buildLessons(d);
+  const idx = lessons.findIndex(l => l.id === lessonId);
+  if(idx === -1) return pageNotFound();
+  const lesson = lessons[idx];
+  const prev = lessons[idx-1];
+  const next = lessons[idx+1];
+  const done = isLessonDone(d.id, lesson.id);
+
+  setBreadcrumb([
+    {label:"T12", href:"#/"},
+    {label:"Módulo 1", href:"#/modulo-1"},
+    {label:d.name, href:`#/disciplina/${d.id}`},
+    {label:lesson.title}
+  ]);
+
+  const strip = lessons.map(l => {
+    const isCur = l.id === lesson.id;
+    const isDone = isLessonDone(d.id, l.id);
+    let cls = "";
+    if(isCur) cls = "current"; else if(isDone) cls = "done";
+    return `<a href="#/aula/${d.id}/${l.id}" class="lnav-pill ${cls}">${l.num}</a>`;
+  }).join("");
+
+  const prevHref = prev ? `#/aula/${d.id}/${prev.id}` : null;
+  const nextHref = next ? `#/aula/${d.id}/${next.id}` : null;
+  const content = LESSON_CONTENT[d.id] && LESSON_CONTENT[d.id][lesson.id];
+  const videos = getLessonVideos(d.id, lesson.id);
+
+  let conteudoHtml;
+  if(content){
+    const conceptButtons = content.concepts.map((c, i) => `
+      <button class="concept-btn" data-idx="${i}" type="button">
+        <span class="cb-ico">${c.ico}</span>${esc(c.name)}
+      </button>`).join("");
+
+    const objectivesHtml = (content.objectives || []).length ? `<div class="lesson-block" style="margin-bottom:24px;"><div class="lb-label">OBJETIVOS DE APRENDIZAGEM</div><ul class="objectives">${content.objectives.map(o => `<li>${esc(o)}</li>`).join("")}</ul></div>` : "";
+    const keyTermsHtml = (content.keyTerms || []).length ? `<div class="lesson-section-title">Termos importantes</div><div class="lesson-block"><div class="lb-label">GLOSSÁRIO DA AULA</div>${content.keyTerms.map(t => `<div class="term-row"><b>${esc(t.term)}</b><span>${esc(t.def)}</span></div>`).join("")}</div>` : "";
+    const masteryHtml = (content.mastery || []).length ? `<div class="lesson-block"><div class="lb-label">CHECKLIST DE DOMÍNIO DESTA AULA</div>${masteryList(content.mastery, discId + "::" + lessonId)}</div>` : "";
+    conteudoHtml = `
+      <p class="lesson-intro">${esc(content.intro)}</p>
+      ${objectivesHtml}
+
+      <div class="lesson-section-title">Conceitos desta aula</div>
+      <div class="concept-grid" id="conceptGrid">${conceptButtons}</div>
+      <div id="conceptPanel"></div>
+      ${keyTermsHtml}
+
+      <div class="lesson-section-title">Prática</div>
+      <div class="lesson-block">
+        <div class="lb-label">ATIVIDADE PRÁTICA</div>
+        ${content.practice}
+      </div>
+      ${masteryHtml}
+    `;
+  } else {
+    const blocks = [
+      ["ÁREA DESTINADA AO CONTEÚDO", "Texto da aula será adicionado posteriormente."],
+      ["ÁREA DESTINADA A EXEMPLOS", "Conteúdo em preparação."],
+      ["ÁREA DESTINADA A IMAGENS / DIAGRAMAS", "Conteúdo em preparação."],
+      ["ÁREA DESTINADA AO RESUMO", "Conteúdo em preparação."],
+      ["ÁREA DESTINADA À PRÁTICA", "Conteúdo em preparação."],
+    ];
+    conteudoHtml = blocks.map(([label,msg]) => `
+      <div class="empty-block">
+        <div class="label">${esc(label)}</div>
+        <div class="msg">${esc(msg)}</div>
+      </div>`).join("");
+  }
+
+  let exerciciosHtml;
+  if(content){
+    const exercisesHtml = content.exercises.map((ex, i) => `
+      <div class="exercise-item"><span class="ex-num">${String(i+1).padStart(2,"0")}</span><span>${esc(ex)}</span></div>
+    `).join("");
+    const quizHtml = (content.quiz || []).length ? renderQuizPanel(content.quiz, d.id, lesson.id) + `<div class="lesson-section-title">Exercícios dissertativos</div>` : "";
+    exerciciosHtml = `
+      ${quizHtml}
+      <div class="lesson-block">
+        <div class="lb-label">FIXAÇÃO</div>
+        ${exercisesHtml}
+      </div>
+    `;
+  } else {
+    exerciciosHtml = `
+      <div class="empty-block">
+        <div class="label">ÁREA DESTINADA AOS EXERCÍCIOS</div>
+        <div class="msg">Conteúdo em preparação.</div>
+      </div>`;
+  }
+
+  const videosHtml = renderVideosPanel(videos);
+
+  return `
+    <div class="lesson-nav-strip">${strip}</div>
+    <div class="lesson-header">
+      <div class="kicker">AULA ${lesson.num}</div>
+      <h1>${esc(lesson.title)}</h1>
+    </div>
+
+    <div class="lesson-tabs" id="lessonTabs" role="tablist">
+      <button class="lesson-tab active" type="button" role="tab" aria-selected="true" data-tab="conteudo">Conteúdo</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-tab="videos">Vídeos<span class="tab-count">${videos.length}</span></button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-tab="exercicios">Exercícios</button>
+    </div>
+
+    <div class="lesson-panel active" data-panel="conteudo">${conteudoHtml}</div>
+    <div class="lesson-panel" data-panel="videos">${videosHtml}</div>
+    <div class="lesson-panel" data-panel="exercicios">${exerciciosHtml}</div>
+
+    <div class="lesson-actions">
+      <div class="complete-toggle ${done?'on':''}" id="completeToggle" data-disc="${d.id}" data-lesson="${lesson.id}">
+        <span class="box">${done?'✓':''}</span>
+        <span>${done ? 'Aula concluída' : 'Marcar como concluída'}</span>
+      </div>
+    </div>
+    <div class="lesson-pager">
+      <a href="${prevHref || '#'}" class="${prevHref ? '' : 'disabled'}">← Aula anterior</a>
+      <a href="${nextHref || '#'}" class="${nextHref ? '' : 'disabled'}">Próxima aula →</a>
+    </div>
+  `;
+}
+
+/* ---------- Vídeos: componente VideoCard (renderização) ---------- */
+function renderVideosPanel(videos){
+  if(!videos || videos.length === 0){
+    return `
+      <div class="video-empty">
+        <div class="msg">Nenhum vídeo disponível para esta aula ainda.</div>
+      </div>`;
+  }
+  const cards = videos.map((v, i) => `
+    <div class="video-card" data-video-idx="${i}">
+      <button class="video-thumb-btn" type="button" data-video-idx="${i}" aria-label="Assistir vídeo: ${esc(v.title)}">
+        <img src="https://img.youtube.com/vi/${encodeURIComponent(v.id)}/maxresdefault.jpg"
+             alt="Capa do vídeo: ${esc(v.title)}"
+             loading="lazy"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg';">
+        <span class="video-play-badge" aria-hidden="true"><span>▶</span></span>
+      </button>
+      <div class="video-body">
+        <div class="v-title">${esc(v.title)}</div>
+        <div class="v-desc">${esc(v.description)}</div>
+        <div class="v-meta">${esc(v.platform)} • ${esc(v.language)}</div>
+        <button class="video-watch-btn" type="button" data-video-idx="${i}" aria-label="Assistir vídeo: ${esc(v.title)}">Assistir vídeo</button>
+      </div>
+    </div>`).join("");
+
+  return `
+    <div class="videos-head">
+      <h3>Vídeos para estudo</h3>
+      <p>Assista aos vídeos selecionados para complementar o conteúdo desta aula.</p>
+    </div>
+    <div class="video-grid">${cards}</div>
+  `;
+}
+
+/* ---------- Vídeos: componente VideoPlayer (modal com embed do YouTube) ---------- */
+function openVideoModal(video){
+  closeVideoModal();
+  const overlay = document.createElement("div");
+  overlay.className = "video-modal-overlay";
+  overlay.id = "videoModalOverlay";
+  overlay.innerHTML = `
+    <div class="video-modal" role="dialog" aria-modal="true" aria-label="${esc(video.title)}">
+      <div class="video-modal-head">
+        <div class="vm-title">${esc(video.title)}</div>
+        <button class="video-modal-close" type="button" id="videoModalClose" aria-label="Fechar vídeo">✕</button>
+      </div>
+      <div class="video-modal-frame">
+        <iframe
+          src="https://www.youtube.com/embed/${encodeURIComponent(video.id)}?autoplay=1&rel=0"
+          title="${esc(video.title)}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  document.body.style.overflow = "hidden";
+  requestAnimationFrame(() => overlay.classList.add("show"));
+
+  overlay.addEventListener("click", (e) => {
+    if(e.target === overlay) closeVideoModal();
+  });
+  document.getElementById("videoModalClose").addEventListener("click", closeVideoModal);
+  document.addEventListener("keydown", onVideoModalKeydown);
+}
+
+function onVideoModalKeydown(e){
+  if(e.key === "Escape") closeVideoModal();
+}
+
+function closeVideoModal(){
+  const overlay = document.getElementById("videoModalOverlay");
+  if(!overlay) return;
+  document.removeEventListener("keydown", onVideoModalKeydown);
+  overlay.classList.remove("show");
+  document.body.style.overflow = "";
+  setTimeout(() => overlay.remove(), 180);
+}
+
+function renderConceptPanel(concept){
+  const sections = concept.sections.map(s => `
+    <div class="cp-section">
+      <div class="cp-label">${esc(s.label).toUpperCase()}</div>
+      <div class="cp-body">${s.body}</div>
+    </div>`).join("");
+  return `
+    <div class="concept-panel">
+      <div class="cp-head">
+        <div class="cp-title">${esc(concept.name)}</div>
+        <div class="cp-close" id="conceptClose">✕</div>
+      </div>
+      ${sections}
+    </div>`;
+}
+
+function pageBuscar(){
+  setBreadcrumb([{label:"T12", href:"#/"}, {label:"Buscar"}]);
+  return `
+    <div class="search-hero">
+      <h1>O que você quer estudar?</h1>
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" type="text" placeholder="Pesquisar disciplinas, aulas ou termos do glossário…" autocomplete="off">
+        <span class="kbd">/</span>
+      </div>
+      <div class="search-filters">
+        <span class="filter-chip active" data-filter="all">Tudo</span>
+        <span class="filter-chip" data-filter="disciplinas">Disciplinas</span>
+        <span class="filter-chip" data-filter="aulas">Aulas</span>
+        <span class="filter-chip" data-filter="glossario">Glossário</span>
+      </div>
+    </div>
+    <div id="searchResults"></div>
+  `;
+}
+
+function runSearch(query, filter){
+  const q = query.trim().toLowerCase();
+  const container = document.getElementById("searchResults");
+  if(!container) return;
+  if(q.length === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="glyph">⌕</div>
+        <div class="msg">Comece a digitar para pesquisar em Módulo 1.</div>
+      </div>`;
+    return;
+  }
+
+  let discMatches = [], lessonMatches = [], glossMatches = [];
+
+  if(filter === "all" || filter === "disciplinas"){
+    discMatches = DISCIPLINAS.filter(d => d.name.toLowerCase().includes(q));
+  }
+  if(filter === "all" || filter === "aulas"){
+    DISCIPLINAS.forEach(d => {
+      buildLessons(d).forEach(l => {
+        if(l.title.toLowerCase().includes(q) || d.name.toLowerCase().includes(q)){
+          lessonMatches.push({disc:d, lesson:l});
+        }
+      });
+    });
+  }
+  if(filter === "all" || filter === "glossario"){
+    glossMatches = GLOSSARIO.filter(g => g.term.toLowerCase().includes(q));
+  }
+
+  let html = "";
+  if(discMatches.length){
+    html += `<div class="result-group"><h3>Disciplinas</h3>` + discMatches.map(d => `
+      <a class="result-row" href="#/disciplina/${d.id}"><span>${esc(d.name)}</span><span class="tag">Módulo 1</span></a>
+    `).join("") + `</div>`;
+  }
+  if(lessonMatches.length){
+    html += `<div class="result-group"><h3>Aulas</h3>` + lessonMatches.slice(0,20).map(m => `
+      <a class="result-row" href="#/aula/${m.disc.id}/${m.lesson.id}"><span>${esc(m.lesson.title)}</span><span class="tag">${esc(m.disc.name)}</span></a>
+    `).join("") + `</div>`;
+  }
+  if(glossMatches.length){
+    html += `<div class="result-group"><h3>Glossário</h3>` + glossMatches.map(g => `
+      <a class="result-row" href="#/glossario"><span>${esc(g.term)}</span><span class="tag">Termo</span></a>
+    `).join("") + `</div>`;
+  }
+  if(!html){
+    html = `<div class="empty-state"><div class="glyph">○</div><div class="msg">Nada encontrado para "${esc(query)}".</div></div>`;
+  }
+  container.innerHTML = html;
+}
+
+function pageGlossario(){
+  setBreadcrumb([{label:"T12", href:"#/"}, {label:"Glossário"}]);
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const grouped = {};
+  GLOSSARIO.forEach(g => {
+    const L = g.term[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+    if(!grouped[L]) grouped[L] = [];
+    grouped[L].push(g);
+  });
+  const jump = alphabet.map(L => {
+    const has = !!grouped[L];
+    return `<a class="${has?'has':''}" ${has ? `href="#gl-${L}"`:''}>${L}</a>`;
+  }).join("");
+  const letters = Object.keys(grouped).sort().map(L => `
+    <div class="gloss-letter" id="gl-${L}">
+      <div class="letter">${L}</div>
+      ${grouped[L].map(g => `
+        <div class="gloss-term">
+          <div class="t">${esc(g.term)}</div>
+          <div class="d">${esc(g.def)}</div>
+        </div>`).join("")}
+    </div>`).join("");
+
+  return `
+    <div class="gloss-head">
+      <h1>Glossário</h1>
+      <p>Termos técnicos utilizados ao longo da trilha.</p>
+    </div>
+    <div class="gloss-jump">${jump}</div>
+    ${letters}
+  `;
+}
+
+function pageNotFound(){
+  setBreadcrumb([{label:"T12", href:"#/"}]);
+  return `<div class="empty-state"><div class="glyph">○</div><div class="msg">Conteúdo em preparação.</div></div>`;
+}
+
+/* ============ ROUTER ============ */
+function route(){
+  const hash = location.hash || "#/";
+  const content = document.getElementById("content");
+  const parts = hash.replace(/^#\//, "").split("/").filter(Boolean);
+
+  let html = "";
+  if(parts.length === 0){
+    html = pageHome();
+  } else if(parts[0] === "modulo-1"){
+    html = pageModule1();
+  } else if(parts[0] === "disciplina" && parts[1]){
+    html = pageDisciplina(parts[1]);
+  } else if(parts[0] === "aula" && parts[1] && parts[2]){
+    html = pageAula(parts[1], parts[2]);
+  } else if(parts[0] === "lab" && parts[1]){
+    html = pageLab(parts[1]);
+  } else if(parts[0] === "dominio" && parts[1]){
+    html = pageDominio(parts[1]);
+  } else if(parts[0] === "buscar"){
+    html = pageBuscar();
+  } else if(parts[0] === "glossario"){
+    html = pageGlossario();
+  } else {
+    html = pageNotFound();
+  }
+
+  content.innerHTML = html;
+  renderNav();
+  sidebar.classList.remove("open"); overlay.classList.remove("show");
+  window.scrollTo(0,0);
+
+  /* page-specific bindings */
+  const toggle = document.getElementById("completeToggle");
+  if(toggle){
+    toggle.addEventListener("click", () => {
+      toggleLesson(toggle.dataset.disc, toggle.dataset.lesson);
+      route();
+    });
+  }
+  const searchInput = document.getElementById("searchInput");
+  if(searchInput){
+    let activeFilter = "all";
+    const chips = document.querySelectorAll(".filter-chip");
+    chips.forEach(chip => chip.addEventListener("click", () => {
+      chips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      activeFilter = chip.dataset.filter;
+      runSearch(searchInput.value, activeFilter);
+    }));
+    searchInput.addEventListener("input", () => runSearch(searchInput.value, activeFilter));
+    searchInput.focus();
+    runSearch("", activeFilter);
+  }
+
+  /* Abas Conteúdo / Vídeos / Exercícios */
+  const lessonTabs = document.getElementById("lessonTabs");
+  if(lessonTabs){
+    const tabButtons = lessonTabs.querySelectorAll(".lesson-tab");
+    const panels = content.querySelectorAll(".lesson-panel");
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.tab;
+        tabButtons.forEach(b => { b.classList.toggle("active", b === btn); b.setAttribute("aria-selected", b === btn); });
+        panels.forEach(p => p.classList.toggle("active", p.dataset.panel === target));
+      });
+    });
+  }
+
+  /* Vídeos: thumbnail / botão play / botão "Assistir vídeo" abrem o player em modal */
+  const videosPanel = content.querySelector('[data-panel="videos"]');
+  if(videosPanel){
+    const discId = parts[1];
+    const lessonId = parts[2];
+    const videos = getLessonVideos(discId, lessonId);
+    videosPanel.querySelectorAll("[data-video-idx]").forEach(el => {
+      el.addEventListener("click", () => {
+        const v = videos[Number(el.dataset.videoIdx)];
+        if(v) openVideoModal(v);
+      });
+    });
+  }
+
+  const conceptGrid = document.getElementById("conceptGrid");
+  if(conceptGrid){
+    const discId = parts[1];
+    const lessonId = parts[2];
+    const lessonContent = LESSON_CONTENT[discId] && LESSON_CONTENT[discId][lessonId];
+    const panelEl = document.getElementById("conceptPanel");
+    let openIdx = null;
+
+    function renderPanel(){
+      if(openIdx === null){ panelEl.innerHTML = ""; return; }
+      panelEl.innerHTML = renderConceptPanel(lessonContent.concepts[openIdx]);
+      const closeBtn = document.getElementById("conceptClose");
+      if(closeBtn) closeBtn.addEventListener("click", () => { openIdx = null; syncButtons(); renderPanel(); });
+    }
+    function syncButtons(){
+      conceptGrid.querySelectorAll(".concept-btn").forEach(btn => {
+        btn.classList.toggle("active", Number(btn.dataset.idx) === openIdx);
+      });
+    }
+    conceptGrid.querySelectorAll(".concept-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.dataset.idx);
+        openIdx = (openIdx === idx) ? null : idx;
+        syncButtons();
+        renderPanel();
+        if(openIdx !== null){
+          setTimeout(() => panelEl.scrollIntoView({behavior:"smooth", block:"nearest"}), 30);
+        }
+      });
+    });
+  }
+}
+
+/* ============ Interações globais (delegadas) ============ */
+document.getElementById("content").addEventListener("click", e => {
+  const box = e.target.closest("#quizBox");
+  if(!box) return;
+  const d = box.dataset.disc, l = box.dataset.lesson;
+  const opt = e.target.closest(".quiz-opt");
+  if(opt && !opt.disabled) saveQuizAnswer(d, l, Number(opt.dataset.q), Number(opt.dataset.o));
+  else if(e.target.id === "quizReset") resetQuiz(d, l);
+  else return;
+  box.outerHTML = renderQuizPanel(LESSON_CONTENT[d][l].quiz, d, l);
+});
+document.getElementById("content").addEventListener("change", e => {
+  const cb = e.target.closest("input[data-scope]");
+  if(!cb) return;
+  toggleMastery(cb.dataset.scope, Number(cb.dataset.i));
+  const counter = document.getElementById("domCount");
+  if(counter) counter.textContent = masteryCount(cb.dataset.scope, (DOMINIO[cb.dataset.scope.replace("dom::", "")] || []).length);
+});
+document.addEventListener("keydown", e => {
+  if(e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) return;
+  e.preventDefault();
+  location.hash = "#/buscar";
+});
+
+window.addEventListener("hashchange", route);
+window.addEventListener("DOMContentLoaded", route);
+route();
